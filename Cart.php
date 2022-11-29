@@ -53,44 +53,45 @@ if($cart!=null){
                       </div>
                       <div class="amountControl">
                           <div class="counter">
-                              <div class="number">
+                              aantal:
+                              <div>
                                   <?php if(isset($_GET["update$productID"])){updateItem($productID,$_GET["aantal"])  ;} ?>
                                   <form method="get">
-                                      <input type="number" name="aantal" value="<?php print($amount)?>">
+                                      <input class="number" type="number" name="aantal" value="<?php print($amount)?>" >
                                       <input type="submit" name="update<?php print($productID) ?>" hidden>
                                   </form>
                               </div>
                               <div class="Controle">
-                                  <div class="plus">
+                                  <div>
                                       <?php if(isset($_GET["plus$productID"])){increaseItem($productID);} ?>
                                       <form method="get">
-                                          <input type="submit" name="plus<?php print($productID) ?>" value="+">
+                                          <input class="plus plus1" type="submit" name="plus<?php print($productID) ?>" value="+">
                                       </form>
                                   </div>
                                   <?php if ($amount < 1) { ?>
-                                      <div class="min">
+                                      <div>
                                           <?php if(isset($_GET["min$productID"])){deleteItem($productID);} ?>
                                           <form method="get">
-                                              <input type="submit" name="min<?php print($productID) ?>" value="-">
+                                              <input class="plus plus1" type="submit" name="min<?php print($productID) ?>" value="-">
                                           </form>
                                       </div>
                                   <?php }
                                   else { ?>
-                                      <div class="min">
+                                      <div>
                                           <?php if(isset($_GET["min$productID"])){decreaseItem($productID)  ;} ?>
                                           <form method="get">
-                                              <input type="submit" name="min<?php print($productID) ?>" value="-">
+                                              <input class="plus plus1" type="submit" name="min<?php print($productID) ?>" value="-">
                                           </form>
                                       </div>
                                   <?php } ?>
 
                               </div>
                         </div>
-                          <div class="trash">
+                          <div>
                               <?php if(isset($_GET["delete$productID"])){deleteItem($productID);} ?>
-                              <form method="get">
-                                  <input type="submit" name="delete<?php print($productID) ?>" value="X">
+                              <form method="get" id="nameform">
                               </form>
+                              <button type="submit" form="nameform" class="trash" name="delete<?php print($productID) ?>" ><i class="fa fa-trash-o fa_custom"></i></button>
                           </div>
                       </div>
                   </div>
@@ -108,7 +109,6 @@ if($cart!=null){
             }
             print("totaal prijs: €".number_format($totaalPrice,2,",", "."));?>
         </div>
-
     <?php
 }
 else{

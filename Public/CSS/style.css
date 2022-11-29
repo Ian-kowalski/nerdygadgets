@@ -529,7 +529,7 @@ ul#ul-class-price li {
 .cart{
     border: 5px solid rgb(36, 41, 143);
     border-top: 4px solid rgb(36, 41, 143);
-    max-width: 60%;
+    max-width: 70%;
     max-height: 50%;
 }
 
@@ -544,21 +544,21 @@ ul#ul-class-price li {
 }
 
 .rowLeft{
-    width: 75px;
-    height: 75px;
+    width: 100px;
+    height: 100px;
     margin-right:5px;
 }
 .rowMid{
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 75px;
+    height: 100px;
     width: 100%;
     margin-left:5px;
     display: flex;
     align-items: center;
 }
 .rowRight{
-    height: 75px;
+    height: 100px;
     width: 300px;
     margin-left:5px;
     text-align: right;
@@ -566,8 +566,8 @@ ul#ul-class-price li {
 
 .productImage{
     border: 1px solid rgb(36, 41, 143);
-    width: 65px;
-    height: 65px;
+    width: 90px;
+    height: 90px;
     margin: 5px;
     background-size: 100px;
     background-color: rgb(36, 41, 143);
@@ -577,63 +577,90 @@ ul#ul-class-price li {
 .price{
     padding-right: 5px;
     font-size: 12px;
-    height: 45%;
+    height: 50px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: right;
 }
 .amountControl{
-
-    height: 55%;
+    height: 50px;
     display: flex;
+    gap: 2px;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 .counter{
-    margin: 5px;
-    border-radius: 10px;
-    border: 2px solid rgb(36, 41, 143);
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
 }
 .Controle{
-    border-radius: 10px;
-    border: 2px solid rgb(36, 41, 143);
-    background-color: rgb(36, 41, 143);
+    height: 50px;
     display: flex;
-    flex-direction: row;
+    gap: 2px;
     justify-content: center;
+    align-items: center;
 }
 
-.min{
-    display: flex;
-    justify-content: center;
-    margin: 1px;
-    text-align: center;
-}
 .plus{
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    text-decoration: none;
     display: flex;
-    justify-content: center;
-    margin: 1px;
+    font: italic 30px/1px monospace;
+    font-weight: bold;
     text-align: center;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
 }
+.plus1 {
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: rgba(35, 40, 47, 0.8);
+    color:  #676EFF;
+    border: 2px solid #676EFF;
+}
+.plus1:hover {
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: #676EFF;
+    color: black;
+}
+
 .number{
-    margin: 5px;
-    width: 75%;
+    background-color: transparent;
+    width: 80px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color:  white;
+    border: 2px transparent;
+    text-align: right;
 }
 .trash{
-    width: 50px;
+    border-radius: 12px;
+    height: 48px;
+    width: 48px;
     display: flex;
+    font: italic 30px monospace;
     flex-direction: row;
     justify-content: center;
     text-align: right;
     align-items: center;
+    color: white;
+    background-color:  darkred;
+    border: 2px solid darkred;
 }
 .totalPrice{
     min-width: 500px;
