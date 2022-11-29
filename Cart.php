@@ -107,7 +107,11 @@ if($cart!=null){
                 $price=$StockItem["SellPrice"]*$amount;
                 $totaalPrice+=$price;
             }
-            print("totaal prijs: €".number_format($totaalPrice,2,",", "."));?>
+
+            print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
+            print("Verzendkosten: €".number_format($totaalPrice,2,",", "."). "<br>");
+            print("Totaal: €".number_format($totaalPrice,2,",", "."). "<br>"); ?>
+
         </div>
     <?php
 }

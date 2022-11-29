@@ -531,6 +531,7 @@ ul#ul-class-price li {
     border-top: 4px solid rgb(36, 41, 143);
     max-width: 70%;
     max-height: 50%;
+    flex-direction: row;
 }
 
 
@@ -663,8 +664,8 @@ ul#ul-class-price li {
     border: 2px solid darkred;
 }
 .totalPrice{
-    min-width: 500px;
-    max-width: 60%;
+    flex-direction: row;
+
     display: flex;
     align-items: center;
     justify-content: right;
