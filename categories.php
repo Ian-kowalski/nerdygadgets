@@ -1,5 +1,5 @@
 <!-- dit bestand bevat alle code voor de pagina die categorieën laat zien -->
-// Test Sven Reitsma
+
 <?php
 
 include __DIR__ . "/header.php";
