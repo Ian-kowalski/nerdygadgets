@@ -1,4 +1,7 @@
 <?php
+
+//Hallo Ian, als je dit kan zien werkt git hub nu.
+
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
