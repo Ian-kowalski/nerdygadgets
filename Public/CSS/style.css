@@ -534,7 +534,6 @@ ul#ul-class-price li {
 }
 
 .cart{
-    border: 5px solid rgb(36, 41, 143);
     border-top: 4px solid rgb(36, 41, 143);
     width: 70%;
     min-width: 500px;
@@ -547,7 +546,9 @@ ul#ul-class-price li {
     flex-direction: row;
     justify-content: space-between;
     max-width: 100%;
-    border-top: 1px solid rgb(36, 41, 143)
+    border-left: 4px solid rgb(36, 41, 143);
+    border-right: 4px solid rgb(36, 41, 143);
+    border-bottom: 4px solid rgb(36, 41, 143);
 }
 .rowLeft{
     width: 100px;
