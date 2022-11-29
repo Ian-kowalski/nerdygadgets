@@ -670,6 +670,38 @@ ul#ul-class-price li {
     align-items: center;
     justify-content: right;
 }
+/*code is nog niet helemaal af en juist*/
+.orderButton{
+    min-width: 500px;
+    max-width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.orderbox {
+    width: 300px;
+    border: 15px solid green;
+    padding: 50px;
+    margin: 20px;
+}
+
+.NAW{
+    border: 5px solid rgb(36, 41, 143);
+    border-top: 4px solid rgb(36, 41, 143);
+    max-width: 60%;
+}
+
+.NAWRow{
+    min-width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 100%;
+    border-top: 1px solid rgb(36, 41, 143)
+}
+
+
 
 /*hide arows num input*/
 /* Chrome, Safari, Edge, Opera */
