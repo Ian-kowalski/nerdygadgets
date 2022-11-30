@@ -16,7 +16,7 @@ if($cart!=null){
     ?>
     <div class="cart_price">
         <div class="NAW">
-            <form class="NAWRow">
+            <form method="get" action="Verwerkorder.php" class="NAWRow" id="Nawgegevens">
                 <label for="country"><h3>Land/regio</h3></label>
                 <select name="country" id="country">
                     <option value="nederland">Nederland</option>
@@ -49,7 +49,7 @@ if($cart!=null){
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
-            <a href="/nerdygadgets/order.php" class='button button1'>bestellen</a>
+            <button type="submit" form="Nawgegevens" value="Submit" class='button button1'>bestellen</button>
         </div>
     </div>
 
