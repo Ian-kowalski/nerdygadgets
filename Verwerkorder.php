@@ -12,6 +12,8 @@ function getNAW(){
         "plaats"=> $_GET[ "city"],
         "adres"=> $_GET [ "huisnr"]." ".$_GET [ "street"],
         "name"=> $_GET["fname"]." ".$_GET["prefixes"]." ".$_GET["lname"],
+        "email"=> $_GET["email"],
+        "Telefoonnummer"=> $_GET["phone"],
         /*"tel"=> $_GET["tel"]*/
     );
 }
