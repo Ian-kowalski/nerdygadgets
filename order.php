@@ -30,11 +30,17 @@ if($cart!=null){
                 <input type="text" name="city" id="city"><br>
                 <label for="street">Straatnaam</label>
                 <input type="text" name="street" id="street"><br>
-                <label for="gender">Aanhef</label>
+                <label for="gender"><h3>Aanhef</h3></label>
                 <input type="radio" name="gender" id="mevrouw" value="Mevrouw"><label for="gender">Mevrouw</label>
                 <input type="radio" name="gender" id="meneer" value="Meneer">Meneer
                 <input type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide<br>
-
+                <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
+                <label for="NAWgegevens">Voornaam</label>
+                <input type="text" name="fname" id="fname"><br>
+                <label for="prefixes">Tussenvoegsels (optioneel)</label>
+                <input type="text" name="prefixes" id="prefixes"><br>
+                <label for="lname">Achternaam</label>
+                <input type="text" name="lname" id="lname"><br>
             </form>
         </div>
         <div class="totalPrice">
