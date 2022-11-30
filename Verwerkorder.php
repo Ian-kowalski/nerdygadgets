@@ -1,6 +1,6 @@
 <?php
 $nawgegevens= array(
-    "land" => $_GET "countr"]
+    "land" => $_GET[ "country"],
     "Postcode"=> $_GET["postalcode"],
     "Huisnummer & toevoeging"=> "Jansen",
     "plaats"=> "Kerkstraat 1",
