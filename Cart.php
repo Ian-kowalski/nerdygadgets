@@ -14,8 +14,7 @@ $cart = getCart();
 <?php
 if($cart!=null){
     ?>
-        <div class="
-">
+        <div class="cart_price">
             <div class="cart">
                 <?php
                 foreach($cart as $productID => $amount){
@@ -103,10 +102,12 @@ if($cart!=null){
                         $totaalPrice+=$price;
                     }
 
+
                     print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
                     print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
                     print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
-                    <a href="/nerdygadgets/order.php" class='button button1'>bestellen</a>
+
+                <a href="/nerdygadgets/order.php" class='button button1'>bestellen</a>
                 </div>
         </div>
     <?php
