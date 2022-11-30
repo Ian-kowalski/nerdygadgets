@@ -59,7 +59,8 @@ if($cart!=null){
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
-            <button type="submit" form="Nawgegevens" value="Submit" class='button button1'>bestellen</button>
+        <!--<button type="submit" form="Nawgegevens" value="Submit" class='button button1'>bestellen</button>-->
+            <a href="https://www.ideal.nl/demo/qr/?app=ideal" class='button button1'>bestellen</a>
         </div>
     </div>
 

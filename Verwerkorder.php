@@ -21,6 +21,7 @@ function getOrder(){
 function saveCustomer($NAW, $databaseConnection)
 {
     extract($NAW, EXTR_OVERWRITE);
+
     $statement = mysqli_prepare($databaseConnection, "
                 SELECT MAX(CustomerID) + 1 AS CstId -- Fetch highest known ID and increase by 1, save as CstId
                 FROM customers;");
@@ -75,5 +76,7 @@ function saveCustomer($NAW, $databaseConnection)
     mysqli_stmt_execute($addToCustumer);
 }
 function saveOrder($order,$databaseConnection){
+    extract($order, EXTR_OVERWRITE);
 
+    //save cart in orderline and custemer orderlins in orders
 }
