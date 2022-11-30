@@ -13,7 +13,7 @@ $cart = getCart();
 <?php
 if($cart!=null){
     ?>
-    <div class="cart_price">
+    <div class="order_price">
         <div class="NAW">
             <form class="NAWRow">
                 <label for="country"><h3>Land/regio</h3></label>
@@ -24,14 +24,17 @@ if($cart!=null){
                 <h3>Adres</h3>
                 <label for="postalcode">Postcode</label>
                 <input type="text" name="postalcode" id="postalcode"><br>
-                <label for="huisnmr">Huisnmr & toevoeging</label>
-                <input type="text" name="huisnmr" id="huisnmr"><br>
+                <label for="huisnr">Huisnr & toevoeging</label>
+                <input type="text" name="huisnr" id="huisnr"><br>
                 <label for="city">Plaats</label>
                 <input type="text" name="city" id="city"><br>
                 <label for="street">Straatnaam</label>
                 <input type="text" name="street" id="street"><br>
-                <label for="city"></label>
-                <input type="radio" name="city" id="city"><br>
+                <label for="gender">Aanhef</label>
+                <input type="radio" name="gender" id="mevrouw" value="Mevrouw"><label for="gender">Mevrouw</label>
+                <input type="radio" name="gender" id="meneer" value="Meneer">Meneer
+                <input type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide<br>
+
             </form>
         </div>
         <div class="totalPrice">
