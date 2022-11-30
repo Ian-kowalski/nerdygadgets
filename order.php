@@ -31,13 +31,14 @@ if($cart!=null){
                 <input type="text" name="city" id="city"><br>
                 <label for="street">Straatnaam</label>
                 <input type="text" name="street" id="street"><br>
-                <label for="city">Plaats</label>
-                <input type="text" name="city" id="city"><br>
+                <label for="city"></label>
+                <input type="radio" name="city" id="city"><br>
             </form>
         </div>
         <div class="totalPrice">
             <?php
             $totaalPrice=0;
+            $verzendkosten=6.50;
             foreach($cart as $productID => $amount){
                 $StockItem = getStockItem($productID, $databaseConnection);
                 $price=$StockItem["SellPrice"]*$amount;
@@ -46,6 +47,7 @@ if($cart!=null){
             if($totaalPrice >= "50") {
                 $verzendkosten = 0;
             }
+
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
