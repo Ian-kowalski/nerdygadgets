@@ -41,8 +41,8 @@ if($cart!=null){
                 <input type="text" name="prefixes" id="prefixes"><br>
                 <label for="lname">Achternaam</label>
                 <input type="text" name="lname" id="lname"><br>
-                <label for="Email">Email-adres</label>
-                <input type="text" name="email" id="email"><br>
+                <!--<label for="Email">Email-adres</label>
+                <input type="text" name="email" id="email"><br>-->
                 <label for="Telefoon">Telefoonnummer</label>
                 <input type="text" name="phone" id="phone"><br>
 

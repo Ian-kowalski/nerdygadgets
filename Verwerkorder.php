@@ -12,14 +12,14 @@ function getNAW(){
         "plaats"=> $_GET[ "city"],
         "adres"=> $_GET [ "huisnr"]." ".$_GET [ "street"],
         "name"=> $_GET["fname"]." ".$_GET["prefixes"]." ".$_GET["lname"],
-        "email"=> $_GET["email"],
-        "Telefoonnummer"=> $_GET["phone"],
-        /*"tel"=> $_GET["tel"]*/
+        //"email"=> $_GET["email"],
+        "tel"=> $_GET["phone"],
     );
 }
 function getOrder(){
 
 }
+
 function saveCustomer($NAW, $databaseConnection)
 {
     extract($NAW, EXTR_OVERWRITE);
@@ -71,7 +71,7 @@ function saveCustomer($NAW, $databaseConnection)
         )");
     mysqli_stmt_bind_param($addToCustumer, 'isii',
         $customerID, $name, $customerID,
-        $tel, $tel,
+        $tel, $tel,/*$email,*/
         $adres, $Postcode, $cords,
         $Postcode, $plaats
     );
