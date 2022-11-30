@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
-
+//123
 ?>
     <h1 style="min-width: 500px;">BESTELLEN</h1>
 <?php
