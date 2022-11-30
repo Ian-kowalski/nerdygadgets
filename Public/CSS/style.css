@@ -701,11 +701,12 @@ ul#ul-class-price li {
 .NAWRow{
     min-width: 500px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     max-width: 100%;
     border-top: 1px solid rgb(36, 41, 143);
-    padding-left: 8px
+    padding-left: 8px;
+    padding-right: 8px
 }
 
 
