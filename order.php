@@ -35,7 +35,7 @@ if($cart!=null){
                 <input type="radio" name="gender" id="meneer" value="Meneer">Meneer
                 <input type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide<br>
                 <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
-                <label for="NAWgegevens">Voornaam</label>
+                <label for="fname">Voornaam</label>
                 <input type="text" name="fname" id="fname"><br>
                 <label for="prefixes">Tussenvoegsels (optioneel)</label>
                 <input type="text" name="prefixes" id="prefixes"><br>
