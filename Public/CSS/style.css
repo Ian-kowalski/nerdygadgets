@@ -695,11 +695,11 @@ ul#ul-class-price li {
 .NAW{
     border: 5px solid rgb(36, 41, 143);
     border-top: 4px solid rgb(36, 41, 143);
-    max-width: 60%;
+    max-width: 80%;
 }
 
 .NAWRow{
-    min-width: 500px;
+    min-width: 1150px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
