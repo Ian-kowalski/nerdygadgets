@@ -14,7 +14,7 @@ $cart = getCart();
 <?php
 if($cart!=null){
     ?>
-        <div class="
+        <div class=cart_price"
 ">
             <div class="cart">
                 <?php
