@@ -1,7 +1,6 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
-
 ?>
     <h1 style="min-width: 500px;">BESTELLEN</h1>
 <?php
@@ -14,7 +13,7 @@ $cart = getCart();
 <?php
 if($cart!=null){
     ?>
-    <div class="cart_price">
+    <div class="order_price">
         <div class="NAW">
             <form method="get" action="Verwerkorder.php" class="NAWRow" id="Nawgegevens">
                 <label for="country"><h3>Land/regio</h3></label>
@@ -25,19 +24,23 @@ if($cart!=null){
                 <h3>Adres</h3>
                 <label for="postalcode">Postcode</label>
                 <input type="text" name="postalcode" id="postalcode"><br>
-                <label for="huisnmr">Huisnmr & toevoeging</label>
-                <input type="text" name="huisnmr" id="huisnmr"><br>
+                <label for="huisnr">Huisnr & toevoeging</label>
+                <input type="text" name="huisnr" id="huisnr"><br>
                 <label for="city">Plaats</label>
                 <input type="text" name="city" id="city"><br>
                 <label for="street">Straatnaam</label>
                 <input type="text" name="street" id="street"><br>
-                <label for="city">Plaats</label>
-                <input type="text" name="city" id="city"><br>
+                <label for="gender">Aanhef</label>
+                <input type="radio" name="gender" id="mevrouw" value="Mevrouw"><label for="gender">Mevrouw</label>
+                <input type="radio" name="gender" id="meneer" value="Meneer">Meneer
+                <input type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide<br>
+
             </form>
         </div>
         <div class="totalPrice">
             <?php
             $totaalPrice=0;
+            $verzendkosten=6.50;
             foreach($cart as $productID => $amount){
                 $StockItem = getStockItem($productID, $databaseConnection);
                 $price=$StockItem["SellPrice"]*$amount;
@@ -46,6 +49,7 @@ if($cart!=null){
             if($totaalPrice >= "50") {
                 $verzendkosten = 0;
             }
+
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>

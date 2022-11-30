@@ -709,6 +709,15 @@ ul#ul-class-price li {
     padding-right: 8px
 }
 
+.radio{
+
+}
+
+.order_price{
+    display: flex;
+    gap: 40px;
+    flex-direction: row;
+}
 
 
 /*hide arows num input*/
