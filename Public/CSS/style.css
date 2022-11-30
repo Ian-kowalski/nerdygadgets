@@ -526,24 +526,30 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
-.cart{
-    border: 5px solid rgb(36, 41, 143);
-    border-top: 4px solid rgb(36, 41, 143);
-    max-width: 70%;
-    max-height: 50%;
+
+.cart_price{
+    display: flex;
+    gap: 50px;
     flex-direction: row;
 }
 
-
+.cart{
+    border-top: 4px solid rgb(36, 41, 143);
+    width: 70%;
+    min-width: 500px;
+    flex-direction: row;
+    float:left;
+}
 .cartRow{
     min-width: 500px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     max-width: 100%;
-    border-top: 1px solid rgb(36, 41, 143)
+    border-left: 4px solid rgb(36, 41, 143);
+    border-right: 4px solid rgb(36, 41, 143);
+    border-bottom: 4px solid rgb(36, 41, 143);
 }
-
 .rowLeft{
     width: 100px;
     height: 100px;
@@ -551,7 +557,7 @@ ul#ul-class-price li {
 }
 .rowMid{
     white-space: nowrap;
-    text-overflow: ellipsis;
+    overflow: hidden;
     height: 100px;
     width: 100%;
     margin-left:5px;
@@ -564,7 +570,6 @@ ul#ul-class-price li {
     margin-left:5px;
     text-align: right;
 }
-
 .productImage{
     border: 1px solid rgb(36, 41, 143);
     width: 90px;
@@ -606,14 +611,13 @@ ul#ul-class-price li {
     justify-content: center;
     align-items: center;
 }
-
 .plus{
     width: 30px;
     height: 30px;
     border-radius: 12px;
     text-decoration: none;
     display: flex;
-    font: italic 30px/1px monospace;
+    font: italic 26px/2px monospace;
     font-weight: bold;
     text-align: center;
     transition-duration: 0.4s;
@@ -635,9 +639,8 @@ ul#ul-class-price li {
     height: 30px;
     border-radius: 12px;
     background-color: #676EFF;
-    color: black;
+    color: rgba(35, 40, 47, 0.8);
 }
-
 .number{
     background-color: transparent;
     width: 80px;
@@ -651,10 +654,10 @@ ul#ul-class-price li {
 }
 .trash{
     border-radius: 12px;
-    height: 48px;
-    width: 48px;
+    height: 35px;
+    width: 35px;
     display: flex;
-    font: italic 30px monospace;
+    font: italic 26px/2px monospace;
     flex-direction: row;
     justify-content: center;
     text-align: right;
@@ -663,13 +666,49 @@ ul#ul-class-price li {
     background-color:  darkred;
     border: 2px solid darkred;
 }
-.totalPrice{
-    flex-direction: row;
 
+.totalPrice{
+    height: 100px;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    border: 2px solid darkred;
+    overflow: hidden;
+}
+/*code is nog niet helemaal af en juist*/
+.orderButton{
+    min-width: 500px;
+    max-width: 60%;
     display: flex;
     align-items: center;
     justify-content: right;
 }
+
+.orderbox {
+    width: 300px;
+    border: 15px solid green;
+    padding: 50px;
+    margin: 20px;
+}
+
+.NAW{
+    border: 5px solid rgb(36, 41, 143);
+    border-top: 4px solid rgb(36, 41, 143);
+    max-width: 60%;
+}
+
+.NAWRow{
+    min-width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 100%;
+    border-top: 1px solid rgb(36, 41, 143);
+    padding-left: 8px
+}
+
+
 
 /*hide arows num input*/
 /* Chrome, Safari, Edge, Opera */
@@ -678,7 +717,6 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
