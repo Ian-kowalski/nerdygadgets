@@ -704,7 +704,8 @@ ul#ul-class-price li {
     flex-direction: row;
     justify-content: space-between;
     max-width: 100%;
-    border-top: 1px solid rgb(36, 41, 143)
+    border-top: 1px solid rgb(36, 41, 143);
+    padding-left: 8px
 }
 
 
