@@ -14,7 +14,7 @@ $cart = getCart();
 <?php
 if($cart!=null){
     ?>
-        <div class=cart_price">
+        <div class="cart_price">
             <div class="cart">
                 <?php
                 foreach($cart as $productID => $amount){
