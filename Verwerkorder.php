@@ -17,6 +17,18 @@ function getNAW(){
     );
 }
 function getOrder(){
+    $cart=getCart();
+    print_r($cart);
+    $totaalPrice=0;
+    $verzendkosten=6.50;
+    foreach($cart as $productID => $amount){
+        $StockItem = getStockItem($productID, $databaseConnection);
+        $price=$StockItem["SellPrice"]*$amount;
+        $totaalPrice+=$price;
+    }
+    if($totaalPrice >= "50") {
+        $verzendkosten = 0;
+    }
 
 }
 
@@ -81,4 +93,6 @@ function saveOrder($order,$databaseConnection){
     extract($order, EXTR_OVERWRITE);
 
     //save cart in orderline and custemer orderlins in orders
+    // make oder
+    // make for evry item a orderline
 }

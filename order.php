@@ -42,9 +42,9 @@ if($cart!=null){
                 <label for="lname">Achternaam</label>
                 <input type="text" name="lname" id="lname"><br>
                 <!--<label for="Email">Email-adres</label>
-                <input type="text" name="email" id="email"><br>-->
+                <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br>-->
                 <label for="Telefoon">Telefoonnummer</label>
-                <input type="text" name="phone" id="phone"><br>
+                <input type="tel" id="phone" name="phone" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
 
             </form>
         </div>
@@ -64,8 +64,8 @@ if($cart!=null){
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
-        <!--<button type="submit" form="Nawgegevens" value="Submit" class='button button1'>bestellen</button>-->
-            <a href="https://www.ideal.nl/demo/qr/?app=ideal" class='button button1'>bestellen</a>
+        <button type="submit" form="Nawgegevens" value="Submit" class='button button1'>bestellen</button>
+            <!--<a href="https://www.ideal.nl/demo/qr/?app=ideal" class='button button1'>bestellen</a>-->
         </div>
     </div>
 
