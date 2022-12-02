@@ -95,13 +95,13 @@ if($cart!=null){
             <div class="totalPrice">
                     <?php
                     $totaalPrice=0;
-                    $verzendkosten=6.50;
+                    $verzendkosten=6.95;
                     foreach($cart as $productID => $amount){
                         $StockItem = getStockItem($productID, $databaseConnection);
                         $price=$StockItem["SellPrice"]*$amount;
                         $totaalPrice+=$price;
                     }
-                    if($totaalPrice >= "50") {
+                    if($totaalPrice > "50") {
                         $verzendkosten = 0;
                     }
                     print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
