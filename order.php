@@ -42,7 +42,7 @@ if($cart!=null){
                 <label for="lname">Achternaam</label>
                 <input type="text" name="lname" id="lname" required><br>
                 <!--<label for="Email">Email-adres</label>
-                <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"><br>-->
+                <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>-->
                 <label for="Telefoon">Telefoonnummer</label>
                 <input type="tel" id="phone" name="phone" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
 
