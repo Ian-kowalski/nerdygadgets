@@ -15,38 +15,50 @@ if($cart!=null){
     ?>
     <div class="order_price">
         <div class="NAW">
-            <form method="get" action="Verwerkorder.php" class="NAWRow" id="Nawgegevens">
-                <label for="country"><h3>Land/regio</h3></label>
-                <select name="country" id="country">
-                    <option value="nederland">Nederland</option>
-                    <option value="belgië">België</option>
-                </select><br>
-                <h3>Adres</h3>
-                <label for="postalcode">Postcode</label>
-                <input type="text" name="postalcode" id="postalcode" required><br>
-                <label for="huisnr">Huisnr & toevoeging</label>
-                <input type="text" name="huisnr" id="huisnr" required><br>
-                <label for="city">Plaats</label>
-                <input type="text" name="city" id="city" required><br>
-                <label for="street">Straatnaam</label>
-                <input type="text" name="street" id="street" required><br>
-
-                <label for="gender"><h3>Aanhef</h3></label>
-                <input class="radio" type="radio" name="gender" id="mevrouw" value="Mevrouw">Mevrouw
-                <input class="radio" type="radio" name="gender" id="meneer" value="Meneer">Meneer
-                <input class="radio" type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide<br>
-                <label for="NAWgegevens"> <br> <br> <h3>Persoonsgegevens</h3></label>
-                <label for="fname">Voornaam</label>
-                <input type="text" name="fname" id="fname" required><br>
-                <label for="prefixes">Tussenvoegsels (optioneel)</label>
-                <input type="text" name="prefixes" id="prefixes"><br>
-                <label for="lname">Achternaam</label>
-                <input type="text" name="lname" id="lname" required><br>
-                <!--<label for="Email">Email-adres</label>
-                <input type="text" name="email" id="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$" required><br>-->
-                <label for="Telefoon">Telefoonnummer</label>
-                <input type="tel" id="phone" name="phone" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
-
+            <form method="get" action="Verwerkorder.php"  id="Nawgegevens">
+                <div class="NAWRow">
+                    <label for="country"><h3>Land/regio</h3></label>
+                    <select name="country" id="country">
+                        <option value="nederland">Nederland</option>
+                        <option value="belgië">België</option>
+                    </select><br>
+                </div>
+                <div class="NAWRow">
+                    <h3>Adres</h3>
+                    <label for="postalcode">Postcode</label>
+                    <input type="text" name="postalcode" id="postalcode" required><br>
+                    <label for="huisnr">Huisnr & toevoeging</label>
+                    <input type="text" name="huisnr" id="huisnr" required><br>
+                    <label for="city">Plaats</label>
+                    <input type="text" name="city" id="city" required><br>
+                    <label for="street">Straatnaam</label>
+                    <input type="text" name="street" id="street" required><br>
+                </div>
+                <div class="NAWRow">
+                    <label for="gender"><h3>Aanhef</h3></label>
+                    <div class="NAWcol">
+                        <input class="radio" type="radio" name="gender" id="mevrouw" value="Mevrouw">Mevrouw
+                    </div>
+                    <div class="NAWcol">
+                        <input class="radio" type="radio" name="gender" id="meneer" value="Meneer">Meneer
+                    </div>
+                    <div class="NAWcol">
+                        <input class="radio" type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide <br>
+                    </div>
+                </div>
+                <div class="NAWRow">
+                    <label for="NAWgegevens"> <br> <br> <h3>Persoonsgegevens</h3></label>
+                    <label for="fname">Voornaam</label>
+                    <input type="text" name="fname" id="fname" required><br>
+                    <label for="prefixes">Tussenvoegsels (optioneel)</label>
+                    <input type="text" name="prefixes" id="prefixes"><br>
+                    <label for="lname">Achternaam</label>
+                    <input type="text" name="lname" id="lname" required><br>
+                    <!--<label for="Email">Email-adres</label>
+                    <input type="text" name="email" id="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$" required><br>-->
+                    <label for="Telefoon">Telefoonnummer</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
+                </div>
             </form>
         </div>
         <div class="totalPrice">

@@ -694,7 +694,6 @@ ul#ul-class-price li {
 
 .NAW{
     border: 5px solid rgb(36, 41, 143);
-    border-top: 4px solid rgb(36, 41, 143);
     max-width: 80%;
 }
 
@@ -704,14 +703,19 @@ ul#ul-class-price li {
     flex-direction: column;
     justify-content: space-between;
     max-width: 100%;
-    border-top: 1px solid rgb(36, 41, 143);
     padding-left: 8px;
     padding-right: 8px
 }
+.NAWcol{
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    align-items: center;
+}
 
 .radio{
+    width: 25px;
     height: 25px;
-    width: 5%;
 }
 
 
@@ -733,4 +737,5 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
 
