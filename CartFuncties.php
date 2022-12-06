@@ -57,6 +57,8 @@ function decreaseItem($ID){
     }
 }
 
+
+
 //update artikel
 function updateItem($ID,$new) {
     $databaseConnection = connectToDatabase();
