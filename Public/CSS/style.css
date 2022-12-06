@@ -710,8 +710,10 @@ ul#ul-class-price li {
 }
 
 .radio{
-
+    height: 25px;
+    width: 5%;
 }
+
 
 .order_price{
     display: flex;

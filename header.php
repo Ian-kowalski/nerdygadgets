@@ -2,6 +2,7 @@
 <?php
 session_start();
 include "database.php";
+
 $databaseConnection = connectToDatabase();
 ?>
 <!DOCTYPE html>
@@ -53,8 +54,18 @@ $databaseConnection = connectToDatabase();
             </li>
             <li>
                 <a href="Cart.php" class="HrefDecoration"><i class="fas fa-shopping-cart blue"></i> </a>
+               <?php if (isset($_SESSION['cart'])) {
+                    $cart = $_SESSION['cart'];
+                    $aantal = 0;
+                    foreach ($cart as $productID => $amount) {
+                        $aantal += $amount;
+                    }
+                    print("<span class='badge badge-pill badge-danger'>$aantal</span>");
+                } ?>
+
             </li>
         </ul>
+
 <!-- einde code voor US3 zoeken -->
     </div>
     <div class="row" id="Content">
