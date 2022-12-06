@@ -207,7 +207,7 @@ select{
 }
 input[type=checkbox],input[type=radio]{
     box-sizing:border-box;
-    padding:0
+    padding:5
 }
 input[type=date],input[type=datetime-local],input[type=month],input[type=time]{
     -webkit-appearance:listbox
