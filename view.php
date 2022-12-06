@@ -92,6 +92,10 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                             <?php
                             if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                                 addProductToCart($StockItem["StockItemID"]);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
+                                //header('Location: view.php?id='. $_GET["id"]);
+
+                                $script = "<script>window.location = 'view.php?id=" . $_GET["id"] . "';</script>";
+                                echo $script;
                             }
                             ?>
                         </form>
