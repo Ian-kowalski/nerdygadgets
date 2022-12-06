@@ -25,14 +25,17 @@ if($cart!=null){
                 </div>
                 <div class="NAWRow">
                     <h3>Adres</h3>
-                    <label for="postalcode">Postcode</label>
-                    <input type="text" name="postalcode" id="postalcode" required><br>
-                    <label for="huisnr">Huisnr & toevoeging</label>
-                    <input type="text" name="huisnr" id="huisnr" required><br>
-                    <label for="city">Plaats</label>
-                    <input type="text" name="city" id="city" required><br>
                     <label for="street">Straatnaam</label>
                     <input type="text" name="street" id="street" required><br>
+                    <div class="NAWcol">
+                        <label for="huisnr">Huisnr & toevoeging</label>
+                        <input type="text" name="huisnr" id="huisnr" required><br>
+                        <label for="postalcode">Postcode</label>
+                        <input type="text" name="postalcode" id="postalcode" required><br>
+                    </div>
+                    <label for="city">Plaats</label>
+                    <input type="text" name="city" id="city" required><br>
+
                 </div>
                 <div class="NAWRow">
                     <label for="gender"><h3>Aanhef</h3></label>
@@ -43,11 +46,12 @@ if($cart!=null){
                         <input class="radio" type="radio" name="gender" id="meneer" value="Meneer">Meneer
                     </div>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide <br>
+                        <input class="radio" type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide
                     </div>
                 </div>
                 <div class="NAWRow">
-                    <label for="NAWgegevens"> <br> <br> <h3>Persoonsgegevens</h3></label>
+                    <br>
+                    <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
                     <label for="fname">Voornaam</label>
                     <input type="text" name="fname" id="fname" required><br>
                     <label for="prefixes">Tussenvoegsels (optioneel)</label>
@@ -82,9 +86,6 @@ if($cart!=null){
         </div>
     </div>
 
-    <div class="row">
-        <h1 style="min-width: 500px;">Je order page doet het</h1>
-    </div>
     <div class="HrefDecoration">
         <a href="/nerdygadgets/Cart.php" class='HrefDecoration'>>terug naar winkelmandje</a>
     </div>
