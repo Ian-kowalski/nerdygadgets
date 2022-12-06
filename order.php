@@ -30,6 +30,7 @@ if($cart!=null){
                 <input type="text" name="city" id="city" required><br>
                 <label for="street">Straatnaam</label>
                 <input type="text" name="street" id="street" required><br>
+
                 <label for="gender"><h3>Aanhef</h3></label>
                 <input class="radio" type="radio" name="gender" id="mevrouw" value="Mevrouw">Mevrouw
                 <input class="radio" type="radio" name="gender" id="meneer" value="Meneer">Meneer
@@ -42,7 +43,7 @@ if($cart!=null){
                 <label for="lname">Achternaam</label>
                 <input type="text" name="lname" id="lname" required><br>
                 <!--<label for="Email">Email-adres</label>
-                <input type="text" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>-->
+                <input type="text" name="email" id="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$" required><br>-->
                 <label for="Telefoon">Telefoonnummer</label>
                 <input type="tel" id="phone" name="phone" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
 
