@@ -66,9 +66,9 @@ function updateItem($ID,$new) {
     $cart=getCart();
 
     if (array_key_exists($ID, $cart)) {
-        if($cart[$ID]<$StockItem["QuantityOnHand"]) {
-        $cart[$ID]=$new;
-        saveCart($cart);
+        if($new<$StockItem["QuantityOnHand"]) {
+            $cart[$ID]=$new;
+            saveCart($cart);
         } else {
             $cart[$ID] = $StockItem["QuantityOnHand"];
             saveCart($cart);
@@ -88,7 +88,7 @@ function increaseItem($ID){
     $cart=getCart();
 
     if (array_key_exists($ID, $cart)) {
-        if($cart[$ID]< $StockItem["QuantityOnHand"]) {
+        if($cart[$ID]<$StockItem["QuantityOnHand"]) {
             $cart[$ID] += 1;
             saveCart($cart);
         } else {

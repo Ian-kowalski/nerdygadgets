@@ -19,3 +19,7 @@ saveOrder($customerID,$databaseConnection);
 
 print($customerID);
 session_unset();
+?>
+<script>
+    window.location.replace('./cart.php')
+</script>
