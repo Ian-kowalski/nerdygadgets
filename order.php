@@ -31,9 +31,9 @@ if($cart!=null){
                 <label for="street">Straatnaam</label>
                 <input type="text" name="street" id="street" required><br>
                 <label for="gender"><h3>Aanhef</h3></label>
-                <input type="radio" name="gender" id="mevrouw" value="Mevrouw"><label for="gender">Mevrouw</label>
-                <input type="radio" name="gender" id="meneer" value="Meneer">Meneer
-                <input type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide<br>
+                <input class="radio" type="radio" name="gender" id="mevrouw" value="Mevrouw">Mevrouw
+                <input class="radio" type="radio" name="gender" id="meneer" value="Meneer">Meneer
+                <input class="radio" type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide<br>
                 <label for="NAWgegevens"> <br> <br> <h3>Persoonsgegevens</h3></label>
                 <label for="fname">Voornaam</label>
                 <input type="text" name="fname" id="fname" required><br>
