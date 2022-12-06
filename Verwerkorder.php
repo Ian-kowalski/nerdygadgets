@@ -17,9 +17,8 @@ $NAW=getNAW();
 $customerID=getCustomer($NAW,$databaseConnection);
 saveOrder($customerID,$databaseConnection);
 
-print($customerID);
 session_unset();
 ?>
 <script>
-    window.location.replace('./cart.php')
+    window.location.replace("https://www.ideal.nl/demo/qr/?app=ideal")
 </script>

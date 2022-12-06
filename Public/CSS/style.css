@@ -664,7 +664,8 @@ ul#ul-class-price li {
     align-items: center;
     color: white;
     background-color:  darkred;
-    border: 2px solid rgb(36, 41, 143);
+    border: 3px solid darkred;
+    margin-right: 5px;
 }
 
 .totalPrice{
@@ -675,6 +676,7 @@ ul#ul-class-price li {
     justify-content: right;
     border: 2px solid rgb(36, 41, 143);
     overflow: hidden;
+    padding: 5px;
 }
 /*code is nog niet helemaal af en juist*/
 .orderButton{

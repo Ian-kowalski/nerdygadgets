@@ -67,7 +67,7 @@ if($cart!=null){
                                               <?php if(isset($_GET["plus$productID"])){increaseItem($productID);} ?>
                                               <button type="submit" form="counter" class="plus plus1" name="plus<?php print($productID) ?>" ><i class="fa fa-plus"></i></button>
                                           </div>
-                                          <?php if ($amount < 1) { ?>
+                                          <?php if ($amount <= 1) { ?>
                                               <div>
                                                   <?php if(isset($_GET["min$productID"])){deleteItem($productID);} ?>
                                                   <button type="submit" form="counter" class="plus plus1" name="min<?php print($productID) ?>" ><i class="fa fa-minus"></i></button>
