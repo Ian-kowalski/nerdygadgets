@@ -51,13 +51,13 @@ if($cart!=null){
                 </div>
                 <div class="NAWRow">
                     <br>
-                    <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
+                   <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
                     <label for="fname">Voornaam</label>
-                    <input type="text" name="fname" id="fname" required><br>
+                    <input type="text" name="fname" id="fname" required pattern="[A-Za-z]{1,}"><br>
                     <label for="prefixes">Tussenvoegsels (optioneel)</label>
-                    <input type="text" name="prefixes" id="prefixes"><br>
+                    <input type="text" name="prefixes" id="prefixes" pattern="[A-Z a-z]{0,}"><br>
                     <label for="lname">Achternaam</label>
-                    <input type="text" name="lname" id="lname" required><br>
+                    <input type="text" name="lname" id="lname" required pattern="[a-z A-Z]{1,}"><br>
                     <!--<label for="Email">Email-adres</label>
                     <input type="text" name="email" id="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$" required><br>-->
                     <label for="Telefoon">Telefoonnummer</label>
