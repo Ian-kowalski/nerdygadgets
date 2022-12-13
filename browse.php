@@ -191,6 +191,7 @@ if (isset($amount)) {
 
 <!-- code deel 3 van User story: Zoeken producten : de html -->
 <!-- de zoekbalk links op de pagina  -->
+
 <div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filteren </h2>
     <form>
         <div id="FilterOptions">
@@ -199,7 +200,6 @@ if (isset($amount)) {
                    value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
                    class="form-submit">
             <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
-
             <input type="hidden" name="category_id" id="category_id"
                    value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
             <select name="products_on_page" id="products_on_page" onchange="this.form.submit()">>
@@ -239,11 +239,80 @@ if (isset($amount)) {
                 } ?>>Naam aflopend
                 </option>
             </select>
-        </div>
+
+            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
+            <input type="range" name="pricefilter" id="pricefilter" min="0" max="1000" step="1"
+                   value="<?php print (isset($_GET['price_low'])) ? $_GET['price_low'] : "0"; ?>"
+                   onchange="this.form.submit()">
+            <input type="hidden" name="price_low" id="price_low"
+                     value="<?php print (isset($_GET['price_low'])) ? $_GET['price_low'] : "0"; ?>">
+            <input type="hidden" name="price_high" id="price_high"
+                    value="<?php print (isset($_GET['price_high'])) ? $_GET['price_high'] : "1000"; ?>">
+
+            <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
+            <select type="text" name="Color[]" value="1" id="ColorID" <?php if (isset($_GET['ColorID']) && in_array("1", $_GET['ColorID']))
+                print "Selected"; ?>
+                   <select name="Color[]" id="ColorID" onchange="this.form.submit()">
+                       <option value="1" <?php if (isset($_GET['ColorID']) && in_array("1", $_GET['ColorID']))
+                    print "Selected"; ?>>Zwart
+                       </option>
+                       <option value="2" <?php if (isset($_GET['ColorID']) && in_array("2", $_GET['ColorID']))
+                    print "Selected"; ?>>Blauw
+                          </option>
+                          <option value="3" <?php if (isset($_GET['ColorID']) && in_array("3", $_GET['ColorID']))
+                    print "Selected"; ?>>Rood
+                            </option>
+                            <option value="4" <?php if (isset($_GET['ColorID']) && in_array("4", $_GET['ColorID']))
+                    print "Selected"; ?>>Groen
+                            </option>
+                            <option value="5" <?php if (isset($_GET['ColorID']) && in_array("5", $_GET['ColorID']))
+                    print "Selected"; ?>>Geel
+                            </option>
+                            <option value="6" <?php if (isset($_GET['ColorID']) && in_array("6", $_GET['ColorID']))
+                    print "Selected"; ?>>Oranje
+                            </option>
+                   </select>
+
+               <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
+               <select type="text" name="Size[]" value="1" id="SizeID" <?php if (isset($_GET['SizeID']) && in_array("1", $_GET['SizeID']))
+                print "Selected"; ?>
+                   <select name="Size[]" id="SizeID" onchange="this.form.submit()">
+                       <option value="1" <?php if (isset($_GET['SizeID']) && in_array("1", $_GET['SizeID']))
+                    print "Selected"; ?>>S
+                       </option>
+                       <option value="2" <?php if (isset($_GET['SizeID']) && in_array("2", $_GET['SizeID']))
+                    print "Selected"; ?>>M
+                          </option>
+                          <option value="3" <?php if (isset($_GET['SizeID']) && in_array("3", $_GET['SizeID']))
+                    print "Selected"; ?>>L
+                            </option>
+                            <option value="4" <?php if (isset($_GET['SizeID']) && in_array("4", $_GET['SizeID']))
+                    print "Selected"; ?>>XL
+                            </option>
+                            <option value="5" <?php if (isset($_GET['SizeID']) && in_array("5", $_GET['SizeID']))
+                    print "Selected"; ?>>XXL
+                            </option>
+                            <option value="6" <?php if (isset($_GET['SizeID']) && in_array("6", $_GET['SizeID']))
+                    print "Selected"; ?>>XXXL
+                            </option>
+                   </select>
+
+
+
+
+
+
+
+
+
+
     </form>
+</div>
+
 </div>
 <!-- einde zoekresultaten die links van de zoekbalk staan -->
 <!-- einde code deel 3 van User story: Zoeken producten  -->
+
 
 <div id="ResultsArea" class="Browse">
     <?php
@@ -281,7 +350,7 @@ if (isset($amount)) {
         <?php } ?>
 
         <form id="PageSelector">
-		
+
 <!-- code deel 4 van User story: Zoeken producten  -->
             <input type="hidden" name="search_string" id="search_string"
                    value="<?php if (isset($_GET['search_string'])) {
@@ -319,7 +388,10 @@ if (isset($amount)) {
         </h2>
         <?php
     }
+
+
     ?>
+
 </div>
 
 <?php
