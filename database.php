@@ -63,6 +63,7 @@ function getStockItem($id, $databaseConnection) {
             TaxRate,
             UnitPrice,
             UnitPackageID,
+            IsChillerStock,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -108,15 +109,12 @@ function CustomerExsists($CustomerName,$databaseConnection){
     return $CustomerID[0]["CustomerID"];
 }
 
-
-function getCustomer($NAW,$databaseConnection){
+function saveOrder($NAW,$databaseConnection){
+    $cart=getCart();
 
     extract($NAW, EXTR_OVERWRITE);
     $customerID=CustomerExsists($name,$databaseConnection);
-    if($customerID!=NULL){
-        return $customerID;
-    }
-    else{
+    if($customerID==NULL){
         $statement = mysqli_prepare($databaseConnection, "
                 SELECT MAX(CustomerID) + 1 AS CstId -- Fetch highest known ID and increase by 1, save as CstId
                 FROM customers;");
@@ -125,57 +123,13 @@ function getCustomer($NAW,$databaseConnection){
         $customerID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query
         $customerID = $customerID[0]["CstId"]; //Retrieve customerID from fetched array
 
-        $addToCustumer = mysqli_prepare($databaseConnection, "INSERT INTO customers
-    (
-        CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,
-        PrimaryContactPersonID,
-        DeliveryMethodID,DeliveryCityID,PostalCityID,
-        AccountOpenedDate,
-        StandardDiscountPercentage,
-        IsStatementSent,
-        IsOnCreditHold,
-        PaymentDays,
-        PhoneNumber,FaxNumber,WebsiteURL,
-        DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,
-        PostalAddressLine1,PostalPostalCode,
-        LastEditedBy,
-        ValidFrom,
-        ValidTo) 
-        values(
-        ?,?,?,1,
-        1,
-        2,776,776,
-        CURRENT_TIMESTAMP,
-        0.000,
-        0,
-        0,
-        7,
-        ?,
-        ?,
-        'www.windesheim.nl',
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        1,
-        CURRENT_TIMESTAMP,
-        '9999-12-31 23:59:59' 
-        )");
-        mysqli_stmt_bind_param($addToCustumer, 'isisssssss',
-            $customerID, $name, $customerID,
-            $tel, $tel,/*$email,*/
-            $adres, $Postcode, $plaats,
-            $adres, $Postcode
+        $addToCustumer = mysqli_prepare($databaseConnection, "
+        INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) 
+        values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,?,?,'www.windesheim.nl',?,?,?,?,?,1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59' )"
         );
+        mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID,$tel, $tel,/*$email,*/$adres, $Postcode, $plaats,$adres, $Postcode);
         mysqli_stmt_execute($addToCustumer);
-
-        return $customerID;
     }
-}
-
-function saveOrder($customerID,$databaseConnection){
-    $cart=getCart();
 
     $statement = mysqli_prepare($databaseConnection, "
                 SELECT MAX(OrderID) + 1 AS OrId -- Fetch highest known ID and increase by 1, save as OrId
@@ -185,7 +139,16 @@ function saveOrder($customerID,$databaseConnection){
     $OrderID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query
     $OrderID = $OrderID[0]["OrId"]; //Retrieve oderID from fetched array
 
-    $addOrder = mysqli_prepare($databaseConnection, "INSERT INTO orders(
+    $statement = mysqli_prepare($databaseConnection, "
+                SELECT MAX(OrderLineID) + 1 AS OrLId -- Fetch highest known ID and increase by 1, save as OrId
+                FROM OrderLines;");
+    mysqli_stmt_execute($statement);
+    $Result = mysqli_stmt_get_result($statement);
+    $OrderLineID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query
+    $OrderLineID = $OrderLineID[0]["OrLId"]; //Retrieve oderID from fetched array
+
+    $addOrder = mysqli_prepare($databaseConnection,
+        "INSERT INTO orders(
                       OrderID,CustomerID,SalespersonPersonID,ContactPersonID,
                       OrderDate, ExpectedDeliveryDate,
                       IsUndersupplyBackordered,
@@ -199,15 +162,6 @@ values(?,?,1,1,
     mysqli_stmt_bind_param($addOrder, 'ii',$OrderID,$customerID);
     mysqli_stmt_execute($addOrder);
 
-
-    $statement = mysqli_prepare($databaseConnection, "
-                SELECT MAX(OrderLineID) + 1 AS OrLId -- Fetch highest known ID and increase by 1, save as OrId
-                FROM OrderLines;");
-    mysqli_stmt_execute($statement);
-    $Result = mysqli_stmt_get_result($statement);
-    $OrderLineID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query
-    $OrderLineID = $OrderLineID[0]["OrLId"]; //Retrieve oderID from fetched array
-
     foreach ($cart as $productID => $Quantity) {
         $StockItem = getStockItem($productID, $databaseConnection);
         $price = $StockItem["UnitPrice"];
@@ -215,22 +169,30 @@ values(?,?,1,1,
         $Description = $StockItem["SearchDetails"];
         $Package= $StockItem["UnitPackageID"];
 
-        $addOrder = mysqli_prepare($databaseConnection, "INSERT INTO orderlines(
-                OrderLineID, OrderID, StockItemID, 
-                Description, PackageTypeID, 
-                Quantity, UnitPrice, TaxRate, 
-                PickedQuantity, 
-                LastEditedBy, LastEditedWhen)
-    values(?,?,?,
-           ?,?,
-           ?,?,?,
-           0,1,current_date)");
-        mysqli_stmt_bind_param($addOrder, 'iiisiidd',$OrderLineID,$OrderID,$productID,$Description,$Package,$Quantity,$price,$tax);
-        mysqli_stmt_execute($addOrder);
+        $addOrderLine = mysqli_prepare($databaseConnection, "
+            INSERT INTO orderlines(OrderLineID, OrderID, StockItemID, Description, PackageTypeID, Quantity, UnitPrice, TaxRate, PickedQuantity, LastEditedBy, LastEditedWhen)
+            values(?,?,?,?,?,?,?,?,0,1,current_date);
+            
+            UPDATE stockitemholdings
+            SET QuantityOnHand = (QuantityOnHand-?)
+            WHERE StockItemID=?;"
+        );
+        mysqli_stmt_bind_param($addOrderLine, 'iiisiiddii',$OrderLineID,$OrderID,$productID,$Description,$Package,$Quantity,$price,$tax,$Quantity,$productID);
+        mysqli_stmt_execute($addOrderLine);
 
         $OrderLineID++;
     }
     //save cart in orderline and custemer orderlins in orders
     // make oder
     // make for evry item a orderline
+}
+
+function temp($databaseConnection){
+    $temp=mysqli_prepare($databaseConnection, "SELECT Temperature FROM coldroomtemperatures WHERE ColdRoomSensorNumber=5");
+    mysqli_stmt_execute($temp);
+    $temp = mysqli_stmt_get_result($temp);
+    $temp = mysqli_fetch_all($temp, MYSQLI_ASSOC);
+
+    /*return $temp;*/
+    return 2;
 }

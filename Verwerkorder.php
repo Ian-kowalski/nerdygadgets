@@ -13,9 +13,7 @@ function getNAW(){
     );
 }
 
-$NAW=getNAW();
-$customerID=getCustomer($NAW,$databaseConnection);
-saveOrder($customerID,$databaseConnection);
+saveOrder(getNAW(),$databaseConnection);
 
 session_unset();
 ?>

@@ -106,6 +106,12 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
+            <?php
+            if($StockItem['IsChillerStock']){
+                $temp = temp($databaseConnection);
+                print("<p>cooling product<br>tempratuur in cooling: ".$temp."°C</p>");
+            }
+            ?>
             <p><?php print $StockItem['SearchDetails']; ?></p>
         </div>
         <div id="StockItemSpecifications">
