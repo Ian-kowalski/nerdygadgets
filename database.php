@@ -105,8 +105,8 @@ function CustomerExsists($CustomerName,$databaseConnection){
     mysqli_stmt_bind_param($Statement, "s", $CustomerName);
     mysqli_stmt_execute($Statement);
     $result=mysqli_stmt_get_result($Statement);
-    $CustomerID=mysqli_fetch_all($result,MYSQLI_ASSOC);
-    return $CustomerID[0]["CustomerID"];
+    $CustomerID =mysqli_fetch_all($result,MYSQLI_ASSOC);
+    return $CustomerID [0]["CustomerID"];
 }
 
 function saveOrder($NAW,$databaseConnection){
@@ -169,7 +169,7 @@ values(?,?,1,1,
         $Description = $StockItem["SearchDetails"];
         $Package= $StockItem["UnitPackageID"];
 
-        $addOrderLine = mysqli_prepare($databaseConnection, "
+        $addOrderLine = mysqli_prepare ($databaseConnection, "
             INSERT INTO orderlines(OrderLineID, OrderID, StockItemID, Description, PackageTypeID, Quantity, UnitPrice, TaxRate, PickedQuantity, LastEditedBy, LastEditedWhen)
             values(?,?,?,?,?,?,?,?,0,1,current_date);
             
