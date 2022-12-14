@@ -202,11 +202,10 @@ function saveOrder($NAW,$databaseConnection){
 }
 
 function temp($databaseConnection){
-    $temp=mysqli_prepare($databaseConnection, "SELECT Temperature FROM coldroomtemperatures WHERE ColdRoomSensorNumber=5");
+    $temp=mysqli_prepare($databaseConnection, "SELECT Temperature as temp FROM coldroomtemperatures WHERE ColdRoomSensorNumber=5");
     mysqli_stmt_execute($temp);
     $temp = mysqli_stmt_get_result($temp);
     $temp = mysqli_fetch_all($temp, MYSQLI_ASSOC);
 
-    /*return $temp;*/
-    return 2;
+    return $temp[0]['temp'];
 }
