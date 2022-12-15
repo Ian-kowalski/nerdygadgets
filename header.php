@@ -50,6 +50,9 @@ $databaseConnection = connectToDatabase();
 <!-- code voor US3: zoeken -->
         <ul id="ul-class-navigation">
             <li>
+                <a href="settings.php" class="HrefDecoration"><i class="fas fa-cog blue"></i></a>
+            </li>
+            <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search blue"></i> </a>
             </li>
             <li>
