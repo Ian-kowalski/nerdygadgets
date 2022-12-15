@@ -26,21 +26,21 @@ if($cart!=null){
                 <div class="NAWRow">
                     <h3>Adres</h3>
                     <label for="street">Straatnaam</label>
-                    <input type="text" name="street" id="street" required><br>
+                    <input type="text" name="street" id="street" required pattern="[A-Z a-z]{1,}"><br>
                     <div class="NAWcol">
                         <label for="huisnr">Huisnr & toevoeging</label>
-                        <input type="text" name="huisnr" id="huisnr" required><br>
+                        <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"><br>
                         <label for="postalcode">Postcode</label>
-                        <input type="text" name="postalcode" id="postalcode" required><br>
+                        <input type="text" name="postalcode" id="postalcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"><br>
                     </div>
                     <label for="city">Plaats</label>
-                    <input type="text" name="city" id="city" required><br>
+                    <input type="text" name="city" id="city" required pattern="[a-z A-Z]{1,}"><br>
 
                 </div>
                 <div class="NAWRow">
                     <label for="gender"><h3>Aanhef</h3></label>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="mevrouw" value="Mevrouw">Mevrouw
+                        <input class="radio" type="radio" name="gender" id="mevrouw" value="Mevrouw" required>Mevrouw
                     </div>
                     <div class="NAWcol">
                         <input class="radio" type="radio" name="gender" id="meneer" value="Meneer">Meneer
