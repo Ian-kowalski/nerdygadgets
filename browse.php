@@ -337,7 +337,7 @@ if (isset($amount)) {
     } else {
         ?>
         <h2 id="NoSearchResults">
-            Yarr, er zijn geen resultaten gevonden.
+            Jammer er zijn geen resutaten gevonden.
         </h2>
         <?php
     }

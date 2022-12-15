@@ -88,7 +88,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <div class="CartLeftChild">
                         <form method="post">
                             <input type="number" name="stockItemID" value="<?php print($StockItem["StockItemID"])?>" hidden>
-                            <input type="submit" class="button button1" name="submit" value= "winkelmandje">
+                            <input type="submit" class="button button1" name="submit" value= "Toevoegen">
                             <?php
                             if (isset($_POST["submit"])) {              // zelfafhandelend formulier
                                 addProductToCart($StockItem["StockItemID"]);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
