@@ -261,6 +261,10 @@ if (isset($amount)) {
             </select>
 
             <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
+            <input type="range" name="price" id="price" min="0" max="1000" step="10"
+                   value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
+                   oninput="this.form.submit()">
+
 
 
 
