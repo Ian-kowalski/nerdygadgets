@@ -103,17 +103,28 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                setInterval(function () {
+                    $("#temp").load(window.location.href + " #temp" );
+                }, 1000);
+            });
+        </script>
 
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
-            <?php
-            if($StockItem['IsChillerStock']){
-                $temp = temp($databaseConnection);
-                print("<p>cooling product<br>tempratuur in cooling: ".$temp."°C</p>");
-            }
-            ?>
+            <div id="temp">
+                <?php
+                if($StockItem['IsChillerStock']){
+                    $temp = temp($databaseConnection);
+                    print("<p>cooled product<br>tempratuur in cooling: ".$temp."°C</p>");
+                }
+                ?>
+            </div id="temp">
             <p><?php print $StockItem['SearchDetails']; ?></p>
         </div>
+
+
         <div id="StockItemSpecifications">
             <h3>Artikel specificaties</h3>
             <?php

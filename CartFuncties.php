@@ -103,4 +103,3 @@ function increaseItem($ID){
         <?php
     }
 }
-?>
