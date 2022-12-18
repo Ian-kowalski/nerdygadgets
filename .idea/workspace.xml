@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ae41114-7825-459d-8029-b7b8b7421d83" name="Changes" comment="05/12 browse.php ian kowalski" />
+    <list default="true" id="72f89a5f-fc36-46f7-88f4-4a2aeb7c3bb1" name="Changes" comment="Sven 18-12-2022" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,19 +14,15 @@
     <execution />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="79a2d61b88a080acf2e84ae537ab3c58d892d95e" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
-  <component name="ProjectId" id="2IBjwVuCGSBjOy1nqlhAHhzZQM8" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2IDJGZvOCdgIaOHTMq8jjtoPfOc" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -34,337 +33,170 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/nerdygadgets&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RunManager">
-    <configuration name="tempsensor.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/fakeTempSensor/tempsensor.php">
+    <configuration name="Bingo.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$USER_HOME$/PhpstormProjects/oefenen/Bingo.php">
+      <CommandLine>
+        <PhpTestInterpreterSettings>
+          <option name="interpreterName" value="PHP" />
+        </PhpTestInterpreterSettings>
+      </CommandLine>
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="PHP Script.tempsensor.php" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5ae41114-7825-459d-8029-b7b8b7421d83" name="Changes" comment="" />
-      <created>1669662114082</created>
+      <changelist id="72f89a5f-fc36-46f7-88f4-4a2aeb7c3bb1" name="Changes" comment="" />
+      <created>1669710125431</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1669662114082</updated>
-      <workItem from="1669662116096" duration="1035000" />
-      <workItem from="1669708244062" duration="12879000" />
-      <workItem from="1669722080125" duration="254000" />
-      <workItem from="1669737211321" duration="3306000" />
-      <workItem from="1669803385249" duration="2331000" />
-      <workItem from="1669815887485" duration="4186000" />
-      <workItem from="1669827608674" duration="10594000" />
-      <workItem from="1669843900668" duration="542000" />
-      <workItem from="1669883218211" duration="3453000" />
-      <workItem from="1669973251020" duration="15196000" />
-      <workItem from="1670243887760" duration="1573000" />
-      <workItem from="1670245537372" duration="323000" />
-      <workItem from="1670327751446" duration="10171000" />
-      <workItem from="1670409751649" duration="1436000" />
-      <workItem from="1670505502319" duration="371000" />
-      <workItem from="1670586369264" duration="1399000" />
-      <workItem from="1670929969471" duration="8108000" />
-      <workItem from="1670949266784" duration="1554000" />
-      <workItem from="1670956624457" duration="405000" />
-      <workItem from="1670957879508" duration="2652000" />
-      <workItem from="1671010868207" duration="6205000" />
-      <workItem from="1671111920766" duration="3751000" />
-      <workItem from="1671196523655" duration="5347000" />
-      <workItem from="1671279021626" duration="875000" />
-      <workItem from="1671280018261" duration="1592000" />
-      <workItem from="1671360342321" duration="2151000" />
-      <workItem from="1671370353455" duration="36000" />
-      <workItem from="1671370406854" duration="1516000" />
-      <workItem from="1671400068068" duration="1612000" />
+      <updated>1669710125431</updated>
+      <workItem from="1669710126805" duration="5688000" />
+      <workItem from="1669801981962" duration="2848000" />
+      <workItem from="1669816100214" duration="677000" />
+      <workItem from="1669816814245" duration="12193000" />
+      <workItem from="1669925382073" duration="13000" />
+      <workItem from="1670320768279" duration="3369000" />
+      <workItem from="1670343578510" duration="3810000" />
+      <workItem from="1670593385886" duration="7741000" />
+      <workItem from="1670951029615" duration="41000" />
+      <workItem from="1670951191958" duration="9282000" />
+      <workItem from="1671011659639" duration="1924000" />
+      <workItem from="1671115052714" duration="4977000" />
     </task>
-    <task id="LOCAL-00001" summary="ian 29-11">
-      <created>1669709427197</created>
+    <task id="LOCAL-00001" summary="Sven 29-11-2022">
+      <created>1669722050503</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1669709427197</updated>
+      <updated>1669722050504</updated>
     </task>
-    <task id="LOCAL-00002" summary="29-11 opmaak winkelmand">
-      <created>1669720927496</created>
+    <task id="LOCAL-00002" summary="Sven 30-11-2022">
+      <created>1669804070983</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1669720927496</updated>
+      <updated>1669804070983</updated>
     </task>
-    <task id="LOCAL-00003" summary="29-11 opmaak winkelmand 0.2">
-      <created>1669740137159</created>
+    <task id="LOCAL-00003" summary="Sven 30-11-2022">
+      <created>1669804423336</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1669740137159</updated>
+      <updated>1669804423336</updated>
     </task>
-    <task id="LOCAL-00004" summary="29-11 opmaak winkelmand 0.2">
-      <created>1669740491760</created>
+    <task id="LOCAL-00004" summary="Sven 30-11-2022">
+      <created>1669819996812</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1669740491760</updated>
+      <updated>1669819996812</updated>
     </task>
-    <task id="LOCAL-00005" summary="29-11 opmaak winkelmand 0.2">
-      <created>1669804492636</created>
+    <task id="LOCAL-00005" summary="Sven 30-11-2022">
+      <created>1669820222278</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1669804492636</updated>
+      <updated>1669820222278</updated>
     </task>
-    <task id="LOCAL-00006" summary="30-11 ik">
-      <created>1669805258693</created>
+    <task id="LOCAL-00006" summary="Sven 30-11-2022">
+      <created>1669820344577</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1669805258693</updated>
+      <updated>1669820344577</updated>
     </task>
-    <task id="LOCAL-00007" summary="30-11 ik">
-      <created>1669805571834</created>
+    <task id="LOCAL-00007" summary="Sven 30-11-2022">
+      <created>1669821036476</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1669805571834</updated>
+      <updated>1669821036476</updated>
     </task>
-    <task id="LOCAL-00008" summary="30-11 ik">
-      <created>1669818598754</created>
+    <task id="LOCAL-00008" summary="Sven 30-11-2022">
+      <created>1669843336482</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1669818598754</updated>
+      <updated>1669843336482</updated>
     </task>
-    <task id="LOCAL-00009" summary="30-11 ik">
-      <created>1669818641090</created>
+    <task id="LOCAL-00009" summary="Sven 30-11-2022">
+      <created>1670321876601</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1669818641090</updated>
+      <updated>1670321876601</updated>
     </task>
-    <task id="LOCAL-00010" summary="30-11 persoon/orderish opslaan in database">
-      <created>1669841940055</created>
+    <task id="LOCAL-00010" summary="Sven 6-12-2022">
+      <created>1670323226650</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1669841940055</updated>
+      <updated>1670323226650</updated>
     </task>
-    <task id="LOCAL-00011" summary="30-11 persoon/orderish opslaan in database">
-      <created>1669842933400</created>
+    <task id="LOCAL-00011" summary="Sven 13-12-2022">
+      <created>1670946620516</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1669842933400</updated>
+      <updated>1670946620516</updated>
     </task>
-    <task id="LOCAL-00012" summary="11/12 ian">
-      <created>1669974578439</created>
+    <task id="LOCAL-00012" summary="Sven 13-12-2022">
+      <created>1670955323584</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1669974578439</updated>
+      <updated>1670955323584</updated>
     </task>
-    <task id="LOCAL-00013" summary="11/12 ian">
-      <created>1669985988971</created>
+    <task id="LOCAL-00013" summary="Sven 13-12-2022">
+      <created>1670957883823</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1669985988971</updated>
+      <updated>1670957883823</updated>
     </task>
-    <task id="LOCAL-00014" summary="01/12  last thing for today">
-      <created>1669987163158</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1669987163158</updated>
-    </task>
-    <task id="LOCAL-00015" summary="05/12 hi">
-      <created>1670244210894</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1670244210894</updated>
-    </task>
-    <task id="LOCAL-00016" summary="05/12 hi">
-      <created>1670244262345</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1670244262345</updated>
-    </task>
-    <task id="LOCAL-00017" summary="05/12 ian kowalski">
-      <created>1670327979925</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1670327979925</updated>
-    </task>
-    <task id="LOCAL-00018" summary="05/12 cart fix">
-      <created>1670329184797</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1670329184797</updated>
-    </task>
-    <task id="LOCAL-00019" summary="05/12 oder fix">
-      <created>1670335687306</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1670335687306</updated>
-    </task>
-    <task id="LOCAL-00020" summary="05/12 oder fix">
-      <created>1670336646526</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1670336646526</updated>
-    </task>
-    <task id="LOCAL-00021" summary="05/12 oder fix">
-      <created>1670338907073</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1670338907073</updated>
-    </task>
-    <task id="LOCAL-00022" summary="05/12 oder fix">
-      <created>1670938040970</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1670938040970</updated>
-    </task>
-    <task id="LOCAL-00023" summary="05/12 bugs bugs bugs /ian kowalski">
-      <created>1670950410415</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1670950410415</updated>
-    </task>
-    <task id="LOCAL-00024" summary="05/12 temp update ian kowalski">
-      <created>1671011851021</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1671011851021</updated>
-    </task>
-    <task id="LOCAL-00025" summary="05/12 zoek update ian kowalski">
-      <created>1671017093717</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1671017093717</updated>
-    </task>
-    <task id="LOCAL-00026" summary="05/12 zoek update ian kowalski">
-      <created>1671112514085</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1671112514085</updated>
-    </task>
-    <task id="LOCAL-00027" summary="05/12 temp updateupdate ian kowalski">
-      <created>1671361560061</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1671361560061</updated>
-    </task>
-    <task id="LOCAL-00028" summary="05/12 temp updateupdate ian kowalski">
-      <created>1671362451882</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1671362451882</updated>
-    </task>
-    <task id="LOCAL-00029" summary="05/12 temp updateupdate ian kowalski">
-      <created>1671374077442</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1671374077442</updated>
-    </task>
-    <task id="LOCAL-00030" summary="05/12 browse.php ian kowalski">
-      <created>1671401585139</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1671401585139</updated>
-    </task>
-    <task id="LOCAL-00031" summary="05/12 browse.php ian kowalski">
-      <created>1671402033385</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1671402033385</updated>
-    </task>
-    <option name="localTasksCounter" value="32" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="origin/master" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="master" />
-                </option>
-              </RecentGroup>
-            </list>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ian 29-11" />
-    <MESSAGE value="29-11 opmaak winkelmand" />
-    <MESSAGE value="29-11 opmaak winkelmand 0.2" />
-    <MESSAGE value="30-11 ik" />
-    <MESSAGE value="30-11 persoon/orderish opslaan in database" />
-    <MESSAGE value="11/12 ian" />
-    <MESSAGE value="01/12  last thing for today" />
-    <MESSAGE value="05/12 hi" />
-    <MESSAGE value="05/12 ian kowalski" />
-    <MESSAGE value="05/12 cart fix" />
-    <MESSAGE value="05/12 oder fix" />
-    <MESSAGE value="05/12 bugs bugs bugs /ian kowalski" />
-    <MESSAGE value="05/12 temp update ian kowalski" />
-    <MESSAGE value="05/12 zoek update ian kowalski" />
-    <MESSAGE value="05/12 temp updateupdate ian kowalski" />
-    <MESSAGE value="05/12 browse.php ian kowalski" />
-    <option name="LAST_COMMIT_MESSAGE" value="05/12 browse.php ian kowalski" />
+    <MESSAGE value="Sven 29-11-2022" />
+    <MESSAGE value="Sven 30-11-2022" />
+    <MESSAGE value="Sven 6-12-2022" />
+    <MESSAGE value="Sven 13-12-2022" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sven 13-12-2022" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
