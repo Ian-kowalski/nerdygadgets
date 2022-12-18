@@ -30,7 +30,6 @@ if (isset($_GET['page_number'])) {
     $PageNumber = 0;
 }
 
-
 // code deel 1 van User story: Zoeken producten
 // <voeg hier de code in waarin de zoekcriteria worden opgebouwd>
 $SearchString = "";
@@ -47,21 +46,11 @@ if (isset($_GET['sort'])) {
     $SortOnPage = "price_low_high";
     $_SESSION["sort"] = "price_low_high";
 }
-if (isset($_GET['ColorID'])) {
-    $_SESSION["ColorID"] = $_GET['ColorID'];
-} else {
-   $_SESSION["ColorID"] = "0";
-}
 
 switch ($SortOnPage) {
     case "price_high_low":
     {
         $Sort = "SellPrice DESC";
-        break;
-    }
-    case "price_low_high":
-    {
-        $Sort = "SellPrice";
         break;
     }
     case "name_low_high":
@@ -72,6 +61,11 @@ switch ($SortOnPage) {
     case "name_high_low";
         $Sort = "StockItemName DESC";
         break;
+    case "price_low_high":
+    {
+        $Sort = "SellPrice";
+        break;
+    }
     default:
     {
         $Sort = "SellPrice";
@@ -95,6 +89,25 @@ if ($SearchString != "") {
         $queryBuildResult .= "SI.StockItemID ='$SearchString'";
     }
 }
+function pricefilter($queryBuildResult, $min, $max)
+{
+    if ($queryBuildResult != "") {
+        $queryBuildResult .= " AND ";
+    }
+    $queryBuildResult .= "SI.SellPrice BETWEEN $min AND $max";
+    return $queryBuildResult;
+}
+if (isset($_GET['pricefilter'])) {
+    $PriceFilter = $_GET['pricefilter'];
+    $_SESSION['pricefilter'] = $_GET['pricefilter'];
+} else if (isset($_SESSION['pricefilter'])) {
+    $PriceFilter = $_SESSION['pricefilter'];
+} else {
+    $PriceFilter = "";
+    $_SESSION['pricefilter'] = "";
+}
+
+
 // <einde van de code voor zoekcriteria>
 // einde code deel 1 van User story: Zoeken producten
 $Offset = $PageNumber * $ProductsOnPage;
@@ -121,14 +134,14 @@ if ($CategoryID == "") {
                 (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
                 FROM stockitems SI
                 JOIN stockitemholdings SIH USING(stockitemid)
-                ?
+                " . $queryBuildResult . "
                 GROUP BY StockItemID
-                ORDER BY ?
+                ORDER BY " . $Sort . "
                 LIMIT ?  OFFSET ?";
 
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "ssii",$queryBuildResult,$Sort ,$ProductsOnPage, $Offset);
+    mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
@@ -176,6 +189,7 @@ $Query = "
     mysqli_stmt_execute($Statement);
     $Result = mysqli_stmt_get_result($Statement);
     $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
+
 }
 $amount = $Result[0];
 if (isset($amount)) {
@@ -202,15 +216,12 @@ if (isset($amount)) {
     <form>
         <div id="FilterOptions">
             <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Zoeken</h4>
-            <input type="text" name="search_string" id="search_string" value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>" class="form-submit">
-            <input type="hidden" name="category_id" id="category_id" value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
-            <input type="hidden" name="sort" id="sort" value="<?php print ($_SESSION['sort']); ?>">
-            <input type="hidden" name="ColorID" id="ColorID" value="<?php print ($_SESSION['ColorID']); ?>">
-            <input type="hidden" name="category_id" id="category_id" value="<?php if (isset($_GET['category_id'])) {print ($_GET['category_id']);} ?>">
-            <input type="hidden" name="result_page_numbers" id="result_page_numbers" value="<?php print (isset($_GET['result_page_numbers'])) ? $_GET['result_page_numbers'] : "0"; ?>">
-            <input type="hidden" name="products_on_page" id="products_on_page" value="<?php print ($_SESSION['products_on_page']); ?>">
-
+            <input type="text" name="search_string" id="search_string"
+                   value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
+                   class="form-submit">
             <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
+            <input type="hidden" name="category_id" id="category_id"
+                   value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
             <select name="products_on_page" id="products_on_page" onchange="this.form.submit()">>
                 <option value="25" <?php if ($_SESSION['products_on_page'] == 25) {
                     print "selected";
@@ -248,28 +259,74 @@ if (isset($amount)) {
                 } ?>>Naam aflopend
                 </option>
             </select>
-            <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
-            <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
-                <option value="0" <?php if ($_SESSION['ColorID'] == "0") {
-                    print "selected";
-                } ?>>
-                </option>
-                <option value="price_high_low" <?php if ($_SESSION['ColorID'] == "price_high_low") {
-                    print "selected";
-                } ?> >Prijs aflopend
-                </option>
-                <option value="name_low_high" <?php if ($_SESSION['ColorID'] == "name_low_high") {
-                    print "selected";
-                } ?>>Naam oplopend
-                </option>
-                <option value="name_high_low" <?php if ($_SESSION['ColorID'] == "name_high_low") {
-                    print "selected";
-                } ?>>Naam aflopend
-                </option>
-            </select>
-            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
-            <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
 
+            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
+            <input type="range" name="price" id="price" min="0" max="1000" step="10"
+                   value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
+                   oninput="this.form.submit()">
+
+
+
+
+
+            <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
+            <select type="text" name="Color[]" value="1" id="ColorID" <?php if (isset($_GET['ColorID']) && in_array("1", $_GET['ColorID']))
+                print "Selected"; ?>
+                   <select name="Color[]" id="ColorID" onchange="this.form.submit()">
+                       <option value="1" <?php if (isset($_GET['ColorID']) && in_array("1", $_GET['ColorID']))
+                    print "Selected"; ?>>Zwart
+                       </option>
+                       <option value="2" <?php if (isset($_GET['ColorID']) && in_array("2", $_GET['ColorID']))
+                    print "Selected"; ?>>Blauw
+                          </option>
+                          <option value="3" <?php if (isset($_GET['ColorID']) && in_array("3", $_GET['ColorID']))
+                    print "Selected"; ?>>Rood
+                            </option>
+                            <option value="4" <?php if (isset($_GET['ColorID']) && in_array("4", $_GET['ColorID']))
+                    print "Selected"; ?>>Groen
+                            </option>
+                            <option value="5" <?php if (isset($_GET['ColorID']) && in_array("5", $_GET['ColorID']))
+                    print "Selected"; ?>>Geel
+                            </option>
+                            <option value="6" <?php if (isset($_GET['ColorID']) && in_array("6", $_GET['ColorID']))
+                    print "Selected"; ?>>Oranje
+                            </option>
+                   </select>
+
+               <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
+               <select type="text" name="Size[]" value="1" id="SizeID" <?php if (isset($_GET['SizeID']) && in_array("1", $_GET['SizeID']))
+                print "Selected"; ?>
+                   <select name="Size[]" id="SizeID" onchange="this.form.submit()">
+                       <option value="1" <?php if (isset($_GET['SizeID']) && in_array("1", $_GET['SizeID']))
+                    print "Selected"; ?>>S
+                       </option>
+                       <option value="2" <?php if (isset($_GET['SizeID']) && in_array("2", $_GET['SizeID']))
+                    print "Selected"; ?>>M
+                          </option>
+                          <option value="3" <?php if (isset($_GET['SizeID']) && in_array("3", $_GET['SizeID']))
+                    print "Selected"; ?>>L
+                            </option>
+                            <option value="4" <?php if (isset($_GET['SizeID']) && in_array("4", $_GET['SizeID']))
+                    print "Selected"; ?>>XL
+                            </option>
+                            <option value="5" <?php if (isset($_GET['SizeID']) && in_array("5", $_GET['SizeID']))
+                    print "Selected"; ?>>XXL
+                            </option>
+                            <option value="6" <?php if (isset($_GET['SizeID']) && in_array("6", $_GET['SizeID']))
+                    print "Selected"; ?>>XXXL
+                            </option>
+                   </select>
+
+
+
+
+
+
+
+
+
+
+    </form>
 </div>
 
 </div>
@@ -315,9 +372,19 @@ if (isset($amount)) {
         <form id="PageSelector">
 
 <!-- code deel 4 van User story: Zoeken producten  -->
-
+            <input type="hidden" name="search_string" id="search_string"
+                   value="<?php if (isset($_GET['search_string'])) {
+                       print ($_GET['search_string']);
+                   } ?>">
+            <input type="hidden" name="sort" id="sort" value="<?php print ($_SESSION['sort']); ?>">
 <!-- einde code deel 4 van User story: Zoeken producten  -->
-
+            <input type="hidden" name="category_id" id="category_id" value="<?php if (isset($_GET['category_id'])) {
+                print ($_GET['category_id']);
+            } ?>">
+            <input type="hidden" name="result_page_numbers" id="result_page_numbers"
+                   value="<?php print (isset($_GET['result_page_numbers'])) ? $_GET['result_page_numbers'] : "0"; ?>">
+            <input type="hidden" name="products_on_page" id="products_on_page"
+                   value="<?php print ($_SESSION['products_on_page']); ?>">
 
             <?php
             if ($AmountOfPages > 0) {
@@ -337,7 +404,7 @@ if (isset($amount)) {
     } else {
         ?>
         <h2 id="NoSearchResults">
-            Jammer er zijn geen resutaten gevonden.
+            Yarr, er zijn geen resultaten gevonden.
         </h2>
         <?php
     }
