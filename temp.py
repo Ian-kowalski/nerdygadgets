@@ -1,12 +1,30 @@
-# import modules
+import mysql.connector
 from sense_hat import SenseHat
-from time import sleep
-# object instantiation
+import datetime
+import time
+
 sense = SenseHat()
-# delay between calls
-delay = 5
+
+# Connecten met database, host computer
+mydb = mysql.connector.connect(
+    host= "169.254.182.18", # Om te testen voer eigen IP-adres in
+    user="root",
+    password="",
+    port="3306",
+    database="nerdygadgets"
+)
+
+cursor = mydb.cursor()
 while True:
-    temp = round(sense.get_temperature(), 1)
-    print("Temperatuur: %sC" % temp)
-    sleep(delay)
-print("Einde script")
+    temp = round(sense.get_temperature(), 2);
+    curentTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S");
+
+    update_temp = 'UPDATE coldroomtemperatures SET RecordedWhen = %s, Temperature = %s, ValidFrom = %s WHERE coldRoomSensorNumber = 5';
+    val_for_update_temp = (curentTime, temp, curentTime)
+
+    cursor.execute(update_temp, val_for_update_temp)
+    mydb.commit()
+    
+    print(temp)
+    time.sleep(3)
+
