@@ -120,9 +120,6 @@ if (isset($_GET['pricefilter'])) {
     $_SESSION['pricefilter'] = "";
 }
 
-
-// <einde van de code voor zoekcriteria>
-// einde code deel 1 van User story: Zoeken producten
 $Offset = $PageNumber * $ProductsOnPage;
 
 if ($CategoryID != "") { 
@@ -131,47 +128,8 @@ if ($CategoryID != "") {
     }
 }
 
-// code deel 2 van User story: Zoeken producten
-// <voeg hier de code in waarin het zoekresultaat opgehaald wordt uit de database>
-if ($CategoryID == "") {
-    if ($queryBuildResult != "") {
-        $queryBuildResult = "WHERE " . $queryBuildResult;
-    }
 
-    $Query = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
-                (SELECT ImagePath
-                FROM stockitemimages
-                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
-                JOIN stockitemholdings SIH USING(stockitemid)
-                " . $queryBuildResult . "
-                GROUP BY StockItemID
-                ORDER BY " . $Sort . "
-                LIMIT ?  OFFSET ?";
-
-
-    $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
-    mysqli_stmt_execute($Statement);
-    $ReturnableResult = mysqli_stmt_get_result($Statement);
-    $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
-
-    $Query = "
-            SELECT count(*)
-            FROM stockitems SI
-            $queryBuildResult";
-    $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_execute($Statement);
-    $Result = mysqli_stmt_get_result($Statement);
-    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
-}
-// <einde van de code voor zoekresultaat>
-// einde deel 2 van User story: Zoeken producten
-
-if ($CategoryID !== "") {
+if ($CategoryID != "") {
 $Query = "
            SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
            ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
@@ -184,11 +142,11 @@ $Query = "
            JOIN stockgroups ON stockitemstockgroups.StockGroupID = stockgroups.StockGroupID
            WHERE " . $queryBuildResult . " ? IN (SELECT StockGroupID from stockitemstockgroups WHERE StockItemID = SI.StockItemID)
            GROUP BY StockItemID
-           ORDER BY " . $Sort . "
+           ORDER BY ?
            LIMIT ? OFFSET ?";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "iii", $CategoryID, $ProductsOnPage, $Offset);
+    mysqli_stmt_bind_param($Statement, "isii", $CategoryID, $Sort, $ProductsOnPage, $Offset);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
@@ -205,6 +163,8 @@ $Query = "
 
 }
 $amount = $Result[0];
+
+
 if (isset($amount)) {
     $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
 }
