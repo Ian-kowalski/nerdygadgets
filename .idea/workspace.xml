@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72f89a5f-fc36-46f7-88f4-4a2aeb7c3bb1" name="Changes" comment="Sven 13-12-2022">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18-12-2022_23_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18-12-2022_23_02__Changes_.xml" afterDir="false" />
+    <list default="true" id="72f89a5f-fc36-46f7-88f4-4a2aeb7c3bb1" name="Changes" comment="Deels werkende slider bij settings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/darkmode.php" beforeDir="false" afterPath="$PROJECT_DIR$/darkmode.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.php" beforeDir="false" afterPath="$PROJECT_DIR$/settings.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +75,7 @@
       <workItem from="1670951191958" duration="9282000" />
       <workItem from="1671011659639" duration="1924000" />
       <workItem from="1671115052714" duration="4977000" />
-      <workItem from="1671471025678" duration="1417000" />
+      <workItem from="1671471025678" duration="3913000" />
     </task>
     <task id="LOCAL-00001" summary="Sven 29-11-2022">
       <created>1669722050503</created>
@@ -169,7 +168,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670957883823</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Deels werkende slider bij settings">
+      <created>1671475607287</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1671475607287</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,7 +197,8 @@
     <MESSAGE value="Sven 30-11-2022" />
     <MESSAGE value="Sven 6-12-2022" />
     <MESSAGE value="Sven 13-12-2022" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sven 13-12-2022" />
+    <MESSAGE value="Deels werkende slider bij settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deels werkende slider bij settings" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
