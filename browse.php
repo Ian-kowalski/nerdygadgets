@@ -147,14 +147,14 @@ if ($CategoryID == "") {
                 (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
                 FROM stockitems SI
                 JOIN stockitemholdings SIH USING(stockitemid)
-                ?
+                " . $queryBuildResult . "
                 GROUP BY StockItemID
-                ORDER BY ?
+                ORDER BY " . $Sort . "
                 LIMIT ?  OFFSET ?";
 
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "ii",$queryBuildResult,$Sort,$ProductsOnPage, $Offset);
+    mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
