@@ -81,6 +81,7 @@ switch ($SortOnPage) {
 }
 
 if ($SearchString != "") {
+    $SearchString = str_replace("'", "", $SearchString); //Voorkoming SQL-injectie: Haalt single aanhalingstekens weg
     $searchValues = explode(" ", $SearchString);
     $queryBuildResult .= "(";
     for ($i = 0; $i < count($searchValues); $i++) {

@@ -107,7 +107,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             $(document).ready(function () {
                 setInterval(function () {
                     $("#temp").load(window.location.href + " #temp" );
-                }, 500);
+                }, 3000);
             });
         </script>
 
