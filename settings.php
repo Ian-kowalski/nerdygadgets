@@ -2,31 +2,35 @@
 include __DIR__ . '/header.php';
 include 'darkmode.php';
 
-$checked = '';
-
-if(isset($_POST['colorswitch'])){
-    $_SESSION['colorswitch'] = $_POST['colorswitch'];
-}
-if(isset($_SESSION['colorswitch'])){
-    $checked = "checked='checked'";
-}
-
-if(!isset($_POST['colorswitch'])){
-    unset($_SESSION['colorswitch']);
-    $checked = '';
-}
 
 ?>
 <h3>Lightmode </h3>
 <!-- Rounded switch -->
+<?php
+
+//does not realy work
+if(isset($_SESSION["offOn"])){
+    $OppisteCheckedVal=$_SESSION["offOn"]["OppisteCheckedVal"];
+    $Checked=$_SESSION["offOn"]["checked"];
+}elseif (isset($_POST['offOn'])){
+    echo "checked!";
+    $_SESSION["offOn"]=array("checked"=> "checked","OppisteCheckedVal" => "OFF");
+
+}
+else {
+    echo "not checked!";
+    $_SESSION["offOn"]=array("checked" => "","OppisteCheckedVal" => "ON");
+
+}
+print_r($_SESSION);
+$OppisteCheckedVal=$_SESSION["offOn"]["OppisteCheckedVal"];
+$Checked=$_SESSION["offOn"]["checked"];
+?>
 
 <form method="post">
-    <label class="switch">
-        <input type="checkbox" name="colorswitch" value="colormode" <?php if(isset($_SESSION['colorswitch'])) echo ("checked='checked'") ?>  />
-        <span class="slider round"></span>
-    </label><br>
-    <div class="button button1">
-        <input type="submit" name="settingsubmit" value="Opslaan">
-    </div>
+<label class="switch">
+    <input type="checkbox" name="offOn" onchange="this.form.submit()" <?php echo $Checked ?> value="<?php echo $OppisteCheckedVal; ?>">
+    <span class="slider round"></span>
+</label>
 </form>
 

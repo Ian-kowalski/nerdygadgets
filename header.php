@@ -5,6 +5,17 @@ include "database.php";
 
 
 $databaseConnection = connectToDatabase();
+
+if (isset($_POST['offOn'])){
+    echo "checked!";
+    $_SESSION["offOn"]=array("checked"=> "checked","OppisteCheckedVal" => "OFF");
+
+}
+else {
+    echo "not checked!";
+    $_SESSION["offOn"]=array("checked" => "","OppisteCheckedVal" => "ON");
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
