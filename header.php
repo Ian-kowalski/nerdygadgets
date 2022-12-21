@@ -72,6 +72,9 @@ $LogoColor = "LogoImage";
                 <a href="settings.php" class="HrefDecoration"><i class="fas fa-cog blue"></i></a>
             </li>
             <li>
+                <a href="login.php" class="HrefDecoration"><i class="fas fa-walking blue"></i></a>
+            </li>
+            <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search blue"></i> </a>
             </li>
             <li>
