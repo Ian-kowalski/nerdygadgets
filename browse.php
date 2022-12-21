@@ -1,3 +1,4 @@
+<!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
 
@@ -63,7 +64,7 @@ if (isset($_GET['sort'])) {
 if (isset($_GET['ColorID'])) {
     $_SESSION["ColorID"] = $_GET['ColorID'];
 } else {
-   $_SESSION["ColorID"] = "0";
+    $_SESSION["ColorID"] = "0";
 }
 if (isset($_GET['SizeID'])) {
     $_SESSION["SizeID"] = $_GET['SizeID'];
@@ -112,6 +113,9 @@ if ($SearchString != "") {
     }
     $queryBuildResult .= ")";
 }
+// <einde van de code voor zoekcriteria>
+// einde code deel 1 van User story: Zoeken producten
+$Offset = $PageNumber * $ProductsOnPage;
 
 function pricefilter($queryBuildResult, $min, $max)
 {
@@ -243,24 +247,28 @@ if (isset($amount)) {
 }
 
 
-    function getVoorraadTekst($actueleVoorraad) {
-        if ($actueleVoorraad > 1000) {
-            return "Ruime voorraad beschikbaar.";
-        } else {
-            return "Voorraad: $actueleVoorraad";
-        }
+function getVoorraadTekst($actueleVoorraad) {
+    if ($actueleVoorraad > 1000) {
+        return "Ruime voorraad beschikbaar.";
+    } else {
+        return "Voorraad: $actueleVoorraad";
     }
-    function berekenVerkoopPrijs($adviesPrijs, $btw) {
-		return $btw * $adviesPrijs / 100 + $adviesPrijs;
-    }
+}
+function berekenVerkoopPrijs($adviesPrijs, $btw) {
+    return $btw * $adviesPrijs / 100 + $adviesPrijs;
+}
 ?>
 
 <div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filteren </h2>
     <form>
         <div id="FilterOptions">
             <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Zoeken</h4>
-            <input type="text" name="search_string" id="search_string" value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>" class="form-submit">
-            <input type="hidden" name="category_id" id="category_id" value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
+            <input type="text" name="search_string" id="search_string"
+                   value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
+                   class="form-submit">
+            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
+            <input type="hidden" name="category_id" id="category_id"
+                   value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
             <input type="hidden" name="sort" id="sort" value="<?php print ($_SESSION['sort']); ?>">
             <input type="hidden" name="ColorID" id="ColorID" value="<?php print ($_SESSION['ColorID']); ?>">
             <input type="hidden" name="SizeID" id="SizeID" value="<?php print ($_SESSION['SizeID']); ?>">
@@ -346,7 +354,7 @@ if (isset($amount)) {
                 } ?>>Geel
                 </option>
             </select>
-
+            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
             <select name="SizeID" id="SizeID" onchange="this.form.submit()">>
                 <option value="0" <?php if ($_SESSION['SizeID'] == "0") {
@@ -459,7 +467,7 @@ if (isset($amount)) {
     } else {
         ?>
         <h2 id="NoSearchResults">
-            Jammer er zijn geen resutaten gevonden.
+            Yarr, er zijn geen resultaten gevonden.
         </h2>
         <?php
     }
