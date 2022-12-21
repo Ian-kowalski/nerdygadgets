@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="71124691-e071-44b5-b91c-b98f899191e3" name="Changes" comment="lucas 21-12-22">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/nerdygadgets1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nerdygadgets1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/CSS/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IDIAnuqJ2yNQlwAlcJnVgfnN7i" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/xampp/htdocs/nerdygadgets",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71124691-e071-44b5-b91c-b98f899191e3" name="Changes" comment="" />
+      <created>1669709585798</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669709585798</updated>
+      <workItem from="1669709586895" duration="2389000" />
+      <workItem from="1669815530954" duration="4555000" />
+      <workItem from="1669882270185" duration="127000" />
+      <workItem from="1669882744732" duration="313000" />
+      <workItem from="1669883561232" duration="1190000" />
+      <workItem from="1669989039831" duration="607000" />
+      <workItem from="1670243351607" duration="19000" />
+      <workItem from="1670244102170" duration="2194000" />
+      <workItem from="1670320846095" duration="37000" />
+      <workItem from="1670924048567" duration="5026000" />
+      <workItem from="1671011444880" duration="1983000" />
+      <workItem from="1671013832737" duration="2012000" />
+      <workItem from="1671108231770" duration="2285000" />
+      <workItem from="1671542389688" duration="4039000" />
+      <workItem from="1671608175996" duration="5274000" />
+    </task>
+    <task id="LOCAL-00001" summary="lucas 21-12-22">
+      <created>1671613670575</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1671613670575</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="lucas 21-12-22" />
+    <option name="LAST_COMMIT_MESSAGE" value="lucas 21-12-22" />
+  </component>
+</project>

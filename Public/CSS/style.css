@@ -314,7 +314,7 @@ ul#ul-class-price li {
     display: inline;
 }
 .TextPrice {
-    margin-top: 15%;
+    margin-top: 1.5%;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -341,28 +341,36 @@ ul#ul-class-price li {
 .TextMain {
     color: #fff;
     font-family: vortice-concept, sans-serif;
-    font-size: 50px;
+    font-size: 45px;
     text-transform: uppercase;
     font-weight: bold;
     width: 60%;
-    margin-left: 10%;
+    margin-left: 16%;
 }
-.HomePagePrice {
+.HomePageDiscount {
     color: rgb(36, 41, 143);
     font-family: vortice-concept, sans-serif;
-    font-size: 50px;
+    font-size: 45px;
     text-transform: uppercase;
     font-weight: bold;
-    margin-left: 7%;
+    margin-left: 13%;
+}
+.HomePagePrice {
+    color: rgb(139, 0, 0);
+    font-family: vortice-concept, sans-serif;
+    font-size: 35px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-left: 5%;
 }
 .HomePageStockItemPicture {
     background-image: url("../ProductIMGHighRes/580b57fbd9996e24bc43bf55.png");
     background-size: 100% 100%;
-    width: 477px;
-    height: 477px;
+    width: 377px;
+    height: 377px;
     background-repeat: no-repeat;
-    margin-left: 55%;
-    margin-top: -30%;
+    margin-left: 60%;
+    margin-top: -25%;
 }
 #Wrap {
     width: 100%;
