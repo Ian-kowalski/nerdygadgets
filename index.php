@@ -10,7 +10,8 @@ include __DIR__ . "/header.php";
                     "The Gu" red shirt XML tag t-shirt (Black) M
                 </div>
                 <ul id="ul-class-price">
-                    <li class="HomePagePrice">€30.95</li>
+                    <li class="HomePageDiscount">€ 30,95</li>
+                    <li class="HomePagePrice">€36.50</li>
                 </ul>
         </div>
         </a>
