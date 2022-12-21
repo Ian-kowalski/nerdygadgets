@@ -83,7 +83,7 @@ ul#ul-class-navigation li {
     z-index: 1;
     border-bottom: 1px solid rgb(36, 41, 143);
 }
-#HeaderLight {
+#HeaderLight { /* Lichtgrijze versie van de header voor Lightmode */
     position: fixed;
     top:0;
     background-color: #DCDCD0;
@@ -295,7 +295,7 @@ ul#ul-class-navigation li {
     height: 90px;
     margin: 5px 55px 5px 10%;
 }
-#LogoImageLight {
+#LogoImageLight { /* Inverted versie van de logo voor Lightmode */
     background-image: url("../ProductIMGHighRes/LogoNG.png");
     width: 250px;
     height: 90px;
