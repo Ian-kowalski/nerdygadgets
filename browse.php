@@ -311,7 +311,7 @@ if (isset($amount)) {
                 </option>
                 <option value="3" <?php if ($_SESSION['ColorID'] == "3") {
                     print "selected";
-                } ?>>blauw
+                } ?>>blauwfix
                 </option>
             </select>
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
