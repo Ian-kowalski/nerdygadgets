@@ -17,8 +17,8 @@ else {
 
 }
 
-$HeaderColor = "HeaderLight";
-$LogoColor = "LogoImageLight";
+$HeaderColor = "Header";
+$LogoColor = "LogoImage";
 
 ?>
 <!DOCTYPE html>
