@@ -1,7 +1,7 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
-// test of er een categorie is geselecteerd
+// test of er een categorie is geselecteerd klikken op een categorie
 $ReturnableResult = null;
 $Sort = "SellPrice";
 $SortName = "price_low_high";
