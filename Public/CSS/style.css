@@ -54,7 +54,6 @@ input {
     font-family: pt-sans, sans-serif;
     height: 50px;
     font-size: 20px;
-    width: 100%;
     padding: 0 10px;
 }
 table tr th,
@@ -826,3 +825,5 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.wrapper{ width: 360px; padding: 20px; }

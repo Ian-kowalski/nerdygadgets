@@ -1,5 +1,6 @@
 <?php
 // Include config file
+include __DIR__ . '/header.php';
 require_once "config.php";
 
 // Define variables and initialize with empty values
@@ -94,19 +95,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_close($link);
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
-<body>
 <div class="wrapper">
     <h2>Sign Up</h2>
     <p>Please fill this form to create an account.</p>

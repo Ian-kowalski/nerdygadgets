@@ -1,6 +1,6 @@
 <?php
 // Initialize the session
-session_start();
+include __DIR__ . '/header.php';
 
 // Unset all of the session variables
 $_SESSION = array();

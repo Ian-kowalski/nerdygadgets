@@ -1,6 +1,6 @@
 <?php
 // Initialize the session
-session_start();
+include __DIR__ . '/header.php';
 
 // Check if the user is logged in, otherwise redirect to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
