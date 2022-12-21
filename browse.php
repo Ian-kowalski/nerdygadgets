@@ -320,7 +320,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
             <input type="range" name="price" id="price" min="0" max="1000" step="10"
                    value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
                    oninput="this.form.submit()">
-
+            <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
                 <option value="0" <?php if ($_SESSION['ColorID'] == "0") {
@@ -356,7 +356,6 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
                 } ?>>Geel
                 </option>
             </select>
-            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
             <select name="SizeID" id="SizeID" onchange="this.form.submit()">>
                 <option value="0" <?php if ($_SESSION['SizeID'] == "0") {
@@ -414,6 +413,8 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
                 <option value="7XL" <?php if ($_SESSION['SizeID'] == "7XL") {
                     print "selected";
                 } ?>>7XL
+
+                <?php }?>
             </select>
         </div>
     </form>
