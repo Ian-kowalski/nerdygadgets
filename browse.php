@@ -30,6 +30,23 @@ if (isset($_GET['page_number'])) {
 } else {
     $PageNumber = 0;
 }
+
+if (isset($_GET['ColorID'])) {
+    $FilterColor = $_GET['ColorID'];
+    $_SESSION["ColorID"] = $_GET['ColorID'];
+} else {
+    $FilterColor = "";
+    $_SESSION["ColorID"] = "";
+}
+if (isset($_GET['SizeID'])) {
+    $FilterSize = $_GET['SizeID'];
+    $_SESSION["SizeID"] = $_GET['SizeID'];
+} else {
+    $FilterSize = "";
+    $_SESSION["SizeID"] = "";
+}
+
+
 if (isset($_GET['search_string'])) {
     $SearchString = $_GET['search_string'];
     $_SESSION["search_string"] = $_GET['search_string'];
@@ -291,63 +308,105 @@ if (isset($amount)) {
                 } ?>>Naam aflopend
                 </option>
             </select>
-            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
+
+            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> Prijs</h4>
             <input type="range" name="price" id="price" min="0" max="1000" step="10"
                    value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
                    oninput="this.form.submit()">
+
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
                 <option value="0" <?php if ($_SESSION['ColorID'] == "0") {
                     print "selected";
-                } ?>> kies kleur
-                </option>
-                <option value="1" <?php if ($_SESSION['ColorID'] == "1") {
-                    print "selected";
-                } ?> >zwart
-                </option>
-                <option value="2" <?php if ($_SESSION['ColorID'] == "2") {
-                    print "selected";
-                } ?>>wit
+                } ?>> Kies een kleur
                 </option>
                 <option value="3" <?php if ($_SESSION['ColorID'] == "3") {
                     print "selected";
-                } ?>>blauwfix
+                } ?> >Zwart
+                </option>
+                <option value="4" <?php if ($_SESSION['ColorID'] == "4") {
+                    print "selected";
+                } ?>>Blauw
+                </option>
+                <option value="12" <?php if ($_SESSION['ColorID'] == "12") {
+                    print "selected";
+                } ?>>Staalgrijs
+                </option>
+                <option value="18" <?php if ($_SESSION['ColorID'] == "18") {
+                print "selected";
+            } ?>>LichtBruin
+                </option>
+                <option value="28" <?php if ($_SESSION['ColorID'] == "28") {
+                    print "selected";
+                } ?>>Rood
+                </option>
+                <option value="35" <?php if ($_SESSION['ColorID'] == "35") {
+                    print "selected";
+                } ?>> Wit
+                </option>
+                <option value="36" <?php if ($_SESSION['ColorID'] == "36") {
+                    print "selected";
+                } ?>>Geel
                 </option>
             </select>
+            
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
             <select name="SizeID" id="SizeID" onchange="this.form.submit()">>
                 <option value="0" <?php if ($_SESSION['SizeID'] == "0") {
                     print "selected";
-                } ?>> kies maat
+                } ?>> Kies een maat
                 </option>
-                <option value="1" <?php if ($_SESSION['SizeID'] == "1") {
+                <option value="3XS" <?php if ($_SESSION['SizeID'] == "3XS") {
                     print "selected";
-                } ?> >s
+                } ?> >3XS
                 </option>
-                <option value="2" <?php if ($_SESSION['SizeID'] == "2") {
+                <option value="XXS" <?php if ($_SESSION['SizeID'] == "XXS") {
                     print "selected";
-                } ?>>m
+                } ?>>XXS
                 </option>
-                <option value="3" <?php if ($_SESSION['SizeID'] == "3") {
+                <option value="XS" <?php if ($_SESSION['SizeID'] == "XS") {
                     print "selected";
-                } ?>>l
+                } ?>>XS
                 </option>
-                <option value="4" <?php if ($_SESSION['SizeID'] == "4") {
+                <option value="S" <?php if ($_SESSION['SizeID'] == "S") {
                     print "selected";
-                } ?>>xl
+                } ?>>S
                 </option>
-                <option value="5" <?php if ($_SESSION['SizeID'] == "5") {
+                <option value="M" <?php if ($_SESSION['SizeID'] == "M") {
                     print "selected";
-                } ?>>xxl
+                } ?>>M
                 </option>
-                <option value="6" <?php if ($_SESSION['SizeID'] == "6") {
+                <option value="L" <?php if ($_SESSION['SizeID'] == "L") {
                     print "selected";
-                } ?>>xl
+                } ?>>L
                 </option>
-                <option value="7" <?php if ($_SESSION['SizeID'] == "7") {
+                <option value="XL" <?php if ($_SESSION['SizeID'] == "XL") {
                     print "selected";
-                } ?>>xxxl
+                } ?>>XL
                 </option>
+                <option value="XXL" <?php if ($_SESSION['SizeID'] == "XXL") {
+                    print "selected";
+                } ?>>XXL
+                </option>
+                <option value="3XL" <?php if ($_SESSION['SizeID'] == "3XL") {
+                    print "selected";
+                } ?>>3XL
+                </option>
+                <option value="4XL" <?php if ($_SESSION['SizeID'] == "4XL") {
+                    print "selected";
+                } ?>>4XL
+                </option>
+                <option value="5XL" <?php if ($_SESSION['SizeID'] == "5XL") {
+                    print "selected";
+                } ?>>5XL
+                </option>
+                <option value="6XL" <?php if ($_SESSION['SizeID'] == "6XL") {
+                    print "selected";
+                } ?>>6XL
+                </option>
+                <option value="7XL" <?php if ($_SESSION['SizeID'] == "7XL") {
+                    print "selected";
+                } ?>>7XL
             </select>
         </div>
     </form>
