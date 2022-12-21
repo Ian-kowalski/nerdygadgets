@@ -1,19 +1,19 @@
+<!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
 include __DIR__ . "/header.php";
 
 $ReturnableResult = null;
 $Sort = "SellPrice";
 $SortName = "price_low_high";
+
 $AmountOfPages = 0;
 $queryBuildResult = "";
-$SearchString = "";
+
 
 if (isset($_GET['category_id'])) {
     $CategoryID = $_GET['category_id'];
-    $_SESSION["category_id"] = $_GET['category_id'];
 } else {
     $CategoryID = "";
-    $_SESSION["category_id"]=$CategoryID;
 }
 if (isset($_GET['products_on_page'])) {
     $ProductsOnPage = $_GET['products_on_page'];
@@ -26,13 +26,17 @@ if (isset($_GET['products_on_page'])) {
 }
 if (isset($_GET['page_number'])) {
     $PageNumber = $_GET['page_number'];
-    $_SESSION["page_number"] = $_GET['page_number'];
 } else {
     $PageNumber = 0;
 }
+
+
+// code deel 1 van User story: Zoeken producten
+// <voeg hier de code in waarin de zoekcriteria worden opgebouwd>
+$SearchString = "";
+
 if (isset($_GET['search_string'])) {
     $SearchString = $_GET['search_string'];
-    $_SESSION["search_string"] = $_GET['search_string'];
 }
 if (isset($_GET['sort'])) {
     $SortOnPage = $_GET['sort'];
@@ -46,18 +50,18 @@ if (isset($_GET['sort'])) {
 if (isset($_GET['ColorID'])) {
     $_SESSION["ColorID"] = $_GET['ColorID'];
 } else {
-    $_SESSION["ColorID"] = "0";
-}
-if (isset($_GET['SizeID'])) {
-    $_SESSION["SizeID"] = $_GET['SizeID'];
-} else {
-    $_SESSION["SizeID"] = "0";
+   $_SESSION["ColorID"] = "0";
 }
 
 switch ($SortOnPage) {
     case "price_high_low":
     {
         $Sort = "SellPrice DESC";
+        break;
+    }
+    case "price_low_high":
+    {
+        $Sort = "SellPrice";
         break;
     }
     case "name_low_high":
@@ -68,158 +72,111 @@ switch ($SortOnPage) {
     case "name_high_low";
         $Sort = "StockItemName DESC";
         break;
-    case "price_low_high":
-    {
-        $Sort = "SellPrice";
-        break;
-    }
     default:
     {
         $Sort = "SellPrice";
         $SortName = "price_low_high";
     }
 }
+$searchValues = explode(" ", $SearchString);
 
+$queryBuildResult = "";
 if ($SearchString != "") {
-    $SearchString = str_replace("'", "", $SearchString); //Voorkoming SQL-injectie: Haalt single aanhalingstekens weg
-    $searchValues = explode(" ", $SearchString);
-    $queryBuildResult .= "(";
     for ($i = 0; $i < count($searchValues); $i++) {
         if ($i != 0) {
             $queryBuildResult .= "AND ";
         }
         $queryBuildResult .= "SI.SearchDetails LIKE '%$searchValues[$i]%' ";
     }
-    if(is_int($SearchString)){
-        $queryBuildResult .= "OR SI.StockItemID ='$SearchString'";
-    }
-    $queryBuildResult .= ")";
-}
-
-function pricefilter($queryBuildResult, $min, $max)
-{
     if ($queryBuildResult != "") {
-        $queryBuildResult .= " AND ";
+        $queryBuildResult .= " OR ";
     }
-    $queryBuildResult .= "SI.SellPrice BETWEEN $min AND $max";
-    return $queryBuildResult;
+    if ($SearchString != "" || $SearchString != null) {
+        $queryBuildResult .= "SI.StockItemID ='$SearchString'";
+    }
 }
-
-if (isset($_GET['pricefilter'])) {
-    $PriceFilter = $_GET['pricefilter'];
-    $_SESSION['pricefilter'] = $_GET['pricefilter'];
-} else if (isset($_SESSION['pricefilter'])) {
-    $PriceFilter = $_SESSION['pricefilter'];
-} else {
-    $PriceFilter = "";
-    $_SESSION['pricefilter'] = "";
-}
-
-
+// <einde van de code voor zoekcriteria>
+// einde code deel 1 van User story: Zoeken producten
 $Offset = $PageNumber * $ProductsOnPage;
 
+if ($CategoryID != "") { 
+    if ($queryBuildResult != "") {
+    $queryBuildResult .= " AND ";
+    }
+}
 
-
+// code deel 2 van User story: Zoeken producten
+// <voeg hier de code in waarin het zoekresultaat opgehaald wordt uit de database>
 if ($CategoryID == "") {
     if ($queryBuildResult != "") {
-        $Query_sort = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
-                (SELECT ImagePath
-                FROM stockitemimages
-                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
-                JOIN stockitemholdings SIH USING(stockitemid)
-                WHERE ".$queryBuildResult."
-                GROUP BY StockItemID
-                ORDER BY ".$Sort."
-                LIMIT ?  OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI
-                WHERE $queryBuildResult";
-    }else{
-        $Query_sort = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
-                (SELECT ImagePath
-                FROM stockitemimages
-                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
-                JOIN stockitemholdings SIH USING(stockitemid)
-                GROUP BY StockItemID
-                ORDER BY ".$Sort."
-                LIMIT ?  OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI";
+        $queryBuildResult = "WHERE " . $queryBuildResult;
     }
-    $Statement = mysqli_prepare($databaseConnection, $Query_sort);
-    mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
 
-    $rows = mysqli_prepare($databaseConnection, $Query_count);
+    $Query = "
+                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
+                QuantityOnHand,
+                (SELECT ImagePath
+                FROM stockitemimages
+                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM stockitems SI
+                JOIN stockitemholdings SIH USING(stockitemid)
+                ?
+                GROUP BY StockItemID
+                ORDER BY ?
+                LIMIT ?  OFFSET ?";
+
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "ssii",$queryBuildResult,$Sort, $ProductsOnPage, $Offset);
+    mysqli_stmt_execute($Statement);
+    $ReturnableResult = mysqli_stmt_get_result($Statement);
+    $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
+
+    $Query = "
+            SELECT count(*)
+            FROM stockitems SI
+            $queryBuildResult";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_execute($Statement);
+    $Result = mysqli_stmt_get_result($Statement);
+    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
 }
+// <einde van de code voor zoekresultaat>
+// einde deel 2 van User story: Zoeken producten
 
-if ($CategoryID != "") {
-    if ($queryBuildResult != "") {
-        $Query_sort = "
-               SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
-               ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
-               QuantityOnHand,
-               (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-               (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-               FROM stockitems SI
-               JOIN stockitemholdings SIH USING(stockitemid)
-               JOIN stockitemstockgroups SIG USING(StockItemID)
-               JOIN stockgroups SG USING(StockGroupID)
-               WHERE ".$queryBuildResult." AND SIG.StockGroupID = ?
-               GROUP BY StockItemID
-               ORDER BY " . $Sort . "
-               LIMIT ? OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI
-                JOIN stockitemstockgroups SIG USING(StockItemID)
-                WHERE ".$queryBuildResult." AND SIG.StockGroupID = ?";
-    } else {
-        $Query_sort = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
-                ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
-                (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
-                JOIN stockitemholdings SIH USING(stockitemid)
-                JOIN stockitemstockgroups SIG USING(StockItemID)
-                JOIN stockgroups SG USING(StockGroupID)
-                WHERE SIG.StockGroupID = ?
-                GROUP BY StockItemID
-                ORDER BY " . $Sort . "
-                LIMIT ? OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI
-                JOIN stockitemstockgroups SIG USING(StockItemID)
-                WHERE SIG.StockGroupID = ?";
-    }
-    $Statement = mysqli_prepare($databaseConnection, $Query_sort);
+if ($CategoryID !== "") {
+$Query = "
+           SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
+           ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
+           QuantityOnHand,
+           (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+           (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+           FROM stockitems SI
+           JOIN stockitemholdings SIH USING(stockitemid)
+           JOIN stockitemstockgroups USING(StockItemID)
+           JOIN stockgroups ON stockitemstockgroups.StockGroupID = stockgroups.StockGroupID
+           WHERE " . $queryBuildResult . " ? IN (SELECT StockGroupID from stockitemstockgroups WHERE StockItemID = SI.StockItemID)
+           GROUP BY StockItemID
+           ORDER BY " . $Sort . "
+           LIMIT ? OFFSET ?";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "iii", $CategoryID, $ProductsOnPage, $Offset);
+    mysqli_stmt_execute($Statement);
+    $ReturnableResult = mysqli_stmt_get_result($Statement);
+    $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
 
-    $rows = mysqli_prepare($databaseConnection, $Query_count);
-    mysqli_stmt_bind_param($rows, "i", $CategoryID);
+    $Query = "
+                SELECT count(*)
+                FROM stockitems SI
+                WHERE " . $queryBuildResult . " ? IN (SELECT SS.StockGroupID from stockitemstockgroups SS WHERE SS.StockItemID = SI.StockItemID)";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $CategoryID);
+    mysqli_stmt_execute($Statement);
+    $Result = mysqli_stmt_get_result($Statement);
+    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
 }
-
-
-mysqli_stmt_execute($rows);
-$Result = mysqli_stmt_get_result($rows);
-$Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
-
-mysqli_stmt_execute($Statement);
-$ReturnableResult = mysqli_stmt_get_result($Statement);
-$ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
-
 $amount = $Result[0];
 if (isset($amount)) {
     $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
@@ -238,22 +195,22 @@ if (isset($amount)) {
     }
 ?>
 
+<!-- code deel 3 van User story: Zoeken producten : de html -->
+<!-- de zoekbalk links op de pagina  -->
+
 <div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filteren </h2>
     <form>
         <div id="FilterOptions">
             <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Zoeken</h4>
-            <input type="text" name="search_string" id="search_string"
-                   value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
-                   class="form-submit">
-            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
-            <input type="hidden" name="category_id" id="category_id"
-                   value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
+            <input type="text" name="search_string" id="search_string" value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>" class="form-submit">
+            <input type="hidden" name="category_id" id="category_id" value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
             <input type="hidden" name="sort" id="sort" value="<?php print ($_SESSION['sort']); ?>">
             <input type="hidden" name="ColorID" id="ColorID" value="<?php print ($_SESSION['ColorID']); ?>">
-            <input type="hidden" name="SizeID" id="SizeID" value="<?php print ($_SESSION['SizeID']); ?>">
             <input type="hidden" name="category_id" id="category_id" value="<?php if (isset($_GET['category_id'])) {print ($_GET['category_id']);} ?>">
             <input type="hidden" name="result_page_numbers" id="result_page_numbers" value="<?php print (isset($_GET['result_page_numbers'])) ? $_GET['result_page_numbers'] : "0"; ?>">
             <input type="hidden" name="products_on_page" id="products_on_page" value="<?php print ($_SESSION['products_on_page']); ?>">
+
+            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
             <select name="products_on_page" id="products_on_page" onchange="this.form.submit()">>
                 <option value="25" <?php if ($_SESSION['products_on_page'] == 25) {
                     print "selected";
@@ -291,74 +248,43 @@ if (isset($amount)) {
                 } ?>>Naam aflopend
                 </option>
             </select>
-            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
-            <input type="range" name="price" id="price" min="0" max="1000" step="10"
-                   value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
-                   oninput="this.form.submit()">
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
                 <option value="0" <?php if ($_SESSION['ColorID'] == "0") {
                     print "selected";
-                } ?>> kies kleur
+                } ?>>
                 </option>
-                <option value="1" <?php if ($_SESSION['ColorID'] == "1") {
+                <option value="price_high_low" <?php if ($_SESSION['ColorID'] == "price_high_low") {
                     print "selected";
-                } ?> >zwart
+                } ?> >Prijs aflopend
                 </option>
-                <option value="2" <?php if ($_SESSION['ColorID'] == "2") {
+                <option value="name_low_high" <?php if ($_SESSION['ColorID'] == "name_low_high") {
                     print "selected";
-                } ?>>wit
+                } ?>>Naam oplopend
                 </option>
-                <option value="3" <?php if ($_SESSION['ColorID'] == "3") {
+                <option value="name_high_low" <?php if ($_SESSION['ColorID'] == "name_high_low") {
                     print "selected";
-                } ?>>blauwfix
+                } ?>>Naam aflopend
                 </option>
             </select>
+            <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
-            <select name="SizeID" id="SizeID" onchange="this.form.submit()">>
-                <option value="0" <?php if ($_SESSION['SizeID'] == "0") {
-                    print "selected";
-                } ?>> kies maat
-                </option>
-                <option value="1" <?php if ($_SESSION['SizeID'] == "1") {
-                    print "selected";
-                } ?> >s
-                </option>
-                <option value="2" <?php if ($_SESSION['SizeID'] == "2") {
-                    print "selected";
-                } ?>>m
-                </option>
-                <option value="3" <?php if ($_SESSION['SizeID'] == "3") {
-                    print "selected";
-                } ?>>l
-                </option>
-                <option value="4" <?php if ($_SESSION['SizeID'] == "4") {
-                    print "selected";
-                } ?>>xl
-                </option>
-                <option value="5" <?php if ($_SESSION['SizeID'] == "5") {
-                    print "selected";
-                } ?>>xxl
-                </option>
-                <option value="6" <?php if ($_SESSION['SizeID'] == "6") {
-                    print "selected";
-                } ?>>xl
-                </option>
-                <option value="7" <?php if ($_SESSION['SizeID'] == "7") {
-                    print "selected";
-                } ?>>xxxl
-                </option>
-            </select>
-        </div>
-    </form>
+
 </div>
+
+</div>
+<!-- einde zoekresultaten die links van de zoekbalk staan -->
+<!-- einde code deel 3 van User story: Zoeken producten  -->
+
 
 <div id="ResultsArea" class="Browse">
     <?php
     if (isset($ReturnableResult) && count($ReturnableResult) > 0) {
         foreach ($ReturnableResult as $row) {
             ?>
+            <!--  coderegel 1 van User story: bekijken producten  -->
             <a class="ListItem" href='view.php?id=<?php print $row['StockItemID']; ?>'>
+            <!-- einde coderegel 1 van User story: bekijken producten   -->
                 <div id="ProductFrame">
                     <?php
                     if (isset($row['ImagePath'])) { ?>
@@ -381,10 +307,18 @@ if (isset($amount)) {
                     <p class="StockItemComments"><?php print $row["MarketingComments"]; ?></p>
                     <h4 class="ItemQuantity"><?php print getVoorraadTekst($row["QuantityOnHand"]); ?></h4>
                 </div>
+            <!--  coderegel 2 van User story: bekijken producten  -->
             </a>
+            <!--  einde coderegel 2 van User story: bekijken producten  -->
         <?php } ?>
 
         <form id="PageSelector">
+
+<!-- code deel 4 van User story: Zoeken producten  -->
+
+<!-- einde code deel 4 van User story: Zoeken producten  -->
+
+
             <?php
             if ($AmountOfPages > 0) {
                 for ($i = 1; $i <= $AmountOfPages; $i++) {
@@ -392,7 +326,7 @@ if (isset($amount)) {
                         ?>
                         <div id="SelectedPage"><?php print $i; ?></div><?php
                     } else { ?>
-                        <button id="page_number" class="PageNumber" value="<?php print($i-1); ?>" type="submit"
+                        <button id="page_number" class="PageNumber" value="<?php print($i - 1); ?>" type="submit"
                                 name="page_number"><?php print($i); ?></button>
                     <?php }
                 }
@@ -403,10 +337,12 @@ if (isset($amount)) {
     } else {
         ?>
         <h2 id="NoSearchResults">
-            Yarr, er zijn geen resultaten gevonden.
+            Jammer er zijn geen resutaten gevonden.
         </h2>
         <?php
     }
+
+
     ?>
 
 </div>
