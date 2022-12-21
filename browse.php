@@ -301,15 +301,15 @@ if (isset($amount)) {
                     print "selected";
                 } ?>> kies kleur
                 </option>
-                <option value="price_high_low" <?php if ($_SESSION['ColorID'] == "1") {
+                <option value="1" <?php if ($_SESSION['ColorID'] == "1") {
                     print "selected";
                 } ?> >zwart
                 </option>
-                <option value="name_low_high" <?php if ($_SESSION['ColorID'] == "2") {
+                <option value="2" <?php if ($_SESSION['ColorID'] == "2") {
                     print "selected";
                 } ?>>wit
                 </option>
-                <option value="name_high_low" <?php if ($_SESSION['ColorID'] == "3") {
+                <option value="3" <?php if ($_SESSION['ColorID'] == "3") {
                     print "selected";
                 } ?>>blauw
                 </option>
