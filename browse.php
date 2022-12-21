@@ -11,6 +11,9 @@ $SearchString = "";
 if (isset($_GET['category_id'])) {
     $CategoryID = $_GET['category_id'];
     $_SESSION["category_id"] = $_GET['category_id'];
+} elseif(isset($_SESSION["category_id"])) {
+    $CategoryID=$_SESSION["category_id"];
+    $_GET['category_id']=$CategoryID;
 } else {
     $CategoryID = "";
     $_SESSION["category_id"]=$CategoryID;
@@ -414,3 +417,4 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
 <?php
 include __DIR__ . "/footer.php";
 ?>
+
