@@ -347,6 +347,16 @@ ul#ul-class-price li {
     width: 60%;
     margin-left: 16%;
 }
+.DiscountTag {
+    font-size: 20px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: rgb(139, 0, 0);
+    margin-left: 77%;
+    width : 230px;
+    font-family: vortice-concept, sans-serif;
+}
 .HomePageDiscount {
     color: rgb(36, 41, 143);
     font-family: vortice-concept, sans-serif;
@@ -362,6 +372,7 @@ ul#ul-class-price li {
     text-transform: uppercase;
     font-weight: bold;
     margin-left: 5%;
+    text-decoration-line : line-through;
 }
 .HomePageStockItemPicture {
     background-image: url("../ProductIMGHighRes/580b57fbd9996e24bc43bf55.png");

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71124691-e071-44b5-b91c-b98f899191e3" name="Changes" comment="lucas 21-12-22">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nerdygadgets1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nerdygadgets1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/CSS/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
@@ -62,7 +60,7 @@
       <workItem from="1671013832737" duration="2012000" />
       <workItem from="1671108231770" duration="2285000" />
       <workItem from="1671542389688" duration="4039000" />
-      <workItem from="1671608175996" duration="5274000" />
+      <workItem from="1671608175996" duration="9218000" />
     </task>
     <task id="LOCAL-00001" summary="lucas 21-12-22">
       <created>1671613670575</created>
@@ -71,7 +69,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671613670575</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="lucas 21-12-22">
+      <created>1671614352375</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1671614352375</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
