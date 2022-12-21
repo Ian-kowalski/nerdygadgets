@@ -63,7 +63,7 @@ if (isset($_GET['sort'])) {
 if (isset($_GET['ColorID'])) {
     $_SESSION["ColorID"] = $_GET['ColorID'];
 } else {
-    $_SESSION["ColorID"] = "0";
+   $_SESSION["ColorID"] = "0";
 }
 if (isset($_GET['SizeID'])) {
     $_SESSION["SizeID"] = $_GET['SizeID'];
@@ -259,18 +259,15 @@ if (isset($amount)) {
     <form>
         <div id="FilterOptions">
             <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Zoeken</h4>
-            <input type="text" name="search_string" id="search_string"
-                   value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
-                   class="form-submit">
-            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
-            <input type="hidden" name="category_id" id="category_id"
-                   value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
+            <input type="text" name="search_string" id="search_string" value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>" class="form-submit">
+            <input type="hidden" name="category_id" id="category_id" value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
             <input type="hidden" name="sort" id="sort" value="<?php print ($_SESSION['sort']); ?>">
             <input type="hidden" name="ColorID" id="ColorID" value="<?php print ($_SESSION['ColorID']); ?>">
             <input type="hidden" name="SizeID" id="SizeID" value="<?php print ($_SESSION['SizeID']); ?>">
             <input type="hidden" name="category_id" id="category_id" value="<?php if (isset($_GET['category_id'])) {print ($_GET['category_id']);} ?>">
             <input type="hidden" name="result_page_numbers" id="result_page_numbers" value="<?php print (isset($_GET['result_page_numbers'])) ? $_GET['result_page_numbers'] : "0"; ?>">
             <input type="hidden" name="products_on_page" id="products_on_page" value="<?php print ($_SESSION['products_on_page']); ?>">
+            <h4 class="FilterTopMargin"><i class="fas fa-list-ol"></i> Aantal producten op pagina</h4>
             <select name="products_on_page" id="products_on_page" onchange="this.form.submit()">>
                 <option value="25" <?php if ($_SESSION['products_on_page'] == 25) {
                     print "selected";
@@ -349,7 +346,7 @@ if (isset($amount)) {
                 } ?>>Geel
                 </option>
             </select>
-            
+
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
             <select name="SizeID" id="SizeID" onchange="this.form.submit()">>
                 <option value="0" <?php if ($_SESSION['SizeID'] == "0") {
@@ -462,7 +459,7 @@ if (isset($amount)) {
     } else {
         ?>
         <h2 id="NoSearchResults">
-            Yarr, er zijn geen resultaten gevonden.
+            Jammer er zijn geen resutaten gevonden.
         </h2>
         <?php
     }

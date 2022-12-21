@@ -9,7 +9,7 @@ include 'darkmode.php';
 <?php
 
 //does not realy work
-if(isset($_SESSION["offOn"])){
+/* if(isset($_SESSION["offOn"])){
     $OppisteCheckedVal=$_SESSION["offOn"]["OppisteCheckedVal"];
     $Checked=$_SESSION["offOn"]["checked"];
 }elseif (isset($_POST['offOn'])){
@@ -24,13 +24,28 @@ else {
 }
 print_r($_SESSION);
 $OppisteCheckedVal=$_SESSION["offOn"]["OppisteCheckedVal"];
-$Checked=$_SESSION["offOn"]["checked"];
+$Checked=$_SESSION["offOn"]["checked"]; */
 ?>
 
-<form method="post">
+<!--<form method="post">
 <label class="switch">
-    <input type="checkbox" name="offOn" onchange="this.form.submit()" <?php echo $Checked ?> value="<?php echo $OppisteCheckedVal; ?>">
+    <input type="checkbox" name="offOn" onchange="this.form.submit()" <?php /*echo $Checked ?> value="<?php echo $OppisteCheckedVal;*/?>">
     <span class="slider round"></span>
 </label>
+</form> -->
+
+<form method="post">
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
 </form>
+
+
+
+
+
+
+
+
 
