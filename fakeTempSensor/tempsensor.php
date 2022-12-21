@@ -19,7 +19,7 @@ function connectToDatabase() {
 $databaseConnection = connectToDatabase();
 while(True){
     $now = date("Y-m-d H:i:s");                 // 2001-03-10 17:16:18 (the MySQL DATETIME format)
-    $temp = rand(250, 350)/100;
+    $temp = rand(250, 350)/100;                         // rand voor een fake tempratuur
 
     mysqli_begin_transaction($databaseConnection);      // write temp to database
     try {

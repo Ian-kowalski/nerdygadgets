@@ -3,7 +3,23 @@
 session_start();
 include "database.php";
 
+
 $databaseConnection = connectToDatabase();
+
+if (isset($_POST['offOn'])){
+    echo "checked!";
+    $_SESSION["offOn"]=array("checked"=> "checked","OppisteCheckedVal" => "OFF");
+
+}
+else {
+    echo "not checked!";
+    $_SESSION["offOn"]=array("checked" => "","OppisteCheckedVal" => "ON");
+
+}
+
+$HeaderColor = "HeaderLight";
+$LogoColor = "LogoImageLight";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +43,9 @@ $databaseConnection = connectToDatabase();
 </head>
 <body>
 <div class="Background">
-    <div class="row" id="Header">
+    <div class="row" id="<?php echo $HeaderColor ?>">
         <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"></div>
+                <div id="<?php echo $LogoColor ?>"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
