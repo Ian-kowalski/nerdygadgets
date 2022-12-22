@@ -6,9 +6,6 @@ include "database.php";
 
 $databaseConnection = connectToDatabase();
 
-$HeaderColor = "Header";
-$LogoColor = "LogoImage";
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +27,7 @@ $LogoColor = "LogoImage";
 </head>
 <body>
 <div class="Background">
-    <div class="row" id="Header>">
+    <div class="row" id="Header">
         <div title="home page" class="col-2"><a href="./" id="LogoA">
                 <div id="LogoImage"></div>
             </a></div>
