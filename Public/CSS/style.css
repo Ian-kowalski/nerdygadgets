@@ -850,3 +850,18 @@ input:checked + .slider:before {
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(36, 41, 143);
 }
+
+.fa-cog {
+    color: rgb(36, 41, 143);
+}
+
+.fa-walking{
+    color: rgb(36, 41, 143)
+}
+
+.fa-search{
+    color: rgb(36, 41, 143)
+}
+.fa-shopping-cart{
+    color: rgb(36, 41, 143)
+}

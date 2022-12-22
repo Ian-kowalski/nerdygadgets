@@ -33,7 +33,7 @@ $LogoColor = "LogoImage";
 <body>
 <div class="Background">
     <div class="row" id="<?php echo $HeaderColor ?>">
-        <div class="col-2"><a href="./" id="LogoA">
+        <div title="home page" class="col-2"><a href="./" id="LogoA">
                 <div id="<?php echo $LogoColor ?>"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
@@ -58,16 +58,10 @@ $LogoColor = "LogoImage";
 <!-- code voor US3: zoeken -->
         <ul id="ul-class-navigation">
             <li>
-                <a href="settings.php" class="HrefDecoration"><i class="fas fa-cog blue"></i></a>
+                <a title="zoeken" href="browse.php" class="HrefDecoration"><i class="fas fa-search"></i> </a>
             </li>
             <li>
-                <a href="login.php" class="HrefDecoration"><i class="fas fa-walking blue"></i></a>
-            </li>
-            <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search blue"></i> </a>
-            </li>
-            <li>
-                <a href="Cart.php" class="HrefDecoration"><i class="fas fa-shopping-cart blue"></i> </a>
+                <a title="winkelmantje" href="Cart.php" class="HrefDecoration"><i class="fas fa-shopping-cart"></i> </a>
                 <?php
                 if (isset($_SESSION['cart'])) {
                     $cart = $_SESSION['cart'];
@@ -80,6 +74,12 @@ $LogoColor = "LogoImage";
                     }
                 }
                 ?>
+            </li>
+            <li>
+                <a title="login" href="login.php" class="HrefDecoration"><i  class="fas fa-walking"></i></a>
+            </li>
+            <li>
+                <a title="settings" href="settings.php" class="HrefDecoration"><i class="fas fa-cog"></i></a>
             </li>
         </ul>
 
