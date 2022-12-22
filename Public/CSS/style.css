@@ -314,7 +314,7 @@ ul#ul-class-price li {
     display: inline;
 }
 .TextPrice {
-    margin-top: 1.5%;
+    margin-top: 4%;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -346,6 +346,19 @@ ul#ul-class-price li {
     font-weight: bold;
     width: 60%;
     margin-left: 16%;
+}
+.DiscountTag {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: vortice-concept, sans-serif;
+    text-transform: uppercase;
+    border: 1px solid white;
+    border-radius: 5px;
+    background: rgb(143, 0, 0);
+    margin-left: 76%;
+    width: 238px;
+
 }
 .HomePageDiscount {
     color: rgb(36, 41, 143);
