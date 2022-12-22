@@ -316,7 +316,7 @@ function getVoorraadTekst($actueleVoorraad) {
 }
 function berekenVerkoopPrijs($adviesPrijs, $btw) {
     return $btw * $adviesPrijs / 100 + $adviesPrijs;
-}
+}//h
 ?>
 
 <div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filteren </h2>
