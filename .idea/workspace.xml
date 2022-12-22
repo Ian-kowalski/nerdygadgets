@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="im in pian">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2022_10_50_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_12_2022_10_50__Changes_.xml" beforeDir="false" />
+    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="lucas 22-12-22">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/browse.php" beforeDir="false" afterPath="$PROJECT_DIR$/browse.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/CSS/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
