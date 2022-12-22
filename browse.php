@@ -187,8 +187,57 @@ if ($CategoryID == "") {
 }
 
 if ($CategoryID != "") {
-    if ($queryBuildResult != "") {
-        $Query_sort = "
+    if(($CategoryID ==2 || $CategoryID == 4)&& $ColorID!=0){
+        if ($queryBuildResult != "") {
+            $Query_sort = "
+               SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
+               ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
+               QuantityOnHand,SI.ColorID,
+               (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+               (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+               FROM stockitems SI
+               JOIN stockitemholdings SIH USING(stockitemid)
+               JOIN stockitemstockgroups SIG USING(StockItemID)
+               JOIN stockgroups SG USING(StockGroupID)
+               WHERE ".$queryBuildResult." AND SIG.StockGroupID = ? AND SI.ColorID = ?
+               GROUP BY StockItemID
+               ORDER BY " . $Sort . "
+               LIMIT ? OFFSET ?";
+            $Query_count = "
+                select count(*)
+                FROM stockitems SI
+                JOIN stockitemstockgroups SIG USING(StockItemID)
+                WHERE ".$queryBuildResult." AND SIG.StockGroupID = ? AND SI.ColorID = ?";
+        } else {
+            $Query_sort = "
+                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
+                ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
+                QuantityOnHand, SI.ColorID,
+                (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM stockitems SI
+                JOIN stockitemholdings SIH USING(stockitemid)
+                JOIN stockitemstockgroups SIG USING(StockItemID)
+                JOIN stockgroups SG USING(StockGroupID)
+                WHERE SIG.StockGroupID = ? AND SI.ColorID = ?
+                GROUP BY StockItemID
+                ORDER BY " . $Sort . "
+                LIMIT ? OFFSET ?";
+            $Query_count = "
+                select count(*)
+                FROM stockitems SI
+                JOIN stockitemstockgroups SIG USING(StockItemID)
+                WHERE SIG.StockGroupID = ? AND SI.ColorID = ?";
+        }
+
+        $Statement = mysqli_prepare($databaseConnection, $Query_sort);
+        mysqli_stmt_bind_param($Statement, "iiii", $CategoryID , $ColorID, $ProductsOnPage, $Offset);
+
+        $rows = mysqli_prepare($databaseConnection, $Query_count);
+        mysqli_stmt_bind_param($rows, "ii", $CategoryID, $ColorID);
+    } else{
+        if ($queryBuildResult != "") {
+            $Query_sort = "
                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
                ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
                QuantityOnHand,
@@ -222,17 +271,25 @@ if ($CategoryID != "") {
                 GROUP BY StockItemID
                 ORDER BY " . $Sort . "
                 LIMIT ? OFFSET ?";
-        $Query_count = "
+            $Query_count = "
                 select count(*)
                 FROM stockitems SI
                 JOIN stockitemstockgroups SIG USING(StockItemID)
                 WHERE SIG.StockGroupID = ?";
-    }
-    $Statement = mysqli_prepare($databaseConnection, $Query_sort);
-    mysqli_stmt_bind_param($Statement, "iii", $CategoryID, $ProductsOnPage, $Offset);
 
-    $rows = mysqli_prepare($databaseConnection, $Query_count);
-    mysqli_stmt_bind_param($rows, "i", $CategoryID);
+        }
+
+        $Statement = mysqli_prepare($databaseConnection, $Query_sort);
+        mysqli_stmt_bind_param($Statement, "iii", $CategoryID , $ProductsOnPage, $Offset);
+
+        $rows = mysqli_prepare($databaseConnection, $Query_count);
+        mysqli_stmt_bind_param($rows, "i", $CategoryID);
+    }
+
+
+
+
+
 }
 
 
@@ -328,7 +385,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
             <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
-                <option value="0" <?php if ($_SESSION['ColorID'] == "0") {
+                <option value=0 <?php if ($_SESSION['ColorID'] == 0 ) {
                     print "selected";
                 } ?>> Kies een kleur
                 </option>
@@ -346,19 +403,11 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
                 </option>
                 <option value="18" <?php if ($_SESSION['ColorID'] == "18") {
                 print "selected";
-            } ?>>LichtBruin
-                </option>
-                <option value="28" <?php if ($_SESSION['ColorID'] == "28") {
-                    print "selected";
-                } ?>>Rood
+            } ?>>Bruin
                 </option>
                 <option value="35" <?php if ($_SESSION['ColorID'] == "35") {
                     print "selected";
-                } ?>> Wit
-                </option>
-                <option value="36" <?php if ($_SESSION['ColorID'] == "36") {
-                    print "selected";
-                } ?>>Geel
+                } ?>>Wit
                 </option>
             </select>
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
