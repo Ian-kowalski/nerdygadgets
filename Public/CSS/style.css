@@ -353,7 +353,7 @@ ul#ul-class-price li {
     font-size: 45px;
     text-transform: uppercase;
     font-weight: bold;
-    margin-left: 13%;
+    margin-left: 5%;
 }
 .HomePagePrice {
     color: rgb(139, 0, 0);
@@ -361,7 +361,8 @@ ul#ul-class-price li {
     font-size: 35px;
     text-transform: uppercase;
     font-weight: bold;
-    margin-left: 5%;
+    margin-left: 13%;
+    text-decoration: line-through white;
 }
 .HomePageStockItemPicture {
     background-image: url("../ProductIMGHighRes/580b57fbd9996e24bc43bf55.png");
@@ -830,7 +831,7 @@ input:checked + .slider:before {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 20px;
+    width: 13px;
 }
 
 /* Track */
