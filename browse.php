@@ -265,7 +265,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
 <div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filteren </h2>
     <form>
         <div id="FilterOptions">
-            <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Zoeken</h4>
+            <h4 class="FilterTopMargin"><i class="fas fa-search text-white"></i> Zoeken</h4>
             <input type="text" name="search_string" id="search_string"
                    value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
                    class="form-submit">
@@ -317,9 +317,14 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
             </select>
 
             <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> Prijs</h4>
-            <input type="range" name="price" id="price" min="0" max="1000" step="10"
-                   value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
-                   oninput="this.form.submit()">
+            <div class="range_container">
+                <div class="sliders_control">
+                    <input id="fromSlider" type="range" value="10" min="0" max="100"/>
+                    <input id="toSlider" type="range" value="100" min="0" max="100"/>
+                </div>
+            </div>
+
+
             <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
