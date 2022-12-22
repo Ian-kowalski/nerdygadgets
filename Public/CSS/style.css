@@ -226,14 +226,18 @@ ul#ul-class-navigation li {
     transform: translateY(-50%);
 }
 .button {
-    border-radius: 12px;
+    border: none;
+    color: #ffffff;
+    width: 9em;
+    height: 3em;
+    line-height: 2em;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 2px 2px;
-    transition-duration: 0.4s;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 300%;
+    border-radius: 30px;
+    text-transform: uppercase;
     cursor: pointer;
+    z-index: 1;
 }
 
 .button1 {
@@ -244,10 +248,12 @@ ul#ul-class-navigation li {
     border: 2px solid rgb(36, 41, 143);
 }
 .button1:hover {
-    width: 150px;
-    border-radius: 12px;
-    background-color: rgb(36, 41, 143);
-    color: black;
+    animation: animation 8s linear infinite;
+    border: none;
+}
+@keyframes animation {
+    0% { background-position: 0%; }
+    100% { background-position: 400% }
 }
 
 #StockItemDescription {
