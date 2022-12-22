@@ -1,13 +1,8 @@
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
 session_start();
-include "database.php";
-
 
 $databaseConnection = connectToDatabase();
-
-$HeaderColor = "Header";
-$LogoColor = "LogoImage";
 
 ?>
 <!DOCTYPE html>
@@ -26,8 +21,6 @@ $LogoColor = "LogoImage";
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
-
-
 
 </head>
 <body>
@@ -75,11 +68,12 @@ $LogoColor = "LogoImage";
                 }
                 ?>
             </li>
-            <li>
-                <a title="login" href="login.php" class="HrefDecoration"><i  class="fas fa-walking"></i></a>
-            </li>
-            <li>
-                <a title="settings" href="settings.php" class="HrefDecoration"><i class="fas fa-cog"></i></a>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn HrefDecoration"><i class="fas fa-angle-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="login.php" class="HrefDecoration"><i  class="fas fa-walking"></i> login</a>
+                    <a href="settings.php" class="HrefDecoration"><i class="fas fa-cog"></i> settings</a>
+                </div>
             </li>
         </ul>
 

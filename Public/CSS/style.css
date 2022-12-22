@@ -1,33 +1,59 @@
 html {
-    background-color: rgb(35, 35, 47) !important;
+    background-color: var(--color-bg) !important;
+}
+
+:root {
+    --color-bg: #DCDCD0;
+    --color-fg: rgb(35, 35, 47);
+    --color-div: #949485;
+    --color-acs: #274700;
+    --color-acs2: #ABD600;
+}
+[data-theme="dark"] {
+    --color-bg: rgb(35, 35, 47);
+    --color-fg: #DCDCD0;
+    --color-div: rgb(62, 62, 97);
+    --color-acs: #7F0194;
+    --color-acs2: #8B00D6;
+}
+
+#LogoImage {
+    background-image: url("../ProductIMGHighRes/LogoNG.png");
+    width: 250px;
+    height: 90px;
+    margin: 5px 55px 5px 10%;
+    filter: invert(1);
+}
+
+
+select {
+    color: var(--color-fg);
+    margin: 50px;
+    width: 100%;
+    padding: 5px 35px 5px 5px;
+    font-size: 16px;
+    border: 1px solid var(--color-fg);
+    height:50px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: var(--color-bg);
 }
 
 body {
     overflow-x:hidden;
-    color: #FFF !important;
-    background-color: rgb(35, 35, 47) !important;
+    color: var(--color-fg) !important;
+    background-color: var(--color-bg) !important;
 }
 @font-face {
     font-family: MmrText;
     src: url(/Public/fonts/mmrtext.ttf);
 }
-select {
-    margin: 50px;
-    width: 100%;
-    padding: 5px 35px 5px 5px;
-    font-size: 16px;
-    border: 1px solid #CCC;
-    height:50px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: url(../Img/mouse-hover-icon-22.jpg) 96% / 30px no-repeat #EEE;
-}
 
 a {
     text-decoration: none;
     position: relative;
-    color:#000000;
+    color:var(--color-fg);
 }
 a:hover {
      text-decoration: none !important;
@@ -35,8 +61,8 @@ a:hover {
 a span {
     display: none;
     position: absolute;
-    color:rgb(36, 41, 143);
-    background: rgb(36, 41, 143);
+    color:var(--color-acs);
+    background:var(--color-acs);;
     padding: 5px;
 }
 a:hover span {
@@ -51,56 +77,91 @@ a:hover span {
     font-weight: bold;
 }
 input {
+    color:var(--color-fg);
+    width: 100%;
     font-family: pt-sans, sans-serif;
     height: 50px;
-    font-size: 20px;
     padding: 0 5px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-fg);
 }
 table tr th,
 table tr td {
     padding: 10px;
 }
 ul#ul-class-navigation {
+    margin-top: 30px;
     right: 10px;
-    line-height: 95px;
     position: absolute;
 }
 ul#ul-class-navigation li {
-    color: white;
+    color: var(--color-fg);
     display: inline;
     font-family: pt-sans, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     text-decoration: none;
     text-decoration-color: currentcolor;
 }
+li {
+    float: left;
+}
+li a, .dropbtn {
+    display: inline-block;
+    color: var(--color-bg);
+    text-align: center;
+    padding: 8px;
+    text-decoration: none;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    right: 3px;
+    position: absolute;
+    background-color: var(--color-bg);
+    min-width: 110px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: var(--color-fg);
+    padding: 8px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: var(--color-div);}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 #Header {
     position: fixed;
     top:0;
-    background-color: rgb(35, 35, 47);
+    background-color: var(--color-bg);
     width: 100%;
     height:100px;
     z-index: 1;
-    border-bottom: 1px solid rgb(36, 41, 143);
+    border-bottom: 1px solid var(--color-acs2);;
 }
-#HeaderLight { /* Lichtgrijze versie van de header voor Lightmode */
-    position: fixed;
-    top:0;
-    background-color: #DCDCD0;
-    width: 100%;
-    height:100px;
-    z-index: 1;
-    border-bottom: 1px solid rgb(36, 41, 143);
-}
+
 #Content {
     margin-top: 100px;
 }
 #FilterFrame {
+    color: var(--color-fg);
     position: fixed;
     width: 19%;
     height: 80%;
-    background-color: rgba(35, 40, 47, 0.8);
+    background-color: var(--color-div);
     float: left;
-    border: 1px solid #fff;
+    border: 1px solid var(--color-fg);
     margin-left: 5px;
     margin-top: 10px;
     padding: 20px;
@@ -118,12 +179,12 @@ ul#ul-class-navigation li {
     margin-top: 15px;
     position: relative;
     padding: 1px;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid var(--color-fg);
 }
 .ImgFrame {
     width: 230px;
     height: 230px;
-    background-color: rgb(36, 41, 143);
+    background-color: var(--color-acs);;
     float: left;
     margin-left: 10px;
     margin-top: 10px;
@@ -147,7 +208,7 @@ ul#ul-class-navigation li {
     position: relative;
     top: 10px;
     font-family: pt-sans, sans-serif;
-    color: #fff;
+    color: var(--color-fg);
     font-size: 18px;
     text-transform: uppercase;
     font-weight: bold;
@@ -156,13 +217,13 @@ ul#ul-class-navigation li {
     position: absolute;
     left: 250px;
     bottom: 2.5px;
-    color: white;
+    color: var(--color-fg);
     font-size: 15px;
 }
 #VideoFrame {
     width: 100%;
     height: 350px;
-    background-color: #d6d6d6;
+    background-color: var(--color-fg);
     margin-bottom: 10px;
 }
 #ArticleHeader {
@@ -178,7 +239,7 @@ ul#ul-class-navigation li {
 #ImageFrame {
     width: 300px;
     height: 300px;
-    background-color: rgb(36, 41, 143);
+    background-color: var(--color-acs);;
     float: left;
     margin-right: 10px;
 }
@@ -227,7 +288,7 @@ ul#ul-class-navigation li {
 }
 .button {
     border: none;
-    color: #ffffff;
+    color: var(--color-fg);
     width: 9em;
     height: 3em;
     line-height: 2em;
@@ -243,9 +304,9 @@ ul#ul-class-navigation li {
 .button1 {
     width:150px;
     border-radius: 12px;
-    background-color: rgba(35, 40, 47, 0.8);
-    color: rgb(36, 41, 143);
-    border: 2px solid rgb(36, 41, 143);
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    border: 2px solid var(--color-fg);
 }
 .button1:hover {
     animation: animation 8s linear infinite;
@@ -257,7 +318,7 @@ ul#ul-class-navigation li {
 }
 
 #StockItemDescription {
-    background-color: rgba(35, 40, 47, 0.8);
+    background-color: var(--color-div);
     width: 49%;
     float: left;
     padding: 10px;
@@ -267,7 +328,7 @@ ul#ul-class-navigation li {
     font-size: 20px;
 }
 #StockItemSpecifications {
-    background-color: rgba(35, 40, 47, 0.8);
+    background-color: var(--color-div);
     width: 49%;
     float: left;
     padding: 10px;
@@ -285,7 +346,7 @@ ul#ul-class-navigation li {
     margin-right: 5px;
 }
 .Background {
-    background-color: #23232F;
+    background-color: var(--color-bg);
     width: 100%;
     height: 100%;
     position: absolute;
@@ -295,22 +356,11 @@ ul#ul-class-navigation li {
     width: 100%;
     position: absolute;
 }
-#LogoImage {
-    background-image: url("../ProductIMGHighRes/LogoNG.png");
-    width: 250px;
-    height: 90px;
-    margin: 5px 55px 5px 10%;
-}
-#LogoImageLight { /* Inverted versie van de logo voor Lightmode */
-    background-image: url("../ProductIMGHighRes/LogoNG.png");
-    width: 250px;
-    height: 90px;
-    margin: 5px 55px 5px 10%;
-    filter: invert(1);
-}
+
+
 ul#ul-class li {
     display: inline;
-    color: white;
+    color: var(--color-fg);
     margin-right: 1em;
     font-size: 18px;
     text-decoration: none;
@@ -329,23 +379,23 @@ ul#ul-class-price li {
     user-select: none;
 }
 .HrefDecoration {
-    color: #ffffff;
+    color: var(--color-fg);
 }
 
 .HrefDecoration i.blue {
-    color: #027AFDFF;
+    color: var(--color-acs2);
 }
 
 .HrefDecoration:hover, .HrefDecoration:active {
     text-decoration: none;
-    color: #ccc;
+    color: var(--color-div);
 }
 .HrefDecoration i.blue:hover, .HrefDecoration:active{
     text-decoration: none;
-    color: rgb(36, 41, 143);
+    color: var(--color-acs);
 }
 .TextMain {
-    color: #fff;
+    color: var(--color-fg);
     font-family: vortice-concept, sans-serif;
     font-size: 45px;
     text-transform: uppercase;
@@ -367,7 +417,7 @@ ul#ul-class-price li {
 
 }
 .HomePageDiscount {
-    color: rgb(36, 41, 143);
+    color: var(--color-acs);;
     font-family: vortice-concept, sans-serif;
     font-size: 45px;
     text-transform: uppercase;
@@ -414,7 +464,7 @@ ul#ul-class-price li {
     width: auto;
     margin-top: -22px;
     padding: 16px;
-    color: white;
+    color: var(--color-fg);
     font-weight: bold;
     font-size: 18px;
     transition: 0.6s ease;
@@ -430,12 +480,12 @@ ul#ul-class-price li {
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
+    background-color: var(--color-bg);;
 }
 
 /* Caption text */
 .text {
-    color: #f2f2f2;
+    color: var(--color-fg);
     font-size: 15px;
     padding: 8px 12px;
     position: absolute;
@@ -449,14 +499,14 @@ ul#ul-class-price li {
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: #bbb;
+    background-color: var(--color-fg);
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.6s ease;
 }
 
 .active, .dot:hover {
-    background-color: #717171;
+    background-color: var(--color-div);
 }
 
 @keyframes fade {
@@ -486,7 +536,7 @@ ul#ul-class-price li {
     margin-left: 1.5%;
     margin-bottom: 1.5%;
     font-family: vortice-concept, sans-serif;
-    color: white;
+    color: var(--color-fg);
     font-size: 25px;
     text-transform: uppercase;
     font-weight: bold;
@@ -538,7 +588,7 @@ ul#ul-class-price li {
 }
 #Wrap a {
     text-decoration: none;
-    color: white;
+    color: var(--color-fg);
 }
 #Wrap a:hover {
     color: #ccc;
@@ -546,7 +596,7 @@ ul#ul-class-price li {
 }
 .StockItemPriceText {
     font-family: vortice-concept, sans-serif;
-    color: rgb(36, 41, 143);
+    color: var(--color-acs2);;
     font-size: 22px;
     text-transform: uppercase;
     font-weight: bold;
@@ -557,7 +607,7 @@ ul#ul-class-price li {
 }
 .StockItemID {
     font-family: vortice-concept, sans-serif;
-    color: rgb(36, 41, 143);
+    color: var(--color-acs2);;
     font-size: 10px;
     text-transform: uppercase;
     font-weight: bold;
@@ -565,14 +615,14 @@ ul#ul-class-price li {
 }
 .StockItemName {
     font-family: pt-sans, sans-serif;
-    color: #fff;
+    color: var(--color-fg);
     font-size: 20px;
     text-transform: uppercase;
     font-weight: bold;
 }
 .StockItemComments {
     font-family: pt-sans, sans-serif;
-    color: #fff;
+    color: var(--color-fg);
     font-size: 14px;
     font-weight: bold;
 }
@@ -622,7 +672,7 @@ ul#ul-class-price li {
     margin-top: 20px;
 }
 #ProductFrame h6 {
-    color: white;
+    color: var(--color-fg);
 }
 #CategoriesBar {
     position: absolute;
@@ -636,16 +686,16 @@ ul#ul-class-price li {
     font-size: 18px;
     display: inline;
     font-weight: bold;
-    background-color: rgb(98, 158, 255);
+    background-color: var(--color-acs2);
     padding: 15px 22px;
     border-radius: 50px;
 }
 .PageNumber {
     padding: 7px 15px;
     border-radius: 39px;
-    background: rgb(36, 41, 143);
-    border: 1px rgb(98, 158, 255) solid;
-    color: #fff;
+    background: var(--color-acs2);
+    border: 2px var(--color-acs) solid;
+    color: var(--color-fg);
 }
 
 .cart_price{
@@ -655,7 +705,7 @@ ul#ul-class-price li {
 }
 
 .cart{
-    border-top: 4px solid rgb(36, 41, 143);
+    border-top: 4px solid var(--color-acs);
     width: 70%;
     min-width: 500px;
     flex-direction: row;
@@ -667,9 +717,9 @@ ul#ul-class-price li {
     flex-direction: row;
     justify-content: space-between;
     max-width: 100%;
-    border-left: 4px solid rgb(36, 41, 143);
-    border-right: 4px solid rgb(36, 41, 143);
-    border-bottom: 4px solid rgb(36, 41, 143);
+    border-left: 4px solid var(--color-acs);
+    border-right: 4px solid var(--color-acs);
+    border-bottom: 4px solid var(--color-acs);
 }
 .rowLeft{
     width: 100px;
@@ -692,12 +742,12 @@ ul#ul-class-price li {
     text-align: right;
 }
 .productImage{
-    border: 1px solid rgb(36, 41, 143);
+    border: 3px solid var(--color-acs2);
     width: 90px;
     height: 90px;
     margin: 5px;
     background-size: 100px;
-    background-color: rgb(36, 41, 143);
+    background-color: var(--color-acs);
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -751,16 +801,16 @@ ul#ul-class-price li {
     width: 30px;
     height: 30px;
     border-radius: 12px;
-    background-color: rgba(35, 40, 47, 0.8);
-    color:  rgb(36, 41, 143);
-    border: 2px solid rgb(36, 41, 143);
+    background-color: var(--color-bg);
+    color:  var(--color-acs2);
+    border: 3px solid var(--color-acs2);
 }
 .plus1:hover {
     width: 30px;
     height: 30px;
     border-radius: 12px;
-    background-color: rgb(36, 41, 143);
-    color: rgba(35, 40, 47, 0.8);
+    background-color: var(--color-acs2);
+    color: var(--color-bg);
 }
 .number{
     background-color: transparent;
@@ -769,7 +819,7 @@ ul#ul-class-price li {
     display: flex;
     align-items: center;
     justify-content: center;
-    color:  white;
+    color: var(--color-fg);
     border: 2px transparent;
     text-align: right;
 }
@@ -783,7 +833,7 @@ ul#ul-class-price li {
     justify-content: center;
     text-align: right;
     align-items: center;
-    color: white;
+    color: var(--color-bg);
     background-color:  darkred;
     border: 3px solid darkred;
     margin-right: 5px;
@@ -795,7 +845,7 @@ ul#ul-class-price li {
     display: flex;
     align-items: center;
     justify-content: right;
-    border: 2px solid rgb(36, 41, 143);
+    border: 2px solid var(--color-acs2);
     overflow: hidden;
     padding: 5px;
 }
@@ -816,7 +866,7 @@ ul#ul-class-price li {
 }
 
 .NAW{
-    border: 5px solid rgb(36, 41, 143);
+    border: 5px solid var(--color-acs2);
     max-width: 80%;
     padding: 8px;
 }
@@ -860,61 +910,57 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-/* The switch - the box around the slider */
-.switch {
-    position: relative;
+/*Simple css to style it like a toggle switch*/
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+em {
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
+.theme-switch {
     display: inline-block;
-    width: 60px;
     height: 34px;
+    position: relative;
+    width: 60px;
 }
 
-/* Hide default HTML checkbox */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+.theme-switch input {
+    display:none;
 }
 
-/* The slider */
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-color: #ccc;
-    -webkit-transition: .4s;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
     transition: .4s;
 }
 
 .slider:before {
-    position: absolute;
+    background-color: #fff;
+    bottom: 4px;
     content: "";
     height: 26px;
-    width: 26px;
     left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
+    position: absolute;
     transition: .4s;
+    width: 26px;
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    background-color: #66bb6a;
 }
 
 input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
     border-radius: 34px;
 }
@@ -938,40 +984,43 @@ input:checked + .slider:before {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: blue;
+    background: var(--color-acs2);
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: rgb(36, 41, 143);
+    background: var(--color-acs);
 }
 
 .fa-cog {
-    color: rgb(36, 41, 143);
+    color: var(--color-acs2)
 }
 
 .fa-walking{
-    color: rgb(36, 41, 143)
+    color: var(--color-acs2)
 }
 
 .fa-search{
-    color: rgb(36, 41, 143)
+    color: var(--color-acs2)
 }
 .fa-shopping-cart{
-    color: rgb(36, 41, 143)
+    color: var(--color-acs2)
 }
+.fa-angle-down{
+    color: var(--color-acs2)
+}
+
 
 .range_container {
     display: flex;
     flex-direction: column;
     width: 80%;
-    margin: 35% auto;
+    margin: 25px auto;
 }
 
 .sliders_control {
     position: relative;
-    min-height: 50px;
 }
 
 .form_control {
@@ -987,7 +1036,7 @@ input[type=range]::-webkit-slider-thumb {
     pointer-events: all;
     width: 24px;
     height: 24px;
-    background-color: blue;
+    background-color: var(--color-acs2);
     border-radius: 50%;
     box-shadow: 0 0 0 1px #C6C6C6;
     cursor: pointer;
@@ -998,19 +1047,19 @@ input[type=range]::-moz-range-thumb {
     pointer-events: all;
     width: 24px;
     height: 24px;
-    background-color: blue;
+    background-color: var(--color-acs2);
     border-radius: 50%;
     box-shadow: 0 0 0 1px #C6C6C6;
     cursor: pointer;
 }
 
 input[type=range]::-webkit-slider-thumb:hover {
-    background: blue;
+    background: var(--color-acs2);
 }
 
 input[type=range]::-webkit-slider-thumb:active {
-    box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
-    -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
+    box-shadow: inset 0 0 3px var(--color-acs), 0 0 9px var(--color-acs);
+    -webkit-box-shadow: inset 0 0 3px var(--color-acs), 0 0 9px var(--color-acs);
 }
 
 input[type="range"] {
@@ -1019,7 +1068,7 @@ input[type="range"] {
     height: 2px;
     width: 100%;
     position: absolute;
-    background-color: blue;
+    background-color: var(--color-acs2);
     pointer-events: none;
 }
 
@@ -1027,3 +1076,4 @@ input[type="range"] {
     height: 0;
     z-index: 1;
 }
+
