@@ -14,7 +14,6 @@ include __DIR__ . "/header.php";
                         <img src="slide1.png" style="width:100%">
                         <div class="text">Caption Text</div>
                     </div>
-
                     <div class="mySlides fade">
                         <img src="slide2.png" style="width:100%">
                         <div class="text">Caption Two</div>
