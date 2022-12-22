@@ -19,7 +19,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
         <div id="ArticleHeader">
             <?php
-            if (isset($StockItemImage)) {
+            if (isset($StockItemImage)&&$StockItemImage!=NULL) {
                 // één plaatje laten zien
                 if (count($StockItemImage) == 1) {
                     ?>
@@ -139,7 +139,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                 foreach ($CustomFields as $SpecName => $SpecText) { ?>
                     <tr>
                         <td>
-                            <?php print $SpecName; ?>
+                            <?php if($SpecName=="CountryOfManufacture"){print "Country Of Manufacture";}else{print $SpecName;} ?>
                         </td>
                         <td>
                             <?php
