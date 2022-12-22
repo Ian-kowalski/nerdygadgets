@@ -54,7 +54,7 @@ input {
     font-family: pt-sans, sans-serif;
     height: 50px;
     font-size: 20px;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 table tr th,
 table tr td {
@@ -518,9 +518,15 @@ ul#ul-class-price li {
     position: relative;
 
 }
+.SearchBar {
+    width: 100%;
+}
 .IndexStyle {
     margin: 0 auto;
     width: 1400px;
+}
+.PriceSlider {
+    width: 98%;
 }
 .FilterTopMargin {
     margin-top: 20px;
