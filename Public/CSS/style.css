@@ -8,6 +8,7 @@ html {
     --color-div: #949485;
     --color-acs: #274700;
     --color-acs2: #ABD600;
+    --filter-inv: invert(1);
 }
 [data-theme="dark"] {
     --color-bg: rgb(35, 35, 47);
@@ -15,6 +16,7 @@ html {
     --color-div: rgb(62, 62, 97);
     --color-acs: #7F0194;
     --color-acs2: #8B00D6;
+    --filter-inv: invert(0);
 }
 
 #LogoImage {
@@ -22,7 +24,7 @@ html {
     width: 250px;
     height: 90px;
     margin: 5px 55px 5px 10%;
-    filter: invert(1);
+    filter: var(--filter-inv);
 }
 
 

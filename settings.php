@@ -1,6 +1,5 @@
 <?php
 include __DIR__ . '/header.php';
-include 'darkmode.php';
 ?>
 <h3>Lightmode </h3>
 <!-- Rounded switch -->
