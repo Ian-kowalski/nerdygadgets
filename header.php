@@ -1,8 +1,13 @@
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
 session_start();
+include "database.php";
+
 
 $databaseConnection = connectToDatabase();
+
+$HeaderColor = "Header";
+$LogoColor = "LogoImage";
 
 ?>
 <!DOCTYPE html>
@@ -25,9 +30,9 @@ $databaseConnection = connectToDatabase();
 </head>
 <body>
 <div class="Background">
-    <div class="row" id="<?php echo $HeaderColor ?>">
+    <div class="row" id="Header>">
         <div title="home page" class="col-2"><a href="./" id="LogoA">
-                <div id="<?php echo $LogoColor ?>"></div>
+                <div id="LogoImage"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
