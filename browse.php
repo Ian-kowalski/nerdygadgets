@@ -66,8 +66,10 @@ if (isset($_GET['sort'])) {
 }
 if (isset($_GET['ColorID'])) {
     $_SESSION["ColorID"] = $_GET['ColorID'];
+    $ColorID=$_GET['ColorID'];
 } else {
     $_SESSION["ColorID"] = "0";
+    $ColorID=0;
 }
 if (isset($_GET['SizeID'])) {
     $_SESSION["SizeID"] = $_GET['SizeID'];
@@ -285,11 +287,6 @@ if ($CategoryID != "") {
         $rows = mysqli_prepare($databaseConnection, $Query_count);
         mysqli_stmt_bind_param($rows, "i", $CategoryID);
     }
-
-
-
-
-
 }
 
 
@@ -316,7 +313,7 @@ function getVoorraadTekst($actueleVoorraad) {
 }
 function berekenVerkoopPrijs($adviesPrijs, $btw) {
     return $btw * $adviesPrijs / 100 + $adviesPrijs;
-}//h
+}
 ?>
 
 <div id="FilterFrame"><h2 class="FilterText"><i class="fas fa-filter"></i> Filteren </h2>
