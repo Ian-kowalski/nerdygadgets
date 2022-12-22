@@ -112,7 +112,7 @@ function CustomerExsists($CustomerName,$databaseConnection){
 function saveOrder($NAW,$databaseConnection){
     $cart=getCart();
     mysqli_begin_transaction($databaseConnection);
-    try {
+    try { //aanmaken costumer
         extract($NAW, EXTR_OVERWRITE);
         $customerID = CustomerExsists($name, $databaseConnection);
         if ($customerID == NULL) {
@@ -128,7 +128,7 @@ function saveOrder($NAW,$databaseConnection){
             INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) 
             values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,?,?,'www.windesheim.nl',?,?,?,?,?,1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59' )"
             );
-            mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,/*$email,*/ $adres, $Postcode, $plaats, $adres, $Postcode);
+            mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode);
             mysqli_stmt_execute($addToCustumer);
         }
 
