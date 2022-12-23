@@ -67,9 +67,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-
-    $customerID = CustomerExsists($name, $link);
-    if ($customerID == NULL) {
         $statement = mysqli_prepare($link, "
                         SELECT MAX(CustomerID) + 1 AS CstId -- Fetch highest known ID and increase by 1, save as CstId
                         FROM customers;");
@@ -84,7 +81,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         );
         mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode);
         mysqli_stmt_execute($addToCustumer);
-    }
 
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){

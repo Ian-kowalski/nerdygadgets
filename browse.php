@@ -243,7 +243,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
             <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> Prijs</h4>
             <div class="range_container">
                 <div class="sliders_control">
-                    <input id="fromSlider" type="range" value="10" min="0" max="100"/>
+                    <input id="fromSlider" type="range" value="0" min="0" max="100"/>
                     <input id="toSlider" type="range" value="100" min="0" max="100"/>
                 </div>
             </div>
@@ -260,6 +260,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
                     print "selected";
                 } ?> >Zwart
                 </option>
+                <?php if($CategoryID!=4){ ?>
                 <option value=4 <?php if ($_SESSION['ColorID'] == 4) {
                     print "selected";
                 } ?>>Blauw
@@ -270,8 +271,9 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
                 </option>
                 <option value=18 <?php if ($_SESSION['ColorID'] == "18") {
                 print "selected";
-            } ?>>Bruin
+                } ?>>Bruin
                 </option>
+                <?php } ?>
                 <option value=35 <?php if ($_SESSION['ColorID'] == 35) {
                     print "selected";
                 } ?>>Wit
