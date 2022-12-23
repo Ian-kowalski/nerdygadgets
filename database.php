@@ -106,7 +106,12 @@ function CustomerExsists($CustomerName,$databaseConnection){
     mysqli_stmt_execute($Statement);
     $result=mysqli_stmt_get_result($Statement);
     $CustomerID=mysqli_fetch_all($result,MYSQLI_ASSOC);
-    return $CustomerID[0]["CustomerID"];
+    if($CustomerID[0]["CustomerID"]==NULL){
+        return NULL;
+    }else{
+        return $CustomerID[0]["CustomerID"];
+    }
+
 }
 
 function saveOrder($NAW,$databaseConnection){

@@ -5,10 +5,10 @@ require_once "config.php";
 
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $voornaam=$achternaam=$postcode=$woonplaats=$adres ="";
-$username_err = $password_err = $confirm_password_err = $voornaam_err= $achternaam_err=$woonplaats_err=$adres_err= "";
-
-$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];
+$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres ="";
+$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err= $woonplaats_err= $adres_err = " " ;
+$name = "";
+if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -131,13 +131,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <div class="form-group">
             <label>voornaam</label>
-            <input type="text" name="voornaam" class="form-control <?php echo (!empty($voornaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $voornaam; ?>">
+            <input type="text" name="voornaam" required pattern="[a-zA-z]{1, }" class="form-control <?php echo (!empty($voornaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $voornaam; ?>">
             <span class="invalid-feedback"><?php echo $voornaam_err; ?></span>
         </div>
 
         <div class="form-group">
             <label>Achternaam</label>
-            <input type="text" name="achternaam" class="form-control <?php echo (!empty($achternaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $achternaam; ?>">
+            <input type="text" name="achternaam" required pattern="[a-zA-z]{1, }" class="form-control <?php echo (!empty($achternaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $achternaam; ?>">
             <span class="invalid-feedback"><?php echo $achternaam_err; ?></span>
         </div>
 
@@ -148,12 +148,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             <div class="form-group">
                 <label>Postcode</label>
-                <input type="postcode" name="postcode" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $postcode; ?>">
+                <input type="postcode" name="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $postcode; ?>">
                 <span class="invalid-feedback"><?php echo $postcode_err; ?></span>
 
                 <div class="form-group">
                     <label>Woonplaats</label>
-                    <input type="Woonplaats" name="Woonplaats" class="form-control <?php echo (!empty($woonplaats_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $woonplaats; ?>">
+                    <input type="Woonplaats" name="Woonplaats" required pattern="[a-z A-z]{1, }" class="form-control <?php echo (!empty($woonplaats_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $woonplaats; ?>">
                     <span class="invalid-feedback"><?php echo $woonplaats_err; ?></span>
 
                 </div>
@@ -161,12 +161,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                    <input type="password" name="password" required pattern="[a-z A-z0-9]{6,}" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                     <span class="invalid-feedback"><?php echo $password_err; ?></span>
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                    <input type="password" name="confirm_password" required pattern="[a-z A-z0-9]{6,}" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                     <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
                 </div>
 
