@@ -1,0 +1,57 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"f6cc716b-51f8-4fd5-a3be-9f01b679d388\" name=\"Changes\" comment=\"Tekst aanpassingen\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"PhpWorkspaceProjectConfiguration\" interpreter_name=\"PHP\" />\r\n  <component name=\"ProjectId\" id=\"2IGpmvCJ8XJCRi3cMTT91y5OH3f\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Config.php\" type=\"PhpLocalRunConfigurationType\" factoryName=\"PHP Console\" path=\"$PROJECT_DIR$/Public/Config.php\">\r\n      <CommandLine>\r\n        <PhpTestInterpreterSettings>\r\n          <option name=\"interpreterName\" value=\"PHP\" />\r\n        </PhpTestInterpreterSettings>\r\n      </CommandLine>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"f6cc716b-51f8-4fd5-a3be-9f01b679d388\" name=\"Changes\" comment=\"\" />\r\n      <created>1669817936911</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1669817936911</updated>\r\n      <workItem from=\"1669817938349\" duration=\"1550000\" />\r\n      <workItem from=\"1669979308604\" duration=\"671000\" />\r\n      <workItem from=\"1670079626216\" duration=\"9746000\" />\r\n      <workItem from=\"1670405138327\" duration=\"162000\" />\r\n      <workItem from=\"1670503127393\" duration=\"1944000\" />\r\n      <workItem from=\"1670697150838\" duration=\"581000\" />\r\n      <workItem from=\"1671012434125\" duration=\"117000\" />\r\n      <workItem from=\"1671110975800\" duration=\"2096000\" />\r\n      <workItem from=\"1671114193986\" duration=\"1531000\" />\r\n      <workItem from=\"1671368455893\" duration=\"4050000\" />\r\n      <workItem from=\"1671607787981\" duration=\"2162000\" />\r\n      <workItem from=\"1671611679767\" duration=\"616000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"beveiliging inputvelden\">\r\n      <created>1670405284838</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670405284838</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Aanhef is nu vereist\">\r\n      <created>1671114782619</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671114782619</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"Tekst aanpassingen\">\r\n      <created>1671115688935</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671115688935</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"beveiliging inputvelden\" />\r\n    <MESSAGE value=\"Aanhef is nu vereist\" />\r\n    <MESSAGE value=\"Tekst aanpassingen\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Tekst aanpassingen\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 5ecbc8c0a353426d74dcef413c9c60335c937874)
++++ b/.idea/workspace.xml	(date 1671613581947)
+@@ -1,7 +1,10 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="f6cc716b-51f8-4fd5-a3be-9f01b679d388" name="Changes" comment="Tekst aanpassingen" />
++    <list default="true" id="f6cc716b-51f8-4fd5-a3be-9f01b679d388" name="Changes" comment=" .">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18-12-2022_23_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18-12-2022_23_02__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -59,7 +62,7 @@
+       <workItem from="1671114193986" duration="1531000" />
+       <workItem from="1671368455893" duration="4050000" />
+       <workItem from="1671607787981" duration="2162000" />
+-      <workItem from="1671611679767" duration="616000" />
++      <workItem from="1671611679767" duration="1747000" />
+     </task>
+     <task id="LOCAL-00001" summary="beveiliging inputvelden">
+       <created>1670405284838</created>
+@@ -82,7 +85,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1671115688935</updated>
+     </task>
+-    <option name="localTasksCounter" value="4" />
++    <task id="LOCAL-00004" summary=" .">
++      <created>1671612442338</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1671612442338</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -103,6 +113,7 @@
+     <MESSAGE value="beveiliging inputvelden" />
+     <MESSAGE value="Aanhef is nu vereist" />
+     <MESSAGE value="Tekst aanpassingen" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Tekst aanpassingen" />
++    <MESSAGE value=" ." />
++    <option name="LAST_COMMIT_MESSAGE" value=" ." />
+   </component>
+ </project>
+\ No newline at end of file

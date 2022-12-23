@@ -1,0 +1,238 @@
+Index: register.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\r\n// Include config file\r\ninclude __DIR__ . '/header.php';\r\nrequire_once \"config.php\";\r\n\r\n\r\n// Define variables and initialize with empty values\r\n$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres =\"\";\r\n$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err= $woonplaats_err= $adres_err = \" \" ;\r\n$name = \"\";\r\nif(isset($_GET[\"voornaam\"]))$name= $_GET[\"voornaam\"] . \" \" . $_GET[\"$achternaam\"];\r\n\r\n// Processing form data when form is submitted\r\nif($_SERVER[\"REQUEST_METHOD\"] == \"POST\"){\r\n\r\n    // Validate username\r\n    if(empty(trim($_POST[\"username\"]))){\r\n        $username_err = \"Please enter a username.\";\r\n    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST[\"username\"]))){\r\n        $username_err = \"Username can only contain letters, numbers, and underscores.\";\r\n    } else{\r\n        // Prepare a select statement\r\n        $sql = \"SELECT id FROM users WHERE username = ?\";\r\n\r\n        if($stmt = mysqli_prepare($link, $sql)){\r\n            // Bind variables to the prepared statement as parameters\r\n            mysqli_stmt_bind_param($stmt, \"s\", $param_username);\r\n\r\n            // Set parameters\r\n            $param_username = trim($_POST[\"username\"]);\r\n\r\n            // Attempt to execute the prepared statement\r\n            if(mysqli_stmt_execute($stmt)){\r\n                /* store result */\r\n                mysqli_stmt_store_result($stmt);\r\n\r\n                if(mysqli_stmt_num_rows($stmt) == 1){\r\n                    $username_err = \"This username is already taken.\";\r\n                } else{\r\n                    $username = trim($_POST[\"username\"]);\r\n                }\r\n            } else{\r\n                echo \"Oops! Something went wrong. Please try again later.\";\r\n            }\r\n\r\n            // Close statement\r\n            mysqli_stmt_close($stmt);\r\n        }\r\n    }\r\n\r\n    // Validate password\r\n    if(empty(trim($_POST[\"password\"]))){\r\n        $password_err = \"Please enter a password.\";\r\n    } elseif(strlen(trim($_POST[\"password\"])) < 6){\r\n        $password_err = \"Password must have atleast 6 characters.\";\r\n    } else{\r\n        $password = trim($_POST[\"password\"]);\r\n    }\r\n\r\n    // Validate confirm password\r\n    if(empty(trim($_POST[\"confirm_password\"]))){\r\n        $confirm_password_err = \"Please confirm password.\";\r\n    } else{\r\n        $confirm_password = trim($_POST[\"confirm_password\"]);\r\n        if(empty($password_err) && ($password != $confirm_password)){\r\n            $confirm_password_err = \"Password did not match.\";\r\n        }\r\n    }\r\n\r\n\r\n    $customerID = CustomerExsists($name, $link);\r\n    if ($customerID == NULL) {\r\n        $statement = mysqli_prepare($link, \"\r\n                        SELECT MAX(CustomerID) + 1 AS CstId -- Fetch highest known ID and increase by 1, save as CstId\r\n                        FROM customers;\");\r\n        mysqli_stmt_execute($statement);\r\n        $Result = mysqli_stmt_get_result($statement);\r\n        $customerID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query\r\n        $customerID = $customerID[0][\"CstId\"]; //Retrieve customerID from fetched array\r\n\r\n        $addToCustumer = mysqli_prepare($link, \"\r\n            INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) \r\n            values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,?,?,'www.windesheim.nl',?,?,?,?,?,1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59' )\"\r\n        );\r\n        mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode);\r\n        mysqli_stmt_execute($addToCustumer);\r\n    }\r\n\r\n    // Check input errors before inserting in database\r\n    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){\r\n\r\n        // Prepare an insert statement\r\n        $sql = \"INSERT INTO users (id,username, password) VALUES (?,?, ?)\";\r\n\r\n        if($stmt = mysqli_prepare($link, $sql)){\r\n            // Bind variables to the prepared statement as parameters\r\n            mysqli_stmt_bind_param($stmt, \"iss\",$customerID, $param_username, $param_password);\r\n\r\n            // Set parameters\r\n            $param_username = $username;\r\n            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash\r\n\r\n            // Attempt to execute the prepared statement\r\n            if(mysqli_stmt_execute($stmt)){\r\n                // Redirect to login page\r\n                header(\"location: login.php\");\r\n            } else{\r\n                echo \"Oops! Something went wrong. Please try again later.\";\r\n            }\r\n\r\n            // Close statement\r\n            mysqli_stmt_close($stmt);\r\n        }\r\n    }\r\n\r\n    // Close connection\r\n    mysqli_close($link);\r\n}\r\n?>\r\n<div class=\"wrapper\">\r\n\r\n    <h2>Sign Up</h2>\r\n\r\n    <p>Already have an account? <a href=\"login.php\">Login here</a>.</p>\r\n    <p>Please fill out this form to create an account.</p>\r\n    <form action=\"<?php echo htmlspecialchars($_SERVER[\"PHP_SELF\"]); ?>\" method=\"post\">\r\n        <div class=\"form-group\">\r\n            <label>Username</label>\r\n            <input type=\"text\" name=\"username\" class=\"form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $username; ?>\">\r\n            <span class=\"invalid-feedback\"><?php echo $username_err; ?></span>\r\n        </div>\r\n        <div class=\"form-group\">\r\n            <label>voornaam</label>\r\n            <input type=\"text\" name=\"voornaam\" required pattern=\"[a-zA-z]{1, }\" class=\"form-control <?php echo (!empty($voornaam_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $voornaam; ?>\">\r\n            <span class=\"invalid-feedback\"><?php echo $voornaam_err; ?></span>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label>Achternaam</label>\r\n            <input type=\"text\" name=\"achternaam\" required pattern=\"[a-zA-z]{1, }\" class=\"form-control <?php echo (!empty($achternaam_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $achternaam; ?>\">\r\n            <span class=\"invalid-feedback\"><?php echo $achternaam_err; ?></span>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label>Straatnaam & nummer</label>\r\n            <input type=\"adres\" name=\"adres\" class=\"form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $adres; ?>\">\r\n            <span class=\"invalid-feedback\"><?php echo $adres_err; ?></span>\r\n\r\n            <div class=\"form-group\">\r\n                <label>Postcode</label>\r\n                <input type=\"postcode\" name=\"postcode\" required pattern=\"[0-9]{4,4}+[A-Z]{2,2}\" class=\"form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $postcode; ?>\">\r\n                <span class=\"invalid-feedback\"><?php echo $postcode_err; ?></span>\r\n\r\n                <div class=\"form-group\">\r\n                    <label>Woonplaats</label>\r\n                    <input type=\"Woonplaats\" name=\"Woonplaats\" required pattern=\"[a-z A-z]{1, }\" class=\"form-control <?php echo (!empty($woonplaats_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $woonplaats; ?>\">\r\n                    <span class=\"invalid-feedback\"><?php echo $woonplaats_err; ?></span>\r\n\r\n                </div>\r\n\r\n\r\n                <div class=\"form-group\">\r\n                    <label>Password</label>\r\n                    <input type=\"password\" name=\"password\" required pattern=\"[a-z A-z0-9]{6,}\" class=\"form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $password; ?>\">\r\n                    <span class=\"invalid-feedback\"><?php echo $password_err; ?></span>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label>Confirm Password</label>\r\n                    <input type=\"password\" name=\"confirm_password\" required pattern=\"[a-z A-z0-9]{6,}\" class=\"form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>\" value=\"<?php echo $confirm_password; ?>\">\r\n                    <span class=\"invalid-feedback\"><?php echo $confirm_password_err; ?></span>\r\n                </div>\r\n\r\n                <div class=\"form-group\">\r\n                    <input type=\"submit\" class=\"btn btn-primary\" value=\"Submit\">\r\n                    <input type=\"reset\" class=\"btn btn-secondary ml-2\" value=\"Reset\">\r\n                </div>\r\n\r\n    </form>\r\n</div>\r\n</body>\r\n</html>\r\n\r\n\r\n<?php\r\ninclude __DIR__ . \"/footer.php\";\r\n?>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/register.php b/register.php
+--- a/register.php	(revision eceb7bb550da66ac5bb29d71326111a339461f3b)
++++ b/register.php	(date 1671793241313)
+@@ -157,7 +157,11 @@
+                     <span class="invalid-feedback"><?php echo $woonplaats_err; ?></span>
+ 
+                 </div>
+-
++                <div class="form-group">
++                    <label>Telefoonnummer</label>
++                <input type="text" name="Telefoonnummer" class="form-control" required pattern="[0]{1}[0-9]{1}[0-9]{8}" <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
++                    <span class="invalid-feedback"><?php echo $username_err; ?></span>
++                </div>
+ 
+                 <div class="form-group">
+                     <label>Password</label>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"55b821a6-92ec-42c7-8d9a-1fd4ad830a49\" name=\"Changes\" comment=\"huts\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Public/CSS/style.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Public/CSS/style.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/index.php\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/index.php\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ComposerSettings\">\r\n    <execution />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"PhpWorkspaceProjectConfiguration\" interpreter_name=\"PHP\" />\r\n  <component name=\"ProjectId\" id=\"2JBEOqTIXVZIKamYcCXhBFnnj7s\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <OptionsSetting value=\"false\" id=\"Update\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"tempsensor.php\" type=\"PhpLocalRunConfigurationType\" factoryName=\"PHP Console\" path=\"$PROJECT_DIR$/fakeTempSensor/tempsensor.php\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task id=\"LOCAL-00001\" summary=\"delete\">\r\n      <created>1671482070771</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671482070771</updated>\r\n    </task>\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"55b821a6-92ec-42c7-8d9a-1fd4ad830a49\" name=\"Changes\" comment=\"delete\" />\r\n      <created>1671543058703</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1671543058703</updated>\r\n      <workItem from=\"1671543061167\" duration=\"11646000\" />\r\n      <workItem from=\"1671556429165\" duration=\"472000\" />\r\n      <workItem from=\"1671556919314\" duration=\"98000\" />\r\n      <workItem from=\"1671610690508\" duration=\"4037000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"de pain\">\r\n      <created>1671549078386</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671549078387</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"im in pian\">\r\n      <created>1671554797456</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671554797456</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"im in pian\">\r\n      <created>1671610949004</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671610949004</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"im in pian\">\r\n      <created>1671612449493</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671612449493</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"huts\">\r\n      <created>1671709590441</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671709590441</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"huts\">\r\n      <created>1671720437940</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1671720437940</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"delete\" />\r\n    <MESSAGE value=\"de pain\" />\r\n    <MESSAGE value=\"im in pian\" />\r\n    <MESSAGE value=\"huts\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"huts\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision eceb7bb550da66ac5bb29d71326111a339461f3b)
++++ b/.idea/workspace.xml	(date 1671793249683)
+@@ -1,10 +1,9 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="huts">
++    <list default="true" id="f6cc716b-51f8-4fd5-a3be-9f01b679d388" name="Changes" comment="piraat is dood, einde.">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/CSS/style.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/register.php" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -21,10 +20,7 @@
+     <option name="stateVersion" value="1" />
+   </component>
+   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+-  <component name="ProjectId" id="2JBEOqTIXVZIKamYcCXhBFnnj7s" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+-    <OptionsSetting value="false" id="Update" />
+-  </component>
++  <component name="ProjectId" id="2IGpmvCJ8XJCRi3cMTT91y5OH3f" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -34,78 +30,123 @@
+     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/nerdygadgets/Public/login system&quot;,
+     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+ }</component>
+-  <component name="RunManager">
+-    <configuration name="tempsensor.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/fakeTempSensor/tempsensor.php">
++  <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\xampp\htdocs\nerdygadgets\Public\login system" />
++    </key>
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\xampp\htdocs\nerdygadgets" />
++      <recent name="C:\xampp\htdocs\nerdygadgets\Public" />
++    </key>
++  </component>
++  <component name="RunManager" selected="PHP Script.tempsensor.php">
++    <configuration name="Config.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/Public/Config.php">
++      <CommandLine>
++        <PhpTestInterpreterSettings>
++          <option name="interpreterName" value="PHP" />
++        </PhpTestInterpreterSettings>
++      </CommandLine>
+       <method v="2" />
+     </configuration>
++    <configuration name="tempsensor.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/fakeTempSensor/tempsensor.php">
++      <method v="2" />
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="PHP Script.tempsensor.php" />
++      </list>
++    </recent_temporary>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+-    <task id="LOCAL-00001" summary="delete">
+-      <created>1671482070771</created>
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="f6cc716b-51f8-4fd5-a3be-9f01b679d388" name="Changes" comment="" />
++      <created>1669817936911</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1669817936911</updated>
++      <workItem from="1669817938349" duration="1550000" />
++      <workItem from="1669979308604" duration="671000" />
++      <workItem from="1670079626216" duration="9746000" />
++      <workItem from="1670405138327" duration="162000" />
++      <workItem from="1670503127393" duration="1944000" />
++      <workItem from="1670697150838" duration="581000" />
++      <workItem from="1671012434125" duration="117000" />
++      <workItem from="1671110975800" duration="2096000" />
++      <workItem from="1671114193986" duration="1531000" />
++      <workItem from="1671368455893" duration="4050000" />
++      <workItem from="1671607787981" duration="2162000" />
++      <workItem from="1671611679767" duration="5880000" />
++      <workItem from="1671701463158" duration="18105000" />
++    </task>
++    <task id="LOCAL-00001" summary="beveiliging inputvelden">
++      <created>1670405284838</created>
+       <option name="number" value="00001" />
+       <option name="presentableId" value="LOCAL-00001" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671482070771</updated>
++      <updated>1670405284838</updated>
+     </task>
+-    <task active="true" id="Default" summary="Default task">
+-      <changelist id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="delete" />
+-      <created>1671543058703</created>
+-      <option name="number" value="Default" />
+-      <option name="presentableId" value="Default" />
+-      <updated>1671543058703</updated>
+-      <workItem from="1671543061167" duration="11646000" />
+-      <workItem from="1671556429165" duration="472000" />
+-      <workItem from="1671556919314" duration="98000" />
+-      <workItem from="1671610690508" duration="4037000" />
+-    </task>
+-    <task id="LOCAL-00002" summary="de pain">
+-      <created>1671549078386</created>
++    <task id="LOCAL-00002" summary="Aanhef is nu vereist">
++      <created>1671114782619</created>
+       <option name="number" value="00002" />
+       <option name="presentableId" value="LOCAL-00002" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671549078387</updated>
++      <updated>1671114782619</updated>
+     </task>
+-    <task id="LOCAL-00003" summary="im in pian">
+-      <created>1671554797456</created>
++    <task id="LOCAL-00003" summary="Tekst aanpassingen">
++      <created>1671115688935</created>
+       <option name="number" value="00003" />
+       <option name="presentableId" value="LOCAL-00003" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671554797456</updated>
++      <updated>1671115688935</updated>
+     </task>
+-    <task id="LOCAL-00004" summary="im in pian">
+-      <created>1671610949004</created>
++    <task id="LOCAL-00004" summary=" .">
++      <created>1671612442338</created>
+       <option name="number" value="00004" />
+       <option name="presentableId" value="LOCAL-00004" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671610949004</updated>
++      <updated>1671612442338</updated>
+     </task>
+-    <task id="LOCAL-00005" summary="im in pian">
+-      <created>1671612449493</created>
++    <task id="LOCAL-00005" summary=" login systeem">
++      <created>1671624472666</created>
+       <option name="number" value="00005" />
+       <option name="presentableId" value="LOCAL-00005" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671612449493</updated>
++      <updated>1671624472666</updated>
+     </task>
+-    <task id="LOCAL-00006" summary="huts">
+-      <created>1671709590441</created>
++    <task id="LOCAL-00006" summary=" login systeem">
++      <created>1671624807465</created>
+       <option name="number" value="00006" />
+       <option name="presentableId" value="LOCAL-00006" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671709590441</updated>
++      <updated>1671624807465</updated>
+     </task>
+-    <task id="LOCAL-00007" summary="huts">
+-      <created>1671720437940</created>
++    <task id="LOCAL-00007" summary=" login systeem0,9">
++      <created>1671728145855</created>
+       <option name="number" value="00007" />
+       <option name="presentableId" value="LOCAL-00007" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671720437940</updated>
++      <updated>1671728145855</updated>
++    </task>
++    <task id="LOCAL-00008" summary=" login systeem0,9">
++      <created>1671792437807</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1671792437807</updated>
++    </task>
++    <task id="LOCAL-00009" summary="piraat is dood, einde.">
++      <created>1671792806442</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1671792806442</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <option name="localTasksCounter" value="10" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -123,10 +164,13 @@
+     </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+-    <MESSAGE value="delete" />
+-    <MESSAGE value="de pain" />
+-    <MESSAGE value="im in pian" />
+-    <MESSAGE value="huts" />
+-    <option name="LAST_COMMIT_MESSAGE" value="huts" />
++    <MESSAGE value="beveiliging inputvelden" />
++    <MESSAGE value="Aanhef is nu vereist" />
++    <MESSAGE value="Tekst aanpassingen" />
++    <MESSAGE value=" ." />
++    <MESSAGE value=" login systeem" />
++    <MESSAGE value=" login systeem0,9" />
++    <MESSAGE value="piraat is dood, einde." />
++    <option name="LAST_COMMIT_MESSAGE" value="piraat is dood, einde." />
+   </component>
+ </project>
+\ No newline at end of file

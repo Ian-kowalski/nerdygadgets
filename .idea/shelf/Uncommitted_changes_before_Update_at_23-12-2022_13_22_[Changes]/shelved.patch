@@ -1,0 +1,352 @@
+Index: register.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/register.php b/register.php
+--- a/register.php	
++++ b/register.php	
+@@ -3,22 +3,23 @@
+ include __DIR__ . '/header.php';
+ require_once "config.php";
+ 
+-getNAW();
++function getNAW(){
++    return array(
++        "Postcode"=> $_POST["postcode"],
++        "plaats"=> $_POST["Woonplaats"],
++        "adres"=> $_POST ["huisnr"]." ".$_GET ["straat"],
++        "name"=> $_POST["voornaam"] . " " . $_GET["achternaam"],
++        "tel"=> $_POST ["telefoonnummer"],
++    );
++}
++
+ // Define variables and initialize with empty values
+-$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres = $tel = "";
+-$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = $postcode_err = $woonplaats_err = $adres_err = $tel_err = " " ;
++$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $straat = $huisnr = $tel = "" ;
++$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = $postcode_err = $straat_err = $huisnr_err = $tel_err = " " ;
+ $name = "";
+ if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];
+-function getNAW(){
+-    return array(
+-        "Postcode"=> $_GET[ "postalcode"],
+-        "plaats"=> $_GET[ "city"],
+-        "adres"=> $_GET [ "huisnr"]." ".$_GET [ "street"],
+-        "name"=> $_GET["fname"] . " " . $_GET["lname"],
+-        //"email"=> $_GET["email"],
+-        "tel"=> $_GET["phone"],
+-    );
+-}
++
++
+ // Processing form data when form is submitted
+ if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+@@ -26,7 +27,7 @@
+     if(empty(trim($_POST["username"]))){
+         $username_err = "Please enter a username.";
+     } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+-        $username_err = "Username can only contain letters, numbers, and underscores.";
++        $username_err = "Username can only contain letters, numbers";
+     } else{
+         // Prepare a select statement
+         $sql = "SELECT id FROM users WHERE username = ?";
+@@ -56,7 +57,7 @@
+             mysqli_stmt_close($stmt);
+         }
+     }
+-    $customerID=getCustemer($NAW,$link);
++    $customerID=getCustemer(getNAW(),$link);
+ 
+     // Validate password
+     if(empty(trim($_POST["password"]))){
+@@ -135,13 +136,13 @@
+ 
+         <div class="form-group">
+             <label>Straat</label>
+-            <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
+-            <span class="invalid-feedback"><?php echo $adres_err; ?></span>
++            <input type="text" name="straat" class="form-control <?php echo (!empty($straat_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $straat; ?>">
++            <span class="invalid-feedback"><?php echo $straat_err; ?></span>
+ 
+             <div class="form-group">
+                 <label>huisnr</label>
+-                <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
+-                <span class="invalid-feedback"><?php echo $adres_err; ?></span>
++                <input type="text" name="huisnr" class="form-control <?php echo (!empty($huisnr_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $huisnr; ?>">
++                <span class="invalid-feedback"><?php echo $huisnr_err; ?></span>
+ 
+             <div class="form-group">
+                 <label>Postcode</label>
+@@ -156,7 +157,7 @@
+                 </div>
+                 <div class="form-group">
+                     <label>Telefoonnummer</label>
+-                <input type="text" name="Telefoonnummer" class="form-control" required pattern="[0]{1}[0-9]{1}[0-9]{8}" class="form-control <?php echo (!empty($tel_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $tel; ?>">
++                <input type="text" name="telefoonnummer" class="form-control" required pattern="[0]{1}[0-9]{1}[0-9]{8}" class="form-control <?php echo (!empty($tel_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $tel; ?>">
+                     <span class="invalid-feedback"><?php echo $tel_err; ?></span>
+                 </div>
+ 
+Index: Verwerkorder.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Verwerkorder.php b/Verwerkorder.php
+--- a/Verwerkorder.php	
++++ b/Verwerkorder.php	
+@@ -4,10 +4,10 @@
+ 
+ function getNAW(){
+     return array(
+-        "Postcode"=> $_GET[ "postcode"],
+-        "plaats"=> $_GET[ "woonplaats"],
+-        "adres"=> $_GET [ "huisnr"]." ".$_GET [ "straat"],
+-        "name"=> $_GET["fname"] . " " . $_GET["lname"],
++        "Postcode"=> $_GET["postcode"],
++        "plaats"=> $_GET["Woonplaats"],
++        "adres"=> $_GET ["huisnr"]." ".$_GET ["straat"],
++        "name"=> $_GET["voornaam"] . " " . $_GET["achternaam"],
+         "tel"=> $_GET["telefoonnummer"],
+     );
+ }
+Index: order.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/order.php b/order.php
+--- a/order.php	
++++ b/order.php	
+@@ -28,7 +28,7 @@
+                     <label for="street">Straatnaam</label>
+                     <input type="text" name="straat" id="straat" required pattern="[A-Z a-z]{1,}"><br>
+                     <div class="NAWcol">
+-                        <label for="huisnr">Huisnr & toevoeging</label>
++                        <label for="huisnr">Huisnr & toevoeging </label>
+                         <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"><br>
+                         <label for="postcode">Postcode</label>
+                         <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"><br>
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,10 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="huts">
++    <list default="true" id="f6cc716b-51f8-4fd5-a3be-9f01b679d388" name="Changes" comment="piraat is dood, einde.">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/CSS/style.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Verwerkorder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Verwerkorder.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/order.php" beforeDir="false" afterPath="$PROJECT_DIR$/order.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/register.php" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -21,10 +22,7 @@
+     <option name="stateVersion" value="1" />
+   </component>
+   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+-  <component name="ProjectId" id="2JBEOqTIXVZIKamYcCXhBFnnj7s" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+-    <OptionsSetting value="false" id="Update" />
+-  </component>
++  <component name="ProjectId" id="2IGpmvCJ8XJCRi3cMTT91y5OH3f" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+@@ -34,78 +32,130 @@
+     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/nerdygadgets/Public/login system&quot;,
+     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+ }</component>
+-  <component name="RunManager">
+-    <configuration name="tempsensor.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/fakeTempSensor/tempsensor.php">
++  <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\xampp\htdocs\nerdygadgets\Public\login system" />
++    </key>
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\xampp\htdocs\nerdygadgets" />
++      <recent name="C:\xampp\htdocs\nerdygadgets\Public" />
++    </key>
++  </component>
++  <component name="RunManager" selected="PHP Script.tempsensor.php">
++    <configuration name="Config.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/Public/Config.php">
++      <CommandLine>
++        <PhpTestInterpreterSettings>
++          <option name="interpreterName" value="PHP" />
++        </PhpTestInterpreterSettings>
++      </CommandLine>
+       <method v="2" />
+     </configuration>
++    <configuration name="tempsensor.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/fakeTempSensor/tempsensor.php">
++      <method v="2" />
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="PHP Script.tempsensor.php" />
++      </list>
++    </recent_temporary>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+-    <task id="LOCAL-00001" summary="delete">
+-      <created>1671482070771</created>
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="f6cc716b-51f8-4fd5-a3be-9f01b679d388" name="Changes" comment="" />
++      <created>1669817936911</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1669817936911</updated>
++      <workItem from="1669817938349" duration="1550000" />
++      <workItem from="1669979308604" duration="671000" />
++      <workItem from="1670079626216" duration="9746000" />
++      <workItem from="1670405138327" duration="162000" />
++      <workItem from="1670503127393" duration="1944000" />
++      <workItem from="1670697150838" duration="581000" />
++      <workItem from="1671012434125" duration="117000" />
++      <workItem from="1671110975800" duration="2096000" />
++      <workItem from="1671114193986" duration="1531000" />
++      <workItem from="1671368455893" duration="4050000" />
++      <workItem from="1671607787981" duration="2162000" />
++      <workItem from="1671611679767" duration="5880000" />
++      <workItem from="1671701463158" duration="22984000" />
++    </task>
++    <task id="LOCAL-00001" summary="beveiliging inputvelden">
++      <created>1670405284838</created>
+       <option name="number" value="00001" />
+       <option name="presentableId" value="LOCAL-00001" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671482070771</updated>
++      <updated>1670405284838</updated>
+     </task>
+-    <task active="true" id="Default" summary="Default task">
+-      <changelist id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="delete" />
+-      <created>1671543058703</created>
+-      <option name="number" value="Default" />
+-      <option name="presentableId" value="Default" />
+-      <updated>1671543058703</updated>
+-      <workItem from="1671543061167" duration="11646000" />
+-      <workItem from="1671556429165" duration="472000" />
+-      <workItem from="1671556919314" duration="98000" />
+-      <workItem from="1671610690508" duration="4037000" />
+-    </task>
+-    <task id="LOCAL-00002" summary="de pain">
+-      <created>1671549078386</created>
++    <task id="LOCAL-00002" summary="Aanhef is nu vereist">
++      <created>1671114782619</created>
+       <option name="number" value="00002" />
+       <option name="presentableId" value="LOCAL-00002" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671549078387</updated>
++      <updated>1671114782619</updated>
+     </task>
+-    <task id="LOCAL-00003" summary="im in pian">
+-      <created>1671554797456</created>
++    <task id="LOCAL-00003" summary="Tekst aanpassingen">
++      <created>1671115688935</created>
+       <option name="number" value="00003" />
+       <option name="presentableId" value="LOCAL-00003" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671554797456</updated>
++      <updated>1671115688935</updated>
+     </task>
+-    <task id="LOCAL-00004" summary="im in pian">
+-      <created>1671610949004</created>
++    <task id="LOCAL-00004" summary=" .">
++      <created>1671612442338</created>
+       <option name="number" value="00004" />
+       <option name="presentableId" value="LOCAL-00004" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671610949004</updated>
++      <updated>1671612442338</updated>
+     </task>
+-    <task id="LOCAL-00005" summary="im in pian">
+-      <created>1671612449493</created>
++    <task id="LOCAL-00005" summary=" login systeem">
++      <created>1671624472666</created>
+       <option name="number" value="00005" />
+       <option name="presentableId" value="LOCAL-00005" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671612449493</updated>
++      <updated>1671624472666</updated>
+     </task>
+-    <task id="LOCAL-00006" summary="huts">
+-      <created>1671709590441</created>
++    <task id="LOCAL-00006" summary=" login systeem">
++      <created>1671624807465</created>
+       <option name="number" value="00006" />
+       <option name="presentableId" value="LOCAL-00006" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671709590441</updated>
++      <updated>1671624807465</updated>
+     </task>
+-    <task id="LOCAL-00007" summary="huts">
+-      <created>1671720437940</created>
++    <task id="LOCAL-00007" summary=" login systeem0,9">
++      <created>1671728145855</created>
+       <option name="number" value="00007" />
+       <option name="presentableId" value="LOCAL-00007" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671720437940</updated>
++      <updated>1671728145855</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <task id="LOCAL-00008" summary=" login systeem0,9">
++      <created>1671792437807</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1671792437807</updated>
++    </task>
++    <task id="LOCAL-00009" summary="piraat is dood, einde.">
++      <created>1671792806442</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1671792806442</updated>
++    </task>
++    <task id="LOCAL-00010" summary="piraat is dood, einde.">
++      <created>1671795688485</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1671795688485</updated>
++    </task>
++    <option name="localTasksCounter" value="11" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -123,10 +173,13 @@
+     </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+-    <MESSAGE value="delete" />
+-    <MESSAGE value="de pain" />
+-    <MESSAGE value="im in pian" />
+-    <MESSAGE value="huts" />
+-    <option name="LAST_COMMIT_MESSAGE" value="huts" />
++    <MESSAGE value="beveiliging inputvelden" />
++    <MESSAGE value="Aanhef is nu vereist" />
++    <MESSAGE value="Tekst aanpassingen" />
++    <MESSAGE value=" ." />
++    <MESSAGE value=" login systeem" />
++    <MESSAGE value=" login systeem0,9" />
++    <MESSAGE value="piraat is dood, einde." />
++    <option name="LAST_COMMIT_MESSAGE" value="piraat is dood, einde." />
+   </component>
+ </project>
+\ No newline at end of file
