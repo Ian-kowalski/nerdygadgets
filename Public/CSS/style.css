@@ -1049,6 +1049,31 @@ input:checked + .slider:before {
 .fa-angle-down{
     color: var(--color-acs2)
 }
+.fa-list-ol{
+    color: var(--color-acs2)
+}
+.fa-sort{
+    color: var(--color-acs2)
+}
+.fa-tags{
+    color: var(--color-acs2)
+}
+.fa-tags{
+    color: var(--color-acs2)
+}
+.fa-palette{
+    color: var(--color-acs2)
+}
+.fa-ruler-combined{
+    color: var(--color-acs2)
+}
+.fa-filter{
+    color: var(--color-acs2)
+}
+
+
+
+
 
 
 .range_container {

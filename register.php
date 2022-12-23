@@ -9,16 +9,7 @@ $username = $password = $confirm_password = $voornaam = $achternaam = $postcode=
 $username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = $postcode_err = $woonplaats_err = $adres_err = $tel_err = " " ;
 $name = "";
 if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];
-function getNAW(){
-    return array(
-        "Postcode"=> $_GET[ "postalcode"],
-        "plaats"=> $_GET[ "city"],
-        "adres"=> $_GET [ "huisnr"]." ".$_GET [ "street"],
-        "name"=> $_GET["fname"] . " " . $_GET["lname"],
-        //"email"=> $_GET["email"],
-        "tel"=> $_GET["phone"],
-    );
-}
+
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
