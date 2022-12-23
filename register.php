@@ -1,14 +1,11 @@
 <?php
+include __DIR__ . "/header.php";
 // Include config file
-include __DIR__ . '/header.php';
 require_once "config.php";
 
-//getNAW();
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres = $tel = "";
-$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = $postcode_err = $woonplaats_err = $adres_err = $tel_err = " " ;
-$name = "";
-//if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];*/
+$username = $password = $confirm_password = "";
+$username_err = $password_err = $confirm_password_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -47,7 +44,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
-    //$customerID=getCustemer($NAW,$link);
 
     // Validate password
     if(empty(trim($_POST["password"]))){
@@ -68,16 +64,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (id,username, password) VALUES (?,?, ?)";
+        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "iss",$customerID, $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
 
             // Set parameters
             $param_username = $username;
@@ -100,12 +95,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_close($link);
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 360px; padding: 20px; }
+    </style>
+</head>
+<body>
 <div class="wrapper">
-
     <h2>Sign Up</h2>
-
-    <p>Already have an account? <a href="login.php">Login here</a>.</p>
-    <p>Please fill out this form to create an account.</p>
+    <p>Please fill this form to create an account.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label>Username</label>
@@ -113,66 +118,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
         <div class="form-group">
-            <label>voornaam</label>
-            <input type="text" name="voornaam" required pattern="[a-zA-z]{1, }" class="form-control <?php echo (!empty($voornaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $voornaam; ?>">
-            <span class="invalid-feedback"><?php echo $voornaam_err; ?></span>
+            <label>Password</label>
+            <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+            <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
-
         <div class="form-group">
-            <label>Achternaam</label>
-            <input type="text" name="achternaam" required pattern="[a-zA-z]{1, }" class="form-control <?php echo (!empty($achternaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $achternaam; ?>">
-            <span class="invalid-feedback"><?php echo $achternaam_err; ?></span>
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+            <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
         </div>
-
         <div class="form-group">
-            <label>Straat</label>
-            <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
-            <span class="invalid-feedback"><?php echo $adres_err; ?></span>
-
-            <div class="form-group">
-                <label>huisnr</label>
-                <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
-                <span class="invalid-feedback"><?php echo $adres_err; ?></span>
-
-            <div class="form-group">
-                <label>Postcode</label>
-                <input type="postcode" name="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $postcode; ?>">
-                <span class="invalid-feedback"><?php echo $postcode_err; ?></span>
-
-                <div class="form-group">
-                    <label>Woonplaats</label>
-                    <input type="Woonplaats" name="Woonplaats" required pattern="[a-z A-z]{1, }" class="form-control <?php echo (!empty($woonplaats_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $woonplaats; ?>">
-                    <span class="invalid-feedback"><?php echo $woonplaats_err; ?></span>
-
-                </div>
-                <div class="form-group">
-                    <label>Telefoonnummer</label>
-                <input type="text" name="Telefoonnummer" class="form-control" required pattern="[0]{1}[0-9]{1}[0-9]{8}" class="form-control <?php echo (!empty($tel_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $tel; ?>">
-                    <span class="invalid-feedback"><?php echo $tel_err; ?></span>
-                </div>
-
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" required pattern="[a-z A-z0-9]{6,}" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                    <span class="invalid-feedback"><?php echo $password_err; ?></span>
-                </div>
-                <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" name="confirm_password" required pattern="[a-z A-z0-9]{6,}" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                    <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-                </div>
-
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                    <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-                </div>
-
+            <input type="submit" class="btn btn-primary" value="Submit">
+            <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+        </div>
+        <p>Already have an account? <a href="login.php">Login here</a>.</p>
     </form>
 </div>
 </body>
 </html>
 
-
 <?php
+
 include __DIR__ . "/footer.php";
 ?>

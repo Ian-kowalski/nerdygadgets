@@ -7,7 +7,7 @@ function getNAW(){
         "Postcode"=> $_GET["postcode"],
         "plaats"=> $_GET["woonplaats"],
         "adres"=> $_GET ["huisnr"]." ".$_GET ["straat"],
-        "name"=> $_GET["fname"] . " " . $_GET["lname"],
+        "name"=> $_GET["voornaam"] . " " . $_GET["achternaam"],
         "tel"=> $_GET["telefoonnummer"],
     );
 }
