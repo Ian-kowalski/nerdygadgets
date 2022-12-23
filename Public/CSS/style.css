@@ -6,8 +6,8 @@ html {
     --color-bg: #DCDCD0;
     --color-fg: rgb(35, 35, 47);
     --color-div: #949485;
-    --color-acs: #274700;
-    --color-acs2: #ABD600;
+    --color-acs: #280a82;
+    --color-acs2: #4e1ce6;
     --filter-inv: invert(1);
 }
 [data-theme="dark"] {

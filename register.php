@@ -3,12 +3,12 @@
 include __DIR__ . '/header.php';
 require_once "config.php";
 
-getNAW();
+//getNAW();
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres = $tel = "";
 $username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = $postcode_err = $woonplaats_err = $adres_err = $tel_err = " " ;
 $name = "";
-if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];
+//if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];*/
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -47,7 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
-    $customerID=getCustemer($NAW,$link);
+    //$customerID=getCustemer($NAW,$link);
 
     // Validate password
     if(empty(trim($_POST["password"]))){
