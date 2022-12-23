@@ -34,7 +34,7 @@ if($cart!=null){
                         <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"><br>
                     </div>
                     <label for="city">Plaats</label>
-                    <input type="text" name="city" id="city" required pattern="[a-z A-Z]{1,}"><br>
+                    <input type="text" name="woonplaats" id="woonplaats" required pattern="[a-z A-Z]{1,}"><br>
 
                 </div>
                 <div class="NAWRow">
@@ -59,7 +59,7 @@ if($cart!=null){
                     <label for="lname">Achternaam</label>
                     <input type="text" name="lname" id="lname" required pattern="[a-z A-Z]{1,}"><br>
                     <label for="Telefoon">Telefoonnummer</label>
-                    <input type="tel" id="phone" name="phone" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
+                    <input type="tel" id="telefoonnummer" name="telefoonnummer" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
                 </div>
             </form>
         </div>
