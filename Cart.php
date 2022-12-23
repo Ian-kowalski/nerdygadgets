@@ -107,7 +107,10 @@ if($cart!=null){
                     print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
                     print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
                     print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
-                    <a href="/nerdygadgets/order.php" class='button button1'>bestellen</a>
+                    <form action="order.php">
+                        <button class='button button1'>bestellen</a>
+                    </form>
+
                 </div>
         </div>
     <?php
