@@ -113,11 +113,7 @@ function CustomerExsists($CustomerName,$databaseConnection){
     }
 
 }
-
-function saveOrder($NAW,$databaseConnection){
-    $cart=getCart();
-    mysqli_begin_transaction($databaseConnection);
-    try { //aanmaken costumer
+function getCustemer($NAW,$databaseConnection){
         extract($NAW, EXTR_OVERWRITE);
         $customerID = CustomerExsists($name, $databaseConnection);
         if ($customerID == NULL) {
@@ -136,7 +132,14 @@ function saveOrder($NAW,$databaseConnection){
             mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode);
             mysqli_stmt_execute($addToCustumer);
         }
+        return $customerID;
 
+}
+function saveOrder($NAW,$databaseConnection){
+    $cart=getCart();
+    mysqli_begin_transaction($databaseConnection);
+    try { //aanmaken costumer
+        $customerID=getCustemer($NAW,$databaseConnection);
         $statement = mysqli_prepare($databaseConnection, "
                     SELECT MAX(OrderID) + 1 AS OrId -- Fetch highest known ID and increase by 1, save as OrId
                     FROM Orders;");

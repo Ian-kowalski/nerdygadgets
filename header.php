@@ -3,7 +3,7 @@
 session_start();
 include "database.php";
 
-
+$snow=1;
 $databaseConnection = connectToDatabase();
 
 ?>
@@ -26,12 +26,12 @@ $databaseConnection = connectToDatabase();
 
 </head>
 <body>
-<div class="Background">
-    <div class="row" id="Header">
+<div class="Background ">
+    <div class="row <?php if($snow){print "snow";}?>" id="Header">
         <div title="home page" class="col-2"><a href="./" id="LogoA">
                 <div id="LogoImage"></div>
             </a></div>
-        <div class="col-8" id="CategoriesBar">
+        <div class="col-8 " id="CategoriesBar">
             <ul id="ul-class">
                 <?php
                 $HeaderStockGroups = getHeaderStockGroups($databaseConnection);
