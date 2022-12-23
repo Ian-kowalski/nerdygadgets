@@ -1,8 +1,10 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
+//hi
 include __DIR__ . "/header.php";
 // test of er een categorie is geselecteerd klikken op een categorie
 $ReturnableResult = null;
+$Result=null;
 $Sort = "SellPrice";
 $AmountOfPages = 0;
 $queryBuildResult = "";
