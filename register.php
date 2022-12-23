@@ -5,8 +5,8 @@ require_once "config.php";
 
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres ="";
-$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err= $woonplaats_err= $adres_err = " " ;
+$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres = $tel = "";
+$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = $postcode_err = $woonplaats_err = $adres_err = $tel_err = " " ;
 $name = "";
 if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];
 
@@ -138,9 +138,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
 
         <div class="form-group">
-            <label>Straatnaam & nummer</label>
+            <label>Straat</label>
             <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
             <span class="invalid-feedback"><?php echo $adres_err; ?></span>
+
+            <div class="form-group">
+                <label>huisnr</label>
+                <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
+                <span class="invalid-feedback"><?php echo $adres_err; ?></span>
 
             <div class="form-group">
                 <label>Postcode</label>
@@ -153,7 +158,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="invalid-feedback"><?php echo $woonplaats_err; ?></span>
 
                 </div>
-
+                <div class="form-group">
+                    <label>Telefoonnummer</label>
+                <input type="text" name="Telefoonnummer" class="form-control" required pattern="[0]{1}[0-9]{1}[0-9]{8}" class="form-control <?php echo (!empty($tel_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $tel; ?>">
+                    <span class="invalid-feedback"><?php echo $tel_err; ?></span>
+                </div>
 
                 <div class="form-group">
                     <label>Password</label>
