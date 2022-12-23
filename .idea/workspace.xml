@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="lucas 22-12-22">
+    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="huts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/CSS/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +91,21 @@
       <option name="project" value="LOCAL" />
       <updated>1671612449493</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="huts">
+      <created>1671709590441</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1671709590441</updated>
+    </task>
+    <task id="LOCAL-00007" summary="huts">
+      <created>1671720437940</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1671720437940</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,6 +126,7 @@
     <MESSAGE value="delete" />
     <MESSAGE value="de pain" />
     <MESSAGE value="im in pian" />
-    <option name="LAST_COMMIT_MESSAGE" value="im in pian" />
+    <MESSAGE value="huts" />
+    <option name="LAST_COMMIT_MESSAGE" value="huts" />
   </component>
 </project>

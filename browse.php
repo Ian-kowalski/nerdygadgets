@@ -1,13 +1,13 @@
 <!-- dit bestand bevat alle code voor het productoverzicht -->
 <?php
+//hi
 include __DIR__ . "/header.php";
 // test of er een categorie is geselecteerd klikken op een categorie
 $ReturnableResult = null;
+$Result=null;
 $Sort = "SellPrice";
-$SortName = "price_low_high";
 $AmountOfPages = 0;
 $queryBuildResult = "";
-$SearchString = "";
 
 if (isset($_GET['category_id'])) {
     $CategoryID = $_GET['category_id'];
@@ -19,60 +19,82 @@ if (isset($_GET['category_id'])) {
     $CategoryID = "";
     $_SESSION["category_id"]=$CategoryID;
 }
+
 if (isset($_GET['products_on_page'])) {
     $ProductsOnPage = $_GET['products_on_page'];
     $_SESSION['products_on_page'] = $_GET['products_on_page'];
 } else if (isset($_SESSION['products_on_page'])) {
     $ProductsOnPage = $_SESSION['products_on_page'];
+    $_GET['products_on_page']=$ProductsOnPage;
 } else {
     $ProductsOnPage = 25;
     $_SESSION['products_on_page'] = 25;
 }
+
 if (isset($_GET['page_number'])) {
     $PageNumber = $_GET['page_number'];
     $_SESSION["page_number"] = $_GET['page_number'];
-} else {
+} elseif(isset($_SESSION['page_number'])){
+    $PageNumber = $_SESSION['page_number'];
+    $_GET['page_number']=$PageNumber;
+}else {
     $PageNumber = 0;
+    $_SESSION['page_number']=$PageNumber;
 }
 
 if (isset($_GET['ColorID'])) {
-    $FilterColor = $_GET['ColorID'];
+    $ColorID = $_GET['ColorID'];
     $_SESSION["ColorID"] = $_GET['ColorID'];
+}elseif(isset($_SESSION["ColorID"])){
+    $ColorID = $_SESSION["ColorID"];
+    $_GET['ColorID']=$ColorID;
 } else {
-    $FilterColor = "";
-    $_SESSION["ColorID"] = "";
-}
-if (isset($_GET['SizeID'])) {
-    $FilterSize = $_GET['SizeID'];
-    $_SESSION["SizeID"] = $_GET['SizeID'];
-} else {
-    $FilterSize = "";
-    $_SESSION["SizeID"] = "";
+    $ColorID =0;
+    $_SESSION["ColorID"] = 0;
 }
 
+if (isset($_GET['SizeID'])) {
+    $SizeID = $_GET['SizeID'];
+    $_SESSION["SizeID"] = $_GET['SizeID'];
+} elseif(isset($_SESSION["SizeID"])){
+    $SizeID = $_SESSION['SizeID'];
+    $_GET['SizeID']=$SizeID;
+} else {
+    $SizeID = "";
+    $_SESSION["SizeID"] ="";
+}
 
 if (isset($_GET['search_string'])) {
     $SearchString = $_GET['search_string'];
     $_SESSION["search_string"] = $_GET['search_string'];
+}elseif(isset($_SESSION['search_string'])){
+    $SearchString = $_SESSION['search_string'];
+    $_GET["search_string"] = $SearchString;
+}else{
+    $SearchString = "";
+    $_SESSION["search_string"] = "";
 }
+
 if (isset($_GET['sort'])) {
     $SortOnPage = $_GET['sort'];
     $_SESSION["sort"] = $_GET['sort'];
 } else if (isset($_SESSION["sort"])) {
     $SortOnPage = $_SESSION["sort"];
+    $_GET["sort"]=$_SESSION["sort"];
 } else {
     $SortOnPage = "price_low_high";
     $_SESSION["sort"] = "price_low_high";
 }
-if (isset($_GET['ColorID'])) {
-    $_SESSION["ColorID"] = $_GET['ColorID'];
+
+if (isset($_GET['pricefilter'])) {
+    $PriceFilter = $_GET['pricefilter'];
+    $_SESSION['pricefilter'] = $_GET['pricefilter'];
+} else if (isset($_SESSION['pricefilter'])) {
+    $PriceFilter = $_SESSION['pricefilter'];
+    $_GET["pricefilter"]=$_SESSION["pricefilter"];
 } else {
-    $_SESSION["ColorID"] = "0";
-}
-if (isset($_GET['SizeID'])) {
-    $_SESSION["SizeID"] = $_GET['SizeID'];
-} else {
-    $_SESSION["SizeID"] = "0";
+    $PriceFilter = "";
+    $_SESSION['pricefilter'] = "";
 }
 
 switch ($SortOnPage) {
@@ -116,133 +138,35 @@ if ($SearchString != "") {
     }
     $queryBuildResult .= ")";
 }
-// <einde van de code voor zoekcriteria>
-// einde code deel 1 van User story: Zoeken producten
+// add $CategoryID
+
+if($CategoryID!="") {
+    if ($queryBuildResult != "") {
+        $queryBuildResult .= " AND";
+    }
+    $queryBuildResult .= " SIG.StockGroupID =$CategoryID";
+}
+if($CategoryID==2||$CategoryID==4||$CategoryID=="") {
+//add $ColorID
+    if ($ColorID != 0) {
+        if ($queryBuildResult != "") {
+            $queryBuildResult .= " AND";
+        }
+        $queryBuildResult .= " SI.ColorID = $ColorID";
+    }
+//add $SizeID
+    if ($SizeID != "") {
+        if ($queryBuildResult != "") {
+            $queryBuildResult .= " AND";
+        }
+        $queryBuildResult .= " SI.Size = '$SizeID'";
+    }
+}
 $Offset = $PageNumber * $ProductsOnPage;
 
-function pricefilter($queryBuildResult, $min, $max)
-{
-    if ($queryBuildResult != "") {
-        $queryBuildResult .= " AND ";
-    }
-    $queryBuildResult .= "SI.SellPrice BETWEEN $min AND $max";
-    return $queryBuildResult;
-}
+$ReturnableResult=filteren($queryBuildResult, $Sort, $ProductsOnPage, $Offset,$databaseConnection);
+$Result=row($queryBuildResult, $Sort, $databaseConnection);
 
-if (isset($_GET['pricefilter'])) {
-    $PriceFilter = $_GET['pricefilter'];
-    $_SESSION['pricefilter'] = $_GET['pricefilter'];
-} else if (isset($_SESSION['pricefilter'])) {
-    $PriceFilter = $_SESSION['pricefilter'];
-} else {
-    $PriceFilter = "";
-    $_SESSION['pricefilter'] = "";
-}
-
-
-$Offset = $PageNumber * $ProductsOnPage;
-
-
-
-if ($CategoryID == "") {
-    if ($queryBuildResult != "") {
-        $Query_sort = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
-                (SELECT ImagePath
-                FROM stockitemimages
-                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
-                JOIN stockitemholdings SIH USING(stockitemid)
-                WHERE ".$queryBuildResult."
-                GROUP BY StockItemID
-                ORDER BY ".$Sort."
-                LIMIT ?  OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI
-                WHERE $queryBuildResult";
-    }else{
-        $Query_sort = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
-                (SELECT ImagePath
-                FROM stockitemimages
-                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
-                JOIN stockitemholdings SIH USING(stockitemid)
-                GROUP BY StockItemID
-                ORDER BY ".$Sort."
-                LIMIT ?  OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI";
-    }
-    $Statement = mysqli_prepare($databaseConnection, $Query_sort);
-    mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
-
-    $rows = mysqli_prepare($databaseConnection, $Query_count);
-}
-
-if ($CategoryID != "") {
-    if ($queryBuildResult != "") {
-        $Query_sort = "
-               SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
-               ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
-               QuantityOnHand,
-               (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-               (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-               FROM stockitems SI
-               JOIN stockitemholdings SIH USING(stockitemid)
-               JOIN stockitemstockgroups SIG USING(StockItemID)
-               JOIN stockgroups SG USING(StockGroupID)
-               WHERE ".$queryBuildResult." AND SIG.StockGroupID = ?
-               GROUP BY StockItemID
-               ORDER BY " . $Sort . "
-               LIMIT ? OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI
-                JOIN stockitemstockgroups SIG USING(StockItemID)
-                WHERE ".$queryBuildResult." AND SIG.StockGroupID = ?";
-    } else {
-        $Query_sort = "
-                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,
-                ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
-                (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
-                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
-                FROM stockitems SI
-                JOIN stockitemholdings SIH USING(stockitemid)
-                JOIN stockitemstockgroups SIG USING(StockItemID)
-                JOIN stockgroups SG USING(StockGroupID)
-                WHERE SIG.StockGroupID = ?
-                GROUP BY StockItemID
-                ORDER BY " . $Sort . "
-                LIMIT ? OFFSET ?";
-        $Query_count = "
-                select count(*)
-                FROM stockitems SI
-                JOIN stockitemstockgroups SIG USING(StockItemID)
-                WHERE SIG.StockGroupID = ?";
-    }
-    $Statement = mysqli_prepare($databaseConnection, $Query_sort);
-    mysqli_stmt_bind_param($Statement, "iii", $CategoryID, $ProductsOnPage, $Offset);
-
-    $rows = mysqli_prepare($databaseConnection, $Query_count);
-    mysqli_stmt_bind_param($rows, "i", $CategoryID);
-}
-
-
-mysqli_stmt_execute($rows);
-$Result = mysqli_stmt_get_result($rows);
-$Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
-
-mysqli_stmt_execute($Statement);
-$ReturnableResult = mysqli_stmt_get_result($Statement);
-$ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
 
 $amount = $Result[0];
 if (isset($amount)) {
@@ -317,48 +241,45 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
             </select>
 
             <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> Prijs</h4>
-            <input type="range" name="price" id="price" min="0" max="1000" step="10"
-                   value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
-                   oninput="this.form.submit()">
+            <div class="range_container">
+                <div class="sliders_control">
+                    <input id="fromSlider" type="range" value="10" min="0" max="100"/>
+                    <input id="toSlider" type="range" value="100" min="0" max="100"/>
+                </div>
+            </div>
+
+
             <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
-                <option value="0" <?php if ($_SESSION['ColorID'] == "0") {
+                <option value=0 <?php if ($_SESSION['ColorID'] == 0 ) {
                     print "selected";
                 } ?>> Kies een kleur
                 </option>
-                <option value="3" <?php if ($_SESSION['ColorID'] == "3") {
+                <option value=3 <?php if ($_SESSION['ColorID'] == 3) {
                     print "selected";
                 } ?> >Zwart
                 </option>
-                <option value="4" <?php if ($_SESSION['ColorID'] == "4") {
+                <option value=4 <?php if ($_SESSION['ColorID'] == 4) {
                     print "selected";
                 } ?>>Blauw
                 </option>
-                <option value="12" <?php if ($_SESSION['ColorID'] == "12") {
+                <option value=12 <?php if ($_SESSION['ColorID'] == 12) {
                     print "selected";
                 } ?>>Staalgrijs
                 </option>
-                <option value="18" <?php if ($_SESSION['ColorID'] == "18") {
+                <option value=18 <?php if ($_SESSION['ColorID'] == "18") {
                 print "selected";
-            } ?>>LichtBruin
+            } ?>>Bruin
                 </option>
-                <option value="28" <?php if ($_SESSION['ColorID'] == "28") {
+                <option value=35 <?php if ($_SESSION['ColorID'] == 35) {
                     print "selected";
-                } ?>>Rood
-                </option>
-                <option value="35" <?php if ($_SESSION['ColorID'] == "35") {
-                    print "selected";
-                } ?>> Wit
-                </option>
-                <option value="36" <?php if ($_SESSION['ColorID'] == "36") {
-                    print "selected";
-                } ?>>Geel
+                } ?>>Wit
                 </option>
             </select>
             <h4 class="FilterTopMargin"><i class="fas fa-ruler-combined"></i> Maat</h4>
             <select name="SizeID" id="SizeID" onchange="this.form.submit()">>
-                <option value="0" <?php if ($_SESSION['SizeID'] == "0") {
+                <option value="" <?php if ($_SESSION['SizeID'] == "") {
                     print "selected";
                 } ?>> Kies een maat
                 </option>
@@ -477,6 +398,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
     ?>
 
 </div>
+
 
 <?php
 include __DIR__ . "/footer.php";

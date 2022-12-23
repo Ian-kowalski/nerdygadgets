@@ -11,4 +11,5 @@ session_destroy();
 // Redirect to login page
 header("location: login.php");
 exit;
+include __DIR__ . "/footer.php";
 ?>

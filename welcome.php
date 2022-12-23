@@ -16,3 +16,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
 
 </p>
+<?php
+include __DIR__ . "/footer.php";
+?>

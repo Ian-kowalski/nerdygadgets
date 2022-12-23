@@ -168,3 +168,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } ?>
 </div>
 
+
+<?php
+include __DIR__ . "/footer.php";
+?>
