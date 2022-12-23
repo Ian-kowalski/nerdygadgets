@@ -3,13 +3,22 @@
 include __DIR__ . '/header.php';
 require_once "config.php";
 
-
+getNAW();
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres ="";
-$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err= $woonplaats_err= $adres_err = " " ;
+$username = $password = $confirm_password = $voornaam = $achternaam = $postcode= $woonplaats = $adres = $tel = "";
+$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = $postcode_err = $woonplaats_err = $adres_err = $tel_err = " " ;
 $name = "";
 if(isset($_GET["voornaam"]))$name= $_GET["voornaam"] . " " . $_GET["$achternaam"];
-
+function getNAW(){
+    return array(
+        "Postcode"=> $_GET[ "postalcode"],
+        "plaats"=> $_GET[ "city"],
+        "adres"=> $_GET [ "huisnr"]." ".$_GET [ "street"],
+        "name"=> $_GET["fname"] . " " . $_GET["lname"],
+        //"email"=> $_GET["email"],
+        "tel"=> $_GET["phone"],
+    );
+}
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -47,6 +56,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
+    $customerID=getCustemer($NAW,$link);
 
     // Validate password
     if(empty(trim($_POST["password"]))){
@@ -67,24 +77,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-
-    $customerID = CustomerExsists($name, $link);
-    if ($customerID == NULL) {
-        $statement = mysqli_prepare($link, "
-                        SELECT MAX(CustomerID) + 1 AS CstId -- Fetch highest known ID and increase by 1, save as CstId
-                        FROM customers;");
-        mysqli_stmt_execute($statement);
-        $Result = mysqli_stmt_get_result($statement);
-        $customerID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query
-        $customerID = $customerID[0]["CstId"]; //Retrieve customerID from fetched array
-
-        $addToCustumer = mysqli_prepare($link, "
-            INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) 
-            values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,?,?,'www.windesheim.nl',?,?,?,?,?,1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59' )"
-        );
-        mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode);
-        mysqli_stmt_execute($addToCustumer);
-    }
 
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
@@ -142,9 +134,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
 
         <div class="form-group">
-            <label>Straatnaam & nummer</label>
+            <label>Straat</label>
             <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
             <span class="invalid-feedback"><?php echo $adres_err; ?></span>
+
+            <div class="form-group">
+                <label>huisnr</label>
+                <input type="adres" name="adres" class="form-control <?php echo (!empty($adres_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $adres; ?>">
+                <span class="invalid-feedback"><?php echo $adres_err; ?></span>
 
             <div class="form-group">
                 <label>Postcode</label>
@@ -157,7 +154,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <span class="invalid-feedback"><?php echo $woonplaats_err; ?></span>
 
                 </div>
-
+                <div class="form-group">
+                    <label>Telefoonnummer</label>
+                <input type="text" name="Telefoonnummer" class="form-control" required pattern="[0]{1}[0-9]{1}[0-9]{8}" class="form-control <?php echo (!empty($tel_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $tel; ?>">
+                    <span class="invalid-feedback"><?php echo $tel_err; ?></span>
+                </div>
 
                 <div class="form-group">
                     <label>Password</label>

@@ -4,12 +4,11 @@ include "cartfuncties.php";
 
 function getNAW(){
     return array(
-        "Postcode"=> $_GET[ "postalcode"],
-        "plaats"=> $_GET[ "city"],
-        "adres"=> $_GET [ "huisnr"]." ".$_GET [ "street"],
+        "Postcode"=> $_GET[ "postcode"],
+        "plaats"=> $_GET[ "woonplaats"],
+        "adres"=> $_GET [ "huisnr"]." ".$_GET [ "straat"],
         "name"=> $_GET["fname"] . " " . $_GET["lname"],
-        //"email"=> $_GET["email"],
-        "tel"=> $_GET["phone"],
+        "tel"=> $_GET["telefoonnummer"],
     );
 }
 

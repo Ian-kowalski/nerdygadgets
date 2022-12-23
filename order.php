@@ -26,12 +26,12 @@ if($cart!=null){
                 <div class="NAWRow">
                     <h3>Adres</h3>
                     <label for="street">Straatnaam</label>
-                    <input type="text" name="street" id="street" required pattern="[A-Z a-z]{1,}"><br>
+                    <input type="text" name="straat" id="straat" required pattern="[A-Z a-z]{1,}"><br>
                     <div class="NAWcol">
                         <label for="huisnr">Huisnr & toevoeging</label>
                         <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"><br>
-                        <label for="postalcode">Postcode</label>
-                        <input type="text" name="postalcode" id="postalcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"><br>
+                        <label for="postcode">Postcode</label>
+                        <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"><br>
                     </div>
                     <label for="city">Plaats</label>
                     <input type="text" name="city" id="city" required pattern="[a-z A-Z]{1,}"><br>
@@ -58,8 +58,6 @@ if($cart!=null){
                     <input type="text" name="prefixes" id="prefixes" pattern="[A-Z a-z]{0,}"><br>
                     <label for="lname">Achternaam</label>
                     <input type="text" name="lname" id="lname" required pattern="[a-z A-Z]{1,}"><br>
-                    <!--<label for="Email">Email-adres</label>
-                    <input type="text" name="email" id="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}$" required><br>-->
                     <label for="Telefoon">Telefoonnummer</label>
                     <input type="tel" id="phone" name="phone" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
                 </div>
