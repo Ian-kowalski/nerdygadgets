@@ -19,6 +19,7 @@ include __DIR__ . "/header.php";
                         <img src="Public\StockItemIMG\slide2.png" style="width:100%">
                     </div>
                     </a>
+<!-- hieronder staan de slides die worden weergegeven op de index pagina -->
                     <!-- Next and previous buttons -->
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
