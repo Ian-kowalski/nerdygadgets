@@ -3,7 +3,7 @@
 session_start();
 include "database.php";
 
-$snow=1;
+$snow=0;
 $databaseConnection = connectToDatabase();
 
 ?>
