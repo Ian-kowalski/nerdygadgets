@@ -5,20 +5,20 @@ include __DIR__ . "/header.php";
 <div class="IndexStyle">
     <div class="col-11">
         <div class="TextPrice">
-            <a href="view.php?id=93">
+
                 <!-- Slideshow container -->
                 <div class="slideshow-container">
-
+                    <a href="view.php?id=93">
                     <!-- Full-width images with number and caption text -->
                     <div class="mySlides fade">
-                        <img src="slide1.png" style="width:100%">
-                        <div class="text">Caption Text</div>
+                        <img src="Public\StockItemIMG\slide1.png" style="width:100%">
                     </div>
+                    </a>
+                    <a href="view.php?id=52">
                     <div class="mySlides fade">
-                        <img src="slide2.png" style="width:100%">
-                        <div class="text">Caption Two</div>
+                        <img src="Public\StockItemIMG\slide2.png" style="width:100%">
                     </div>
-
+                    </a>
                     <!-- Next and previous buttons -->
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
