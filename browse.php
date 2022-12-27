@@ -51,6 +51,7 @@ if(isset($_GET["max_price"])) {
     $MaxPrice = 10000;
     $_SESSION["max_price"] = $MaxPrice;
 }
+
 if (isset($_GET['page_number'])) {
     $PageNumber = $_GET['page_number'];
     $_SESSION["page_number"] = $_GET['page_number'];
@@ -106,16 +107,6 @@ if (isset($_GET['sort'])) {
     $_SESSION["sort"] = "price_low_high";
 }
 
-if (isset($_GET['pricefilter'])) {
-    $PriceFilter = $_GET['pricefilter'];
-    $_SESSION['pricefilter'] = $_GET['pricefilter'];
-} else if (isset($_SESSION['pricefilter'])) {
-    $PriceFilter = $_SESSION['pricefilter'];
-    $_GET["pricefilter"]=$_SESSION["pricefilter"];
-} else {
-    $PriceFilter = "";
-    $_SESSION['pricefilter'] = "";
-}
 
 switch ($SortOnPage) {
     case "price_high_low":
@@ -165,6 +156,18 @@ if($CategoryID!="") {
         $queryBuildResult .= " AND";
     }
     $queryBuildResult .= " SIG.StockGroupID =$CategoryID";
+}
+if($MaxPrice!="") {
+    if ($queryBuildResult != "") {
+        $queryBuildResult .= " AND";
+    }
+    $queryBuildResult .= " ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) <='$MaxPrice'";
+}
+if($MinPrice!="") {
+    if ($queryBuildResult != "") {
+        $queryBuildResult .= " AND";
+    }
+    $queryBuildResult .= " ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) >='$MinPrice'";
 }
 if($CategoryID==2||$CategoryID==4||$CategoryID=="") {
 //add $ColorID
@@ -265,13 +268,11 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
 
             <h4 class="FilterTopMargin"><i class="fas fa-euro-sign"></i> Prijs</h4>
             <label for="min_price">minimum prijs: </label>
-            <input type="input" name="min_price" id="min_price" class="form-submit" value="<?php print $_SESSION["min_price"] ?> " onchange="this.form.submit()">>
-            minimiumprijs="<?php print (isset($_SESSION['min_price'])) ? $_SESSION['min_price'] : ""; ?>">
+            <input type="input" name="min_price" id="min_price" class="form-submit" value="<?php print $_SESSION["min_price"] ?> " onchange="this.form.submit()">
 
             <label for="max_price">maximum prijs: </label>
-            <input type="input" name="max_price" id="max_price" class="form-submit" value="<?php print $_SESSION["max_price"] ?>" onchange="this.form.submit()">>
-            maxiumprijs
-            ="<?php print (isset($_SESSION['max_price'])) ? $_SESSION['max_price'] : ""; //fix?>">
+            <input type="input" name="max_price" id="max_price" class="form-submit" value="<?php print $_SESSION["max_price"] ?>" onchange="this.form.submit()">
+
             <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
