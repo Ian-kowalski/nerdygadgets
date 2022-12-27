@@ -268,8 +268,7 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
             <label for="max_price">maximum prijs: </label>
             <input type="input" name="max_price" id="max_price" class="form-submit" value="<?php print $_SESSION["max_price"] ?>" onchange="this.form.submit()">>
             maxiumprijs
-            ="<?php print (isset($_SESSION['max_price'])) ? $_SESSION['max_price'] : ""; ?>">
-
+            ="<?php print (isset($_SESSION['max_price'])) ? $_SESSION['max_price'] : ""; //fix?>">
             <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
             <select name="ColorID" id="ColorID" onchange="this.form.submit()">>
