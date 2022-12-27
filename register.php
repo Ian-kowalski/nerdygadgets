@@ -4,8 +4,8 @@ include __DIR__ . "/header.php";
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
+$username = $password = $confirm_password = $voornaam = $achternaam = "";
+$username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -62,7 +62,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($password_err) && ($password != $confirm_password)){
             $confirm_password_err = "Password did not match.";
         }
+
+        //validate voornaam
+        if(empty(trim($_POST["voornaam"]))){
+            $password_err = "Please enter first name.";
+        }
+        else{
+            $voornaam = trim($_POST["voornaam"]);
+        }
+        //validate achternaam
+        if(empty(trim($_POST["achternaam"]))){
+            $password_err = "Please enter surname.";
+        }
+        else{
+            $achternaam = trim($_POST["achternaam"]);
+        }
     }
+
+
 
     // Check input errors before inserting in database
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
@@ -118,6 +135,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
             <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
+        <div class="form-group">
+            <label>voornaam</label>
+            <input type="voornaam" name="voornaam" class="form-control <?php echo (!empty($voornaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+            <span class="invalid-feedback"><?php echo $voornaam_err; ?></span>
+        </div>
+        <div class="form-group">
+            <label>achternaam</label>
+            <input type="achternaam" name="achternaam" class="form-control <?php echo (!empty($achternaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+            <span class="invalid-feedback"><?php echo $achternaam_err; ?></span>
+        </div>
+
+
         <div class="form-group">
             <label>Password</label>
             <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
