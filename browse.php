@@ -262,13 +262,13 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
 
             <h4 class="FilterTopMargin"><i class="fas fa-euro-sign"></i> Prijs</h4>
             <label for="min_price">minimum prijs: </label>
-            <input type="input" name="min_price" id="min_price" class="form-submit" value="<?php print $_GET["min_price"] ?> " onchange="this.form.submit()">>
-            minimiumprijs="<?php print (isset($_GET['min_price'])) ? $_GET['min_price'] : ""; ?>">
+            <input type="input" name="min_price" id="min_price" class="form-submit" value="<?php print $_SESSION["min_price"] ?> " onchange="this.form.submit()">>
+            minimiumprijs="<?php print (isset($_SESSION['min_price'])) ? $_SESSION['min_price'] : ""; ?>">
 
             <label for="max_price">maximum prijs: </label>
-            <input type="input" name="max_price" id="max_price" class="form-submit" value="<?php print $_GET["max_price"] ?>" onchange="this.form.submit()">>
+            <input type="input" name="max_price" id="max_price" class="form-submit" value="<?php print $_SESSION["max_price"] ?>" onchange="this.form.submit()">>
             maxiumprijs
-            ="<?php print (isset($_GET['max_price'])) ? $_GET['max_price'] : ""; ?>">
+            ="<?php print (isset($_SESSION['max_price'])) ? $_SESSION['max_price'] : ""; ?>">
 
             <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
