@@ -53,11 +53,11 @@ if($cart!=null){
                     <br>
                    <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
                     <label for="fname">Voornaam</label>
-                    <input type="text" name="fname" id="fname" required pattern="[A-Za-z]{1,}"><br>
+                    <input type="text" name="voornaam" id="voornaam" required pattern="[A-Z a-z]{1,}"><br>
                     <label for="prefixes">Tussenvoegsels (optioneel)</label>
                     <input type="text" name="prefixes" id="prefixes" pattern="[A-Z a-z]{0,}"><br>
                     <label for="lname">Achternaam</label>
-                    <input type="text" name="lname" id="lname" required pattern="[a-z A-Z]{1,}"><br>
+                    <input type="text" name="achternaam" id="achternaam" required pattern="[a-z A-Z]{1,}"><br>
                     <label for="Telefoon">Telefoonnummer</label>
                     <input type="tel" id="telefoonnummer" name="telefoonnummer" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
                 </div>
