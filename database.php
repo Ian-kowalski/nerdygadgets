@@ -241,8 +241,8 @@ function filteren($queryBuildResult,$Sort,$ProductsOnPage, $Offset, $databaseCon
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
     return $ReturnableResult;
-
 }
+
 function row($queryBuildResult,$Sort, $databaseConnection){
     $Query_count = "
                 select count(*)
@@ -258,5 +258,44 @@ function row($queryBuildResult,$Sort, $databaseConnection){
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
     return $ReturnableResult;
+}
 
+function filteren_zonder($Sort,$ProductsOnPage, $Offset, $databaseConnection){
+    $Query_sort = "
+                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
+                QuantityOnHand,
+                (SELECT ImagePath
+                FROM stockitemimages
+                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
+                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath
+                FROM stockitems SI
+                JOIN stockitemholdings SIH USING(stockitemid)
+                JOIN stockitemstockgroups SIG USING(StockItemID)
+                JOIN stockgroups SG USING(StockGroupID)
+                GROUP BY StockItemID
+                ORDER BY ".$Sort."
+                LIMIT ?  OFFSET ?";
+    $Statement = mysqli_prepare($databaseConnection, $Query_sort);
+    mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
+
+    mysqli_stmt_execute($Statement);
+    $ReturnableResult = mysqli_stmt_get_result($Statement);
+    $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
+    return $ReturnableResult;
+
+}
+function row_zonder($Sort, $databaseConnection){
+    $Query_count = "
+                select count(*)
+                FROM stockitems SI
+                JOIN stockitemholdings SIH USING(stockitemid)
+                JOIN stockitemstockgroups SIG USING(StockItemID)
+                JOIN stockgroups SG USING(StockGroupID)";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query_count);
+
+    mysqli_stmt_execute($Statement);
+    $ReturnableResult = mysqli_stmt_get_result($Statement);
+    $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
+    return $ReturnableResult;
 }

@@ -183,10 +183,13 @@ if($CategoryID==2||$CategoryID==4||$CategoryID=="") {
     }
 }
 $Offset = $PageNumber * $ProductsOnPage;
-
-$ReturnableResult=filteren($queryBuildResult, $Sort, $ProductsOnPage, $Offset,$databaseConnection);
-$Result=row($queryBuildResult, $Sort, $databaseConnection);
-
+if($queryBuildResult!="") {
+    $ReturnableResult = filteren($queryBuildResult, $Sort, $ProductsOnPage, $Offset, $databaseConnection);
+    $Result = row($queryBuildResult, $Sort, $databaseConnection);
+}else{
+    $ReturnableResult = filteren_zonder($Sort, $ProductsOnPage, $Offset, $databaseConnection);
+    $Result = row_zonder($Sort, $databaseConnection);
+}
 
 $amount = $Result[0];
 if (isset($amount)) {
