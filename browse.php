@@ -2,7 +2,7 @@
 <?php
 //hi
 include __DIR__ . "/header.php";
-// test of er een categorie is geselecteerd klikken op een categorie
+// test of er een categorie is geselecteerd klikken op een categorie test
 $ReturnableResult = null;
 $Result=null;
 $Sort = "SellPrice";
