@@ -1,0 +1,17 @@
+Index: browse.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/browse.php b/browse.php
+--- a/browse.php	
++++ b/browse.php	
+@@ -261,7 +261,7 @@
+             </select>
+ 
+             <h4 class="FilterTopMargin"><i class="fas fa-tags"> </i> prijs</h4>
+-            <input type="range" name="price" id="price" min="0" max="1000" step="10"
++            <input type="range" name="price" id="price" min="0" max="1000" step="1"
+                    value="<?php print (isset($_GET['price'])) ? $_GET['price'] : 1000; ?>"
+                    oninput="this.form.submit()">
+ 

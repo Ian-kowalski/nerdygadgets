@@ -1,0 +1,185 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,10 +1,14 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="huts">
++    <list default="true" id="3089af98-2ff2-4cb2-abc1-ca04d1ce4620" name="Changes" comment="Sven 22-12-2022">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18-12-2022_23_02__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18-12-2022_23_02__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_20_12_2022_14_20__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_20_12_2022_14_20__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Public/CSS/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Public/CSS/style.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/browse.php" beforeDir="false" afterPath="$PROJECT_DIR$/browse.php" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -20,9 +24,8 @@
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+   </component>
+-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+-  <component name="ProjectId" id="2JBEOqTIXVZIKamYcCXhBFnnj7s" />
+-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
++  <component name="ProjectId" id="2JDMKCmSwB6FBT1ZrouzYqWCO7V" />
++  <component name="ProjectLevelVcsManager">
+     <OptionsSetting value="false" id="Update" />
+   </component>
+   <component name="ProjectViewState">
+@@ -34,82 +37,89 @@
+     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+ }</component>
+   <component name="RunManager">
+     <configuration name="tempsensor.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/fakeTempSensor/tempsensor.php">
++      <CommandLine>
++        <PhpTestInterpreterSettings>
++          <option name="interpreterName" value="PHP" />
++        </PhpTestInterpreterSettings>
++      </CommandLine>
+       <method v="2" />
+     </configuration>
+   </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+-    <task id="LOCAL-00001" summary="delete">
+-      <created>1671482070771</created>
+-      <option name="number" value="00001" />
+-      <option name="presentableId" value="LOCAL-00001" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1671482070771</updated>
+-    </task>
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="delete" />
+-      <created>1671543058703</created>
++      <changelist id="3089af98-2ff2-4cb2-abc1-ca04d1ce4620" name="Changes" comment="" />
++      <created>1671608139871</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+-      <updated>1671543058703</updated>
+-      <workItem from="1671543061167" duration="11646000" />
+-      <workItem from="1671556429165" duration="472000" />
+-      <workItem from="1671556919314" duration="98000" />
+-      <workItem from="1671610690508" duration="4037000" />
++      <updated>1671608139871</updated>
++      <workItem from="1671608145095" duration="11177000" />
++      <workItem from="1671622824376" duration="1150000" />
++      <workItem from="1671698319437" duration="630000" />
++      <workItem from="1671701653256" duration="18651000" />
++      <workItem from="1671749005896" duration="28000" />
++      <workItem from="1671781819312" duration="4974000" />
++    </task>
++    <task id="LOCAL-00001" summary="Sven 21-12-2022">
++      <created>1671610183514</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1671610183514</updated>
+     </task>
+-    <task id="LOCAL-00002" summary="de pain">
+-      <created>1671549078386</created>
++    <task id="LOCAL-00002" summary="Sven 21-12-2022">
++      <created>1671615851431</created>
+       <option name="number" value="00002" />
+       <option name="presentableId" value="LOCAL-00002" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671549078387</updated>
++      <updated>1671615851431</updated>
+     </task>
+-    <task id="LOCAL-00003" summary="im in pian">
+-      <created>1671554797456</created>
++    <task id="LOCAL-00003" summary="Sven 21-12-2022">
++      <created>1671622913790</created>
+       <option name="number" value="00003" />
+       <option name="presentableId" value="LOCAL-00003" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671554797456</updated>
++      <updated>1671622913790</updated>
+     </task>
+-    <task id="LOCAL-00004" summary="im in pian">
+-      <created>1671610949004</created>
++    <task id="LOCAL-00004" summary="Sven 21-12-2022">
++      <created>1671623068178</created>
+       <option name="number" value="00004" />
+       <option name="presentableId" value="LOCAL-00004" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671610949004</updated>
++      <updated>1671623068178</updated>
+     </task>
+-    <task id="LOCAL-00005" summary="im in pian">
+-      <created>1671612449493</created>
++    <task id="LOCAL-00005" summary="Sven 22-12-2022">
++      <created>1671716515274</created>
+       <option name="number" value="00005" />
+       <option name="presentableId" value="LOCAL-00005" />
+       <option name="project" value="LOCAL" />
+-      <updated>1671612449493</updated>
+-    </task>
+-    <task id="LOCAL-00006" summary="huts">
+-      <created>1671709590441</created>
+-      <option name="number" value="00006" />
+-      <option name="presentableId" value="LOCAL-00006" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1671709590441</updated>
+-    </task>
+-    <task id="LOCAL-00007" summary="huts">
+-      <created>1671720437940</created>
+-      <option name="number" value="00007" />
+-      <option name="presentableId" value="LOCAL-00007" />
+-      <option name="project" value="LOCAL" />
+-      <updated>1671720437940</updated>
++      <updated>1671716515274</updated>
+     </task>
+-    <option name="localTasksCounter" value="8" />
++    <option name="localTasksCounter" value="6" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
++  </component>
++  <component name="Vcs.Log.History.Properties">
++    <option name="COLUMN_ID_ORDER">
++      <list>
++        <option value="Default.Root" />
++        <option value="Default.Author" />
++        <option value="Default.Date" />
++        <option value="Default.Subject" />
++        <option value="Space.CommitStatus" />
++      </list>
++    </option>
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+     <option name="TAB_STATES">
+@@ -123,10 +133,8 @@
+     </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+-    <MESSAGE value="delete" />
+-    <MESSAGE value="de pain" />
+-    <MESSAGE value="im in pian" />
+-    <MESSAGE value="huts" />
+-    <option name="LAST_COMMIT_MESSAGE" value="huts" />
++    <MESSAGE value="Sven 21-12-2022" />
++    <MESSAGE value="Sven 22-12-2022" />
++    <option name="LAST_COMMIT_MESSAGE" value="Sven 22-12-2022" />
+   </component>
+ </project>
+\ No newline at end of file

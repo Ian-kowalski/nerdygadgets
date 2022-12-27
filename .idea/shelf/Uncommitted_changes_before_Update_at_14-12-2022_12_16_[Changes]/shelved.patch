@@ -1,0 +1,293 @@
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1669817229446)
++++ b/.idea/modules.xml	(date 1669817229446)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/nerdygadgets1.iml" filepath="$PROJECT_DIR$/.idea/nerdygadgets1.iml" />
++      <module fileurl="file://$USER_HOME$/PhpstormProjects/oefenen/.idea/oefenen.iml" filepath="$USER_HOME$/PhpstormProjects/oefenen/.idea/oefenen.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: browse.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!-- dit bestand bevat alle code voor het productoverzicht -->\r\n<?php\r\ninclude __DIR__ . \"/header.php\";\r\n\r\n$ReturnableResult = null;\r\n$Sort = \"SellPrice\";\r\n        $SortName = \"price_low_high\";\r\n\r\n$AmountOfPages = 0;\r\n$queryBuildResult = \"\";\r\n\r\n\r\nif (isset($_GET['category_id'])) {\r\n    $CategoryID = $_GET['category_id'];\r\n} else {\r\n    $CategoryID = \"\";\r\n}\r\nif (isset($_GET['products_on_page'])) {\r\n    $ProductsOnPage = $_GET['products_on_page'];\r\n    $_SESSION['products_on_page'] = $_GET['products_on_page'];\r\n} else if (isset($_SESSION['products_on_page'])) {\r\n    $ProductsOnPage = $_SESSION['products_on_page'];\r\n} else {\r\n    $ProductsOnPage = 25;\r\n    $_SESSION['products_on_page'] = 25;\r\n}\r\nif (isset($_GET['page_number'])) {\r\n    $PageNumber = $_GET['page_number'];\r\n} else {\r\n    $PageNumber = 0;\r\n}\r\n\r\n// code deel 1 van User story: Zoeken producten\r\n// <voeg hier de code in waarin de zoekcriteria worden opgebouwd>\r\n$SearchString = \"\";\r\n\r\nif (isset($_GET['search_string'])) {\r\n    $SearchString = $_GET['search_string'];\r\n}\r\nif (isset($_GET['sort'])) {\r\n    $SortOnPage = $_GET['sort'];\r\n    $_SESSION[\"sort\"] = $_GET['sort'];\r\n} else if (isset($_SESSION[\"sort\"])) {\r\n    $SortOnPage = $_SESSION[\"sort\"];\r\n} else {\r\n    $SortOnPage = \"price_low_high\";\r\n    $_SESSION[\"sort\"] = \"price_low_high\";\r\n}\r\n\r\nswitch ($SortOnPage) {\r\n    case \"price_high_low\":\r\n    {\r\n        $Sort = \"SellPrice DESC\";\r\n        break;\r\n    }\r\n    case \"name_low_high\":\r\n    {\r\n        $Sort = \"StockItemName\";\r\n        break;\r\n    }\r\n    case \"name_high_low\";\r\n        $Sort = \"StockItemName DESC\";\r\n        break;\r\n    case \"price_low_high\":\r\n    {\r\n        $Sort = \"SellPrice\";\r\n        break;\r\n    }\r\n    default:\r\n    {\r\n        $Sort = \"SellPrice\";\r\n        $SortName = \"price_low_high\";\r\n    }\r\n}\r\n$searchValues = explode(\" \", $SearchString);\r\n\r\n$queryBuildResult = \"\";\r\nif ($SearchString != \"\") {\r\n    for ($i = 0; $i < count($searchValues); $i++) {\r\n        if ($i != 0) {\r\n            $queryBuildResult .= \"AND \";\r\n        }\r\n        $queryBuildResult .= \"SI.SearchDetails LIKE '%$searchValues[$i]%' \";\r\n    }\r\n    if ($queryBuildResult != \"\") {\r\n        $queryBuildResult .= \" OR \";\r\n    }\r\n    if ($SearchString != \"\" || $SearchString != null) {\r\n        $queryBuildResult .= \"SI.StockItemID ='$SearchString'\";\r\n    }\r\n}\r\n// <einde van de code voor zoekcriteria>\r\n// einde code deel 1 van User story: Zoeken producten\r\n$Offset = $PageNumber * $ProductsOnPage;\r\n\r\nif ($CategoryID != \"\") { \r\n    if ($queryBuildResult != \"\") {\r\n    $queryBuildResult .= \" AND \";\r\n    }\r\n}\r\n\r\n// code deel 2 van User story: Zoeken producten\r\n// <voeg hier de code in waarin het zoekresultaat opgehaald wordt uit de database>\r\nif ($CategoryID == \"\") {\r\n    if ($queryBuildResult != \"\") {\r\n        $queryBuildResult = \"WHERE \" . $queryBuildResult;\r\n    }\r\n\r\n    $Query = \"\r\n                SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,\r\n                QuantityOnHand,\r\n                (SELECT ImagePath\r\n                FROM stockitemimages\r\n                WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,\r\n                (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath\r\n                FROM stockitems SI\r\n                JOIN stockitemholdings SIH USING(stockitemid)\r\n                \" . $queryBuildResult . \"\r\n                GROUP BY StockItemID\r\n                ORDER BY \" . $Sort . \"\r\n                LIMIT ?  OFFSET ?\";\r\n\r\n\r\n    $Statement = mysqli_prepare($databaseConnection, $Query);\r\n    mysqli_stmt_bind_param($Statement, \"ii\",$ProductsOnPage, $Offset);\r\n    mysqli_stmt_execute($Statement);\r\n    $ReturnableResult = mysqli_stmt_get_result($Statement);\r\n    $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);\r\n\r\n    $Query = \"\r\n            SELECT count(*)\r\n            FROM stockitems SI\r\n            $queryBuildResult\";\r\n    $Statement = mysqli_prepare($databaseConnection, $Query);\r\n    mysqli_stmt_execute($Statement);\r\n    $Result = mysqli_stmt_get_result($Statement);\r\n    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);\r\n}\r\n// <einde van de code voor zoekresultaat>\r\n// einde deel 2 van User story: Zoeken producten\r\n\r\nif ($CategoryID !== \"\") {\r\n$Query = \"\r\n           SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice,\r\n           ROUND(SI.TaxRate * SI.RecommendedRetailPrice / 100 + SI.RecommendedRetailPrice,2) as SellPrice,\r\n           QuantityOnHand,\r\n           (SELECT ImagePath FROM stockitemimages WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,\r\n           (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath\r\n           FROM stockitems SI\r\n           JOIN stockitemholdings SIH USING(stockitemid)\r\n           JOIN stockitemstockgroups USING(StockItemID)\r\n           JOIN stockgroups ON stockitemstockgroups.StockGroupID = stockgroups.StockGroupID\r\n           WHERE \" . $queryBuildResult . \" ? IN (SELECT StockGroupID from stockitemstockgroups WHERE StockItemID = SI.StockItemID)\r\n           GROUP BY StockItemID\r\n           ORDER BY \" . $Sort . \"\r\n           LIMIT ? OFFSET ?\";\r\n\r\n    $Statement = mysqli_prepare($databaseConnection, $Query);\r\n    mysqli_stmt_bind_param($Statement, \"iii\", $CategoryID, $ProductsOnPage, $Offset);\r\n    mysqli_stmt_execute($Statement);\r\n    $ReturnableResult = mysqli_stmt_get_result($Statement);\r\n    $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);\r\n\r\n    $Query = \"\r\n                SELECT count(*)\r\n                FROM stockitems SI\r\n                WHERE \" . $queryBuildResult . \" ? IN (SELECT SS.StockGroupID from stockitemstockgroups SS WHERE SS.StockItemID = SI.StockItemID)\";\r\n    $Statement = mysqli_prepare($databaseConnection, $Query);\r\n    mysqli_stmt_bind_param($Statement, \"i\", $CategoryID);\r\n    mysqli_stmt_execute($Statement);\r\n    $Result = mysqli_stmt_get_result($Statement);\r\n    $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);\r\n}\r\n$amount = $Result[0];\r\nif (isset($amount)) {\r\n    $AmountOfPages = ceil($amount[\"count(*)\"] / $ProductsOnPage);\r\n}\r\n\r\n\r\n    function getVoorraadTekst($actueleVoorraad) {\r\n        if ($actueleVoorraad > 1000) {\r\n            return \"Ruime voorraad beschikbaar.\";\r\n        } else {\r\n            return \"Voorraad: $actueleVoorraad\";\r\n        }\r\n    }\r\n    function berekenVerkoopPrijs($adviesPrijs, $btw) {\r\n\t\treturn $btw * $adviesPrijs / 100 + $adviesPrijs;\r\n    }\r\n?>\r\n\r\n<!-- code deel 3 van User story: Zoeken producten : de html -->\r\n<!-- de zoekbalk links op de pagina  -->\r\n\r\n<div id=\"FilterFrame\"><h2 class=\"FilterText\"><i class=\"fas fa-filter\"></i> Filteren </h2>\r\n    <form>\r\n        <div id=\"FilterOptions\">\r\n            <h4 class=\"FilterTopMargin\"><i class=\"fas fa-search\"></i> Zoeken</h4>\r\n            <input type=\"text\" name=\"search_string\" id=\"search_string\"\r\n                   value=\"<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : \"\"; ?>\"\r\n                   class=\"form-submit\">\r\n            <h4 class=\"FilterTopMargin\"><i class=\"fas fa-list-ol\"></i> Aantal producten op pagina</h4>\r\n            <input type=\"hidden\" name=\"category_id\" id=\"category_id\"\r\n                   value=\"<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : \"\"; ?>\">\r\n            <select name=\"products_on_page\" id=\"products_on_page\" onchange=\"this.form.submit()\">>\r\n                <option value=\"25\" <?php if ($_SESSION['products_on_page'] == 25) {\r\n                    print \"selected\";\r\n                } ?>>25\r\n                </option>\r\n                <option value=\"50\" <?php if ($_SESSION['products_on_page'] == 50) {\r\n                    print \"selected\";\r\n                } ?>>50\r\n                </option>\r\n                <option value=\"75\" <?php if ($_SESSION['products_on_page'] == 75) {\r\n                    print \"selected\";\r\n                } ?>>75\r\n                </option>\r\n                <option value=\"100\" <?php if ($_SESSION['products_on_page'] == 100) {\r\n                    print \"selected\";\r\n                } ?>>100\r\n                </option>\r\n            </select>\r\n            <h4 class=\"FilterTopMargin\"><i class=\"fas fa-sort\"></i> Sorteren</h4>\r\n            <select name=\"sort\" id=\"sort\" onchange=\"this.form.submit()\">>\r\n                <option value=\"price_low_high\" <?php if ($_SESSION['sort'] == \"price_low_high\") {\r\n                    print \"selected\";\r\n                } ?>>Prijs oplopend\r\n                </option>\r\n                <option value=\"price_high_low\" <?php if ($_SESSION['sort'] == \"price_high_low\") {\r\n                    print \"selected\";\r\n                } ?> >Prijs aflopend\r\n                </option>\r\n                <option value=\"name_low_high\" <?php if ($_SESSION['sort'] == \"name_low_high\") {\r\n                    print \"selected\";\r\n                } ?>>Naam oplopend\r\n                </option>\r\n                <option value=\"name_high_low\" <?php if ($_SESSION['sort'] == \"name_high_low\") {\r\n                    print \"selected\";\r\n                } ?>>Naam aflopend\r\n                </option>\r\n            </select>\r\n\r\n            <h4 class=\"FilterTopMargin\"><i class=\"fas fa-tags\"> </i> prijs</h4>\r\n            <input type=\"range\" name=\"pricefilter\" id=\"pricefilter\" min=\"0\" max=\"1000\" step=\"1\"\r\n                   value=\"<?php print (isset($_GET['price_low'])) ? $_GET['price_low'] : \"0\"; ?>\"\r\n                   onchange=\"this.form.submit()\">\r\n            <input type=\"hidden\" name=\"price_low\" id=\"price_low\"\r\n                     value=\"<?php print (isset($_GET['price_low'])) ? $_GET['price_low'] : \"0\"; ?>\">\r\n            <input type=\"hidden\" name=\"price_high\" id=\"price_high\"\r\n                    value=\"<?php print (isset($_GET['price_high'])) ? $_GET['price_high'] : \"1000\"; ?>\">\r\n\r\n            <h4 class=\"FilterTopMargin\"><i class=\"fas fa-palette\"></i> Kleur</h4>\r\n            <select type=\"text\" name=\"Color[]\" value=\"1\" id=\"ColorID\" <?php if (isset($_GET['ColorID']) && in_array(\"1\", $_GET['ColorID']))\r\n                print \"Selected\"; ?>\r\n                   <select name=\"Color[]\" id=\"ColorID\" onchange=\"this.form.submit()\">\r\n                       <option value=\"1\" <?php if (isset($_GET['ColorID']) && in_array(\"1\", $_GET['ColorID']))\r\n                    print \"Selected\"; ?>>Zwart\r\n                       </option>\r\n                       <option value=\"2\" <?php if (isset($_GET['ColorID']) && in_array(\"2\", $_GET['ColorID']))\r\n                    print \"Selected\"; ?>>Blauw\r\n                          </option>\r\n                          <option value=\"3\" <?php if (isset($_GET['ColorID']) && in_array(\"3\", $_GET['ColorID']))\r\n                    print \"Selected\"; ?>>Rood\r\n                            </option>\r\n                            <option value=\"4\" <?php if (isset($_GET['ColorID']) && in_array(\"4\", $_GET['ColorID']))\r\n                    print \"Selected\"; ?>>Groen\r\n                            </option>\r\n                            <option value=\"5\" <?php if (isset($_GET['ColorID']) && in_array(\"5\", $_GET['ColorID']))\r\n                    print \"Selected\"; ?>>Geel\r\n                            </option>\r\n                            <option value=\"6\" <?php if (isset($_GET['ColorID']) && in_array(\"6\", $_GET['ColorID']))\r\n                    print \"Selected\"; ?>>Oranje\r\n                            </option>\r\n                   </select>\r\n\r\n               <h4 class=\"FilterTopMargin\"><i class=\"fas fa-ruler-combined\"></i> Maat</h4>\r\n               <select type=\"text\" name=\"Size[]\" value=\"1\" id=\"SizeID\" <?php if (isset($_GET['SizeID']) && in_array(\"1\", $_GET['SizeID']))\r\n                print \"Selected\"; ?>\r\n                   <select name=\"Size[]\" id=\"SizeID\" onchange=\"this.form.submit()\">\r\n                       <option value=\"1\" <?php if (isset($_GET['SizeID']) && in_array(\"1\", $_GET['SizeID']))\r\n                    print \"Selected\"; ?>>S\r\n                       </option>\r\n                       <option value=\"2\" <?php if (isset($_GET['SizeID']) && in_array(\"2\", $_GET['SizeID']))\r\n                    print \"Selected\"; ?>>M\r\n                          </option>\r\n                          <option value=\"3\" <?php if (isset($_GET['SizeID']) && in_array(\"3\", $_GET['SizeID']))\r\n                    print \"Selected\"; ?>>L\r\n                            </option>\r\n                            <option value=\"4\" <?php if (isset($_GET['SizeID']) && in_array(\"4\", $_GET['SizeID']))\r\n                    print \"Selected\"; ?>>XL\r\n                            </option>\r\n                            <option value=\"5\" <?php if (isset($_GET['SizeID']) && in_array(\"5\", $_GET['SizeID']))\r\n                    print \"Selected\"; ?>>XXL\r\n                            </option>\r\n                            <option value=\"6\" <?php if (isset($_GET['SizeID']) && in_array(\"6\", $_GET['SizeID']))\r\n                    print \"Selected\"; ?>>XXXL\r\n                            </option>\r\n                   </select>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    </form>\r\n</div>\r\n\r\n</div>\r\n<!-- einde zoekresultaten die links van de zoekbalk staan -->\r\n<!-- einde code deel 3 van User story: Zoeken producten  -->\r\n\r\n\r\n<div id=\"ResultsArea\" class=\"Browse\">\r\n    <?php\r\n    if (isset($ReturnableResult) && count($ReturnableResult) > 0) {\r\n        foreach ($ReturnableResult as $row) {\r\n            ?>\r\n            <!--  coderegel 1 van User story: bekijken producten  -->\r\n            <a class=\"ListItem\" href='view.php?id=<?php print $row['StockItemID']; ?>'>\r\n            <!-- einde coderegel 1 van User story: bekijken producten   -->\r\n                <div id=\"ProductFrame\">\r\n                    <?php\r\n                    if (isset($row['ImagePath'])) { ?>\r\n                        <div class=\"ImgFrame\"\r\n                             style=\"background-image: url('<?php print \"Public/StockItemIMG/\" . $row['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;\"></div>\r\n                    <?php } else if (isset($row['BackupImagePath'])) { ?>\r\n                        <div class=\"ImgFrame\"\r\n                             style=\"background-image: url('<?php print \"Public/StockGroupIMG/\" . $row['BackupImagePath'] ?>'); background-size: cover;\"></div>\r\n                    <?php }\r\n                    ?>\r\n\r\n                    <div id=\"StockItemFrameRight\">\r\n                        <div class=\"CenterPriceLeftChild\">\r\n                            <h1 class=\"StockItemPriceText\"><?php print \"€\".number_format(berekenVerkoopPrijs($row[\"RecommendedRetailPrice\"], $row[\"TaxRate\"]), 2,\",\", \".\"); ?></h1>\r\n                            <h6>Inclusief BTW </h6>\r\n                        </div>\r\n                    </div>\r\n                    <h1 class=\"StockItemID\">Artikelnummer: <?php print $row[\"StockItemID\"]; ?></h1>\r\n                    <p class=\"StockItemName\"><?php print $row[\"StockItemName\"]; ?></p>\r\n                    <p class=\"StockItemComments\"><?php print $row[\"MarketingComments\"]; ?></p>\r\n                    <h4 class=\"ItemQuantity\"><?php print getVoorraadTekst($row[\"QuantityOnHand\"]); ?></h4>\r\n                </div>\r\n            <!--  coderegel 2 van User story: bekijken producten  -->\r\n            </a>\r\n            <!--  einde coderegel 2 van User story: bekijken producten  -->\r\n        <?php } ?>\r\n\r\n        <form id=\"PageSelector\">\r\n\r\n<!-- code deel 4 van User story: Zoeken producten  -->\r\n            <input type=\"hidden\" name=\"search_string\" id=\"search_string\"\r\n                   value=\"<?php if (isset($_GET['search_string'])) {\r\n                       print ($_GET['search_string']);\r\n                   } ?>\">\r\n            <input type=\"hidden\" name=\"sort\" id=\"sort\" value=\"<?php print ($_SESSION['sort']); ?>\">\r\n<!-- einde code deel 4 van User story: Zoeken producten  -->\r\n            <input type=\"hidden\" name=\"category_id\" id=\"category_id\" value=\"<?php if (isset($_GET['category_id'])) {\r\n                print ($_GET['category_id']);\r\n            } ?>\">\r\n            <input type=\"hidden\" name=\"result_page_numbers\" id=\"result_page_numbers\"\r\n                   value=\"<?php print (isset($_GET['result_page_numbers'])) ? $_GET['result_page_numbers'] : \"0\"; ?>\">\r\n            <input type=\"hidden\" name=\"products_on_page\" id=\"products_on_page\"\r\n                   value=\"<?php print ($_SESSION['products_on_page']); ?>\">\r\n\r\n            <?php\r\n            if ($AmountOfPages > 0) {\r\n                for ($i = 1; $i <= $AmountOfPages; $i++) {\r\n                    if ($PageNumber == ($i - 1)) {\r\n                        ?>\r\n                        <div id=\"SelectedPage\"><?php print $i; ?></div><?php\r\n                    } else { ?>\r\n                        <button id=\"page_number\" class=\"PageNumber\" value=\"<?php print($i - 1); ?>\" type=\"submit\"\r\n                                name=\"page_number\"><?php print($i); ?></button>\r\n                    <?php }\r\n                }\r\n            }\r\n            ?>\r\n        </form>\r\n        <?php\r\n    } else {\r\n        ?>\r\n        <h2 id=\"NoSearchResults\">\r\n            Yarr, er zijn geen resultaten gevonden.\r\n        </h2>\r\n        <?php\r\n    }\r\n\r\n\r\n    ?>\r\n\r\n</div>\r\n\r\n<?php\r\ninclude __DIR__ . \"/footer.php\";\r\n?>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/browse.php b/browse.php
+--- a/browse.php	(revision 0dd932a785ace3809d6acd396cf7f538e5baa28f)
++++ b/browse.php	(date 1670959839296)
+@@ -297,15 +297,6 @@
+                             </option>
+                    </select>
+ 
+-
+-
+-
+-
+-
+-
+-
+-
+-
+     </form>
+ </div>
+ 
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1669710131425)
++++ b/.idea/vcs.xml	(date 1669710131425)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/nerdygadgets1.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/nerdygadgets1.iml b/.idea/nerdygadgets1.iml
+new file mode 100644
+--- /dev/null	(date 1669817229420)
++++ b/.idea/nerdygadgets1.iml	(date 1669817229420)
+@@ -0,0 +1,9 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="module" module-name="oefenen" />
++  </component>
++</module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+new file mode 100644
+--- /dev/null	(date 1671016570233)
++++ b/.idea/workspace.xml	(date 1671016570233)
+@@ -0,0 +1,199 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
++  <component name="ChangeListManager">
++    <list default="true" id="72f89a5f-fc36-46f7-88f4-4a2aeb7c3bb1" name="Changes" comment="Sven 13-12-2022">
++      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/nerdygadgets1.iml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/browse.php" beforeDir="false" afterPath="$PROJECT_DIR$/browse.php" afterDir="false" />
++    </list>
++    <option name="SHOW_DIALOG" value="false" />
++    <option name="HIGHLIGHT_CONFLICTS" value="true" />
++    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++    <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="ComposerSettings">
++    <execution />
++  </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
++  <component name="ProjectId" id="2IDJGZvOCdgIaOHTMq8jjtoPfOc" />
++  <component name="ProjectLevelVcsManager">
++    <OptionsSetting value="false" id="Update" />
++  </component>
++  <component name="ProjectViewState">
++    <option name="hideEmptyMiddlePackages" value="true" />
++    <option name="showLibraryContents" value="true" />
++  </component>
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/nerdygadgets&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  }
++}</component>
++  <component name="RunManager">
++    <configuration name="Bingo.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$USER_HOME$/PhpstormProjects/oefenen/Bingo.php">
++      <CommandLine>
++        <PhpTestInterpreterSettings>
++          <option name="interpreterName" value="PHP" />
++        </PhpTestInterpreterSettings>
++      </CommandLine>
++      <method v="2" />
++    </configuration>
++  </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="72f89a5f-fc36-46f7-88f4-4a2aeb7c3bb1" name="Changes" comment="" />
++      <created>1669710125431</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1669710125431</updated>
++      <workItem from="1669710126805" duration="5688000" />
++      <workItem from="1669801981962" duration="2848000" />
++      <workItem from="1669816100214" duration="677000" />
++      <workItem from="1669816814245" duration="12193000" />
++      <workItem from="1669925382073" duration="13000" />
++      <workItem from="1670320768279" duration="3369000" />
++      <workItem from="1670343578510" duration="3810000" />
++      <workItem from="1670593385886" duration="7741000" />
++      <workItem from="1670951029615" duration="41000" />
++      <workItem from="1670951191958" duration="9282000" />
++      <workItem from="1671011659639" duration="1924000" />
++    </task>
++    <task id="LOCAL-00001" summary="Sven 29-11-2022">
++      <created>1669722050503</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1669722050504</updated>
++    </task>
++    <task id="LOCAL-00002" summary="Sven 30-11-2022">
++      <created>1669804070983</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1669804070983</updated>
++    </task>
++    <task id="LOCAL-00003" summary="Sven 30-11-2022">
++      <created>1669804423336</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1669804423336</updated>
++    </task>
++    <task id="LOCAL-00004" summary="Sven 30-11-2022">
++      <created>1669819996812</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1669819996812</updated>
++    </task>
++    <task id="LOCAL-00005" summary="Sven 30-11-2022">
++      <created>1669820222278</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1669820222278</updated>
++    </task>
++    <task id="LOCAL-00006" summary="Sven 30-11-2022">
++      <created>1669820344577</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1669820344577</updated>
++    </task>
++    <task id="LOCAL-00007" summary="Sven 30-11-2022">
++      <created>1669821036476</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1669821036476</updated>
++    </task>
++    <task id="LOCAL-00008" summary="Sven 30-11-2022">
++      <created>1669843336482</created>
++      <option name="number" value="00008" />
++      <option name="presentableId" value="LOCAL-00008" />
++      <option name="project" value="LOCAL" />
++      <updated>1669843336482</updated>
++    </task>
++    <task id="LOCAL-00009" summary="Sven 30-11-2022">
++      <created>1670321876601</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1670321876601</updated>
++    </task>
++    <task id="LOCAL-00010" summary="Sven 6-12-2022">
++      <created>1670323226650</created>
++      <option name="number" value="00010" />
++      <option name="presentableId" value="LOCAL-00010" />
++      <option name="project" value="LOCAL" />
++      <updated>1670323226650</updated>
++    </task>
++    <task id="LOCAL-00011" summary="Sven 13-12-2022">
++      <created>1670946620516</created>
++      <option name="number" value="00011" />
++      <option name="presentableId" value="LOCAL-00011" />
++      <option name="project" value="LOCAL" />
++      <updated>1670946620516</updated>
++    </task>
++    <task id="LOCAL-00012" summary="Sven 13-12-2022">
++      <created>1670955323584</created>
++      <option name="number" value="00012" />
++      <option name="presentableId" value="LOCAL-00012" />
++      <option name="project" value="LOCAL" />
++      <updated>1670955323584</updated>
++    </task>
++    <task id="LOCAL-00013" summary="Sven 13-12-2022">
++      <created>1670957883823</created>
++      <option name="number" value="00013" />
++      <option name="presentableId" value="LOCAL-00013" />
++      <option name="project" value="LOCAL" />
++      <updated>1670957883823</updated>
++    </task>
++    <option name="localTasksCounter" value="14" />
++    <servers />
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="Sven 29-11-2022" />
++    <MESSAGE value="Sven 30-11-2022" />
++    <MESSAGE value="Sven 6-12-2022" />
++    <MESSAGE value="Sven 13-12-2022" />
++    <option name="LAST_COMMIT_MESSAGE" value="Sven 13-12-2022" />
++  </component>
++  <component name="XSLT-Support.FileAssociations.UIState">
++    <expand />
++    <select />
++  </component>
++</project>
+\ No newline at end of file
