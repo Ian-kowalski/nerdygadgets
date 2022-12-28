@@ -9,9 +9,9 @@ function getNAW(){
         "adres"=> $_GET ["huisnr"]." ".$_GET ["straat"],
         "name"=> $_GET["voornaam"] . " " . $_GET["achternaam"],
         "tel"=> $_GET["telefoonnummer"],
+        "Gender"=>$_GET["gender"]
     );
 }
-
 saveOrder(getNAW(),$databaseConnection);
 
 session_unset();

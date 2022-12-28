@@ -62,13 +62,13 @@ if($cart!=null){
                 <div class="NAWRow">
                     <label for="gender"><h3>Aanhef</h3></label>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="mevrouw" value="Mevrouw" required>Mevrouw
+                        <input class="radio" type="radio" name="gender" id="mevrouw" value="M" required>Mevrouw
                     </div>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="meneer" value="Meneer">Meneer
+                        <input class="radio" type="radio" name="gender" id="meneer" value="M">Meneer
                     </div>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="geenvanbeide" value="Geen van beide">Geen van beide
+                        <input class="radio" type="radio" name="gender" id="geenvanbeide" value="X">Geen van beide
                     </div>
                 </div>
                 <div class="NAWRow">
