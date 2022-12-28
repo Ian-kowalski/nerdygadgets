@@ -5,7 +5,27 @@ include "cartfuncties.php";
     <h1 style="min-width: 500px;">BESTELLEN</h1>
 <?php
 $cart = getCart();
-
+if(isset($_SESSION["loggedin"])){
+    $statement = mysqli_prepare($databaseConnection, "
+                    SELECT CustomerName,PhoneNumber, DeliveryAddressLine1,DeliveryPostalCode 
+                    FROM  customers
+                    join users on id=CustomerID 
+                    where username = ?");
+    mysqli_stmt_bind_param($statement ,"s", $_SESSION["username"]);
+    mysqli_stmt_execute($statement);
+    $Result = mysqli_stmt_get_result($statement);
+    $row = mysqli_fetch_all($Result, MYSQLI_ASSOC);
+    $name=$row[0]["CustomerName"];
+    $tel=$row[0]["PhoneNumber"];
+    $address=$row[0]["DeliveryAddressLine1"];
+    $postCode=$row[0]["DeliveryPostalCode"];
+    $address=explode(" ",$address);
+    $name=explode(" ",$name);
+    $lname=implode(" ",array_slice($name,-1,1,true));
+    $fname=implode(" ",array_slice($name,0,-1,true));
+    $nr=implode(" ",array_slice($address,-1,1, true));
+    $straat=implode(" ",array_slice($address,0,-1,true));
+}
 ?>
 
     <!-- Body order page -->
@@ -25,15 +45,17 @@ if($cart!=null){
                 </div>
                 <div class="NAWRow">
                     <h3>Adres</h3>
-                    <label for="street">Straatnaam</label>
-                    <input type="text" name="straat" id="straat" required pattern="[A-Z a-z]{1,}"><br>
+                    <label for="straat">Straatnaam</label>
+                    <input type="text" name="straat" id="straat" required pattern="[A-Z a-z]{1,}"
+                           value="<?php print (isset($_SESSION["loggedin"])) ? $straat :""; ?>"><br>
                     <div class="NAWcol">
                         <label for="huisnr">Huisnr & toevoeging</label>
-                        <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"><br>
+                        <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"
+                               value="<?php print (isset($_SESSION["loggedin"])) ? $nr :""; ?>"><br>
                         <label for="postcode">Postcode</label>
                         <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"><br>
                     </div>
-                    <label for="city">Plaats</label>
+                    <label for="woonplaats">Plaats</label>
                     <input type="text" name="woonplaats" id="woonplaats" required pattern="[a-z A-Z]{1,}"><br>
 
                 </div>

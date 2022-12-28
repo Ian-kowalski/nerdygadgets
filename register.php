@@ -123,7 +123,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $CustomerID, $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "iss", $CustomerID, $param_username, $param_password);
 
             // Set parameters
             $param_username = $username;
@@ -143,7 +143,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(!$bestaandeklant) {
             // Prepare an insert statement for customers
             $sql = "INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) 
-                values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,'0612345678','0612345678','www.windesheim.nl','22b notknown','1234 XZ','notknown','22b notknown','1234 XZ',1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59' )";
+                values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,'0612345678','0612345678','www.windesheim.nl','notknown 00z','1234 XZ','notknown','notknown 00z','1234 XZ',1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59' )";
 
             if ($stmt = mysqli_prepare($link, $sql)) {
                 // Bind variables to the prepared statement as parameters
