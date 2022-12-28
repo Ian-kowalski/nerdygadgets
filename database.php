@@ -106,12 +106,7 @@ function CustomerExsists($CustomerName,$databaseConnection){
     mysqli_stmt_execute($Statement);
     $result=mysqli_stmt_get_result($Statement);
     $CustomerID=mysqli_fetch_all($result,MYSQLI_ASSOC);
-    if($CustomerID[0]["CustomerID"]==NULL){
-        return NULL;
-    }else{
-        return $CustomerID[0]["CustomerID"];
-    }
-
+    return $CustomerID[0]["CustomerID"];
 }
 function getCustemer($NAW,$databaseConnection){
         extract($NAW, EXTR_OVERWRITE);
@@ -126,10 +121,19 @@ function getCustemer($NAW,$databaseConnection){
             $customerID = $customerID[0]["CstId"]; //Retrieve customerID from fetched array
 
             $addToCustumer = mysqli_prepare($databaseConnection, "
-            INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) 
+            INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo,Gender) 
             values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,?,?,'www.windesheim.nl',?,?,?,?,?,1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59',? )"
             );
             mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender);
+            mysqli_stmt_execute($addToCustumer);
+        }else{
+            $addToCustumer = mysqli_prepare($databaseConnection, "
+                UPDATE table_name
+                SET PhoneNumber=?,FaxNumber=?,DeliveryAddressLine1=?,DeliveryPostalCode=?,DeliveryLocation=?,PostalAddressLine1=?,PostalPostalCode=?,Gender=?
+                WHERE CustomerID=?;
+"
+            );
+            mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender,$customerID);
             mysqli_stmt_execute($addToCustumer);
         }
         return $customerID;
