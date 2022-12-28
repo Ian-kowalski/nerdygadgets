@@ -4,6 +4,8 @@ include __DIR__ . "/header.php";
 require_once "config.php";
 
 // Define variables and initialize with empty values
+$bestaandeklant=false;
+$CustomerID=0;
 $username = $password = $confirm_password = $voornaam = $achternaam = "";
 $username_err = $password_err = $confirm_password_err = $voornaam_err = $achternaam_err = "";
 
@@ -45,6 +47,52 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
+    if(empty(trim($_POST["voornaam"]))||empty(trim($_POST["achternaam"]))){
+        //validate voornaam
+        if(empty(trim($_POST["voornaam"]))){
+            $voornaam_err = "Please enter first name.";
+        }
+        //validate achternaam
+        if(empty(trim($_POST["achternaam"]))){
+            $achternaam_err = "Please enter surname.";
+        }
+    } else{
+        $sql="SELECT CustomerID FROM customers WHERE CustomerName = ?";
+        if($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_name);
+            // Set parameters
+            $param_name = trim($_POST["voornaam"]) . " " . trim($_POST["achternaam"]);
+            if (mysqli_stmt_execute($stmt)) {
+                $Result = mysqli_stmt_get_result($stmt);
+                $rows = mysqli_fetch_all($Result, MYSQLI_ASSOC);
+
+                if (!empty($rows[0])) {
+                    $bestaandeklant=true;
+                    $CustomerID=$rows[0]["CustomerID"];
+                }else{
+                    $bestaandeklant=false;
+                    $sql="SELECT MAX(CustomerID) FROM customers";
+                    $stmt = mysqli_prepare($link, $sql);
+                    mysqli_stmt_execute($stmt);
+                    $Result = mysqli_stmt_get_result($stmt);
+                    $rows1 = mysqli_fetch_all($Result, MYSQLI_ASSOC);
+                    print_r($rows1);
+                    $CustomerID=$rows1[0]["MAX(CustomerID)"]+1;
+                }
+
+                $voornaam = trim($_POST["voornaam"]);
+                $achternaam = trim($_POST["achternaam"]);
+
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
     // Validate password
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter a password.";
@@ -54,6 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $password = trim($_POST["password"]);
     }
 
+
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
         $confirm_password_err = "Please confirm password.";
@@ -62,34 +111,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($password_err) && ($password != $confirm_password)){
             $confirm_password_err = "Password did not match.";
         }
-
-        //validate voornaam
-        if(empty(trim($_POST["voornaam"]))){
-            $password_err = "Please enter first name.";
-        }
-        else{
-            $voornaam = trim($_POST["voornaam"]);
-        }
-        //validate achternaam
-        if(empty(trim($_POST["achternaam"]))){
-            $password_err = "Please enter surname.";
-        }
-        else{
-            $achternaam = trim($_POST["achternaam"]);
-        }
     }
 
 
 
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($username_err) && empty($password_err) && empty($confirm_password_err&&empty($achternaam_err))){
 
-        // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        // Prepare an insert statement for users
+        $sql = "INSERT INTO users (id, username, password) VALUES (?, ?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "ss", $CustomerID, $param_username, $param_password);
 
             // Set parameters
             $param_username = $username;
@@ -106,12 +140,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Close statement
             mysqli_stmt_close($stmt);
         }
+        if(!$bestaandeklant) {
+            // Prepare an insert statement for customers
+            $sql = "INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) 
+                values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,'0612345678','0612345678','www.windesheim.nl','22b notknown','1234 XZ','notknown','22b notknown','1234 XZ',1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59' )";
+
+            if ($stmt = mysqli_prepare($link, $sql)) {
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "isi", $param_ID, $param_name, $param_ID);
+
+                // Set parameters
+                $param_name = $voornaam . " " . $achternaam;
+                $param_ID = $CustomerID;
+
+
+                // Attempt to execute the prepared statement
+                if (mysqli_stmt_execute($stmt)) {
+                    // Redirect to login page
+                    header("location: login.php");
+                } else {
+                    echo "Oops! Something went wrong. Please try again later.";
+                }
+
+                // Close statement
+                mysqli_stmt_close($stmt);
+            }
+        }
     }
 
     // Close connection
     mysqli_close($link);
 }
-//hi
+
 ?>
 
 <!DOCTYPE html>
