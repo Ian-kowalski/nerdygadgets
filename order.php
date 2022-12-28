@@ -7,7 +7,7 @@ include "cartfuncties.php";
 $cart = getCart();
 if(isset($_SESSION["loggedin"])){
     $statement = mysqli_prepare($databaseConnection, "
-                    SELECT CustomerName,PhoneNumber, DeliveryAddressLine1,DeliveryPostalCode 
+                    SELECT CustomerName,PhoneNumber, DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,Gender
                     FROM  customers
                     join users on id=CustomerID 
                     where username = ?");
@@ -19,6 +19,8 @@ if(isset($_SESSION["loggedin"])){
     $tel=$row[0]["PhoneNumber"];
     $address=$row[0]["DeliveryAddressLine1"];
     $postCode=$row[0]["DeliveryPostalCode"];
+    $location=$row[0]["DeliveryLocation"];
+    $Gender=$row[0]["Gender"];
     $address=explode(" ",$address);
     $name=explode(" ",$name);
     $lname=implode(" ",array_slice($name,-1,1,true));
@@ -53,35 +55,38 @@ if($cart!=null){
                         <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"
                                value="<?php print (isset($_SESSION["loggedin"])) ? $nr :""; ?>"><br>
                         <label for="postcode">Postcode</label>
-                        <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"><br>
+                        <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"
+                               value="<?php print (isset($_SESSION["loggedin"])) ? $postCode :""; ?>"><br>
                     </div>
                     <label for="woonplaats">Plaats</label>
-                    <input type="text" name="woonplaats" id="woonplaats" required pattern="[a-z A-Z]{1,}"><br>
+                    <input type="text" name="woonplaats" id="woonplaats" required pattern="[a-z A-Z]{1,}"
+                           value="<?php print (isset($_SESSION["loggedin"])) ? $location :""; ?>"><br>
 
                 </div>
                 <div class="NAWRow">
                     <label for="gender"><h3>Aanhef</h3></label>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="mevrouw" value="M" required>Mevrouw
+                        <input class="radio" type="radio" name="gender" id="mevrouw" value="V" required <?php if(isset($_SESSION["loggedin"])){if($Gender=="V"){print "checked ";}}?> >Mevrouw
                     </div>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="meneer" value="M">Meneer
+                        <input class="radio" type="radio" name="gender" id="meneer" value="M" <?php if(isset($_SESSION["loggedin"])){if($Gender=="M"){print "checked ";}}?> >Meneer
                     </div>
                     <div class="NAWcol">
-                        <input class="radio" type="radio" name="gender" id="geenvanbeide" value="X">Geen van beide
+                        <input class="radio" type="radio" name="gender" id="geenvanbeide" value="X" <?php if(isset($_SESSION["loggedin"])){if($Gender=="X"){print "checked ";}}?> >Geen van beide
                     </div>
                 </div>
                 <div class="NAWRow">
                     <br>
                    <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
                     <label for="fname">Voornaam</label>
-                    <input type="text" name="voornaam" id="voornaam" required pattern="[A-Z a-z]{1,}"><br>
-                    <label for="prefixes">Tussenvoegsels (optioneel)</label>
-                    <input type="text" name="prefixes" id="prefixes" pattern="[A-Z a-z]{0,}"><br>
+                    <input type="text" name="voornaam" id="voornaam" required pattern="[A-Z a-z]{1,}"
+                           value="<?php print (isset($_SESSION["loggedin"])) ? $fname :""; ?>"><br>
                     <label for="lname">Achternaam</label>
-                    <input type="text" name="achternaam" id="achternaam" required pattern="[a-z A-Z]{1,}"><br>
+                    <input type="text" name="achternaam" id="achternaam" required pattern="[a-z A-Z]{1,}"
+                           value="<?php print (isset($_SESSION["loggedin"])) ? $lname :""; ?>"><br>
                     <label for="Telefoon">Telefoonnummer</label>
-                    <input type="tel" id="telefoonnummer" name="telefoonnummer" pattern="[0]{1}[0-9]{1}[0-9]{8}" required>
+                    <input type="tel" id="telefoonnummer" name="telefoonnummer" pattern="[0]{1}[0-9]{1}[0-9]{8}" required
+                           value="<?php print (isset($_SESSION["loggedin"])) ? $tel :""; ?>">
                 </div>
             </form>
         </div>

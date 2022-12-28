@@ -16,3 +16,6 @@ saveOrder(getNAW(),$databaseConnection);
 
 session_unset();
 ?>
+<script>
+    window.location.replace('https://www.ideal.nl/demo/qr/?app=ideal')
+</script>
