@@ -205,7 +205,7 @@ function saveOrder($NAW,$databaseConnection){
 
         mysqli_commit($databaseConnection);
     }catch (mysqli_sql_exception $exception) {
-        $mysqli->rollback();
+        mysqli_rollback($databaseConnection);
 
         throw $exception;
     }
