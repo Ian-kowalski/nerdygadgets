@@ -133,7 +133,7 @@ function getCustemer($NAW,$databaseConnection){
                 WHERE CustomerID=?;
 "
             );
-            mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender,$customerID);
+            mysqli_stmt_bind_param($addToCustumer, 'ssssssssi', $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender,$customerID);
             mysqli_stmt_execute($addToCustumer);
         }
         return $customerID;
