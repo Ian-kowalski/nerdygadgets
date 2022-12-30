@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . '/header.php';
 ?>
-<h3>thema </h3>
+<h3>Thema </h3>
 <!-- Rounded switch -->
 <div class="theme-switch-wrapper">
     <label class="theme-switch" for="checkbox">

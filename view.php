@@ -47,7 +47,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                                 <?php for ($i = 0; $i < count($StockItemImage); $i++) {
                                     ?>
                                     <div class="carousel-item <?php print ($i == 0) ? 'active' : ''; ?>">
-                                        <img src="Public/StockItemIMG/<?php print $StockItemImage[$i]['ImagePath'] ?>">
+                                        <img src="Public/StockItemIMG/<?php print $StockItemImage[$i]['ImagePath'] ?>" alt="Volgens mij mist er hier wat.">
                                     </div>
                                 <?php } ?>
                             </div>
