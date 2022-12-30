@@ -128,7 +128,7 @@ function getCustemer($NAW,$databaseConnection){
             mysqli_stmt_execute($addToCustumer);
         }else{
             $addToCustumer = mysqli_prepare($databaseConnection, "
-                UPDATE table_name
+                UPDATE customers
                 SET PhoneNumber=?,FaxNumber=?,DeliveryAddressLine1=?,DeliveryPostalCode=?,DeliveryLocation=?,PostalAddressLine1=?,PostalPostalCode=?,Gender=?
                 WHERE CustomerID=?;
 "
