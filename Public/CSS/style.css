@@ -291,7 +291,7 @@ li.dropdown {
 .button {
     border: none;
     color: var(--color-fg);
-    width: 9em;
+    width: auto;
     height: 3em;
     line-height: 2em;
     text-align: center;
@@ -302,33 +302,52 @@ li.dropdown {
     cursor: pointer;
     z-index: 1;
 }
-
+.buttonRev {
+    border: none;
+    color: var(--color-fg);
+    width: auto;
+    height: 3em;
+    line-height: 2em;
+    text-align: center;
+    background: linear-gradient(90deg, #03a9f4,  #96D922, #f441a5, #03a9f4);
+    background-size: 300%;
+    border-radius: 30px;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 1;
+}
+.buttonRed {
+    border: none;
+    color: var(--color-fg);
+    width: auto;
+    height: 3em;
+    line-height: 2em;
+    text-align: center;
+    background: linear-gradient(90deg, #C7151A,  #C75C15, #981414, #C7151A);
+    background-size: 300%;
+    border-radius: 30px;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 1;
+}
 .button1 {
-    width:150px;
+    min-width: 100px;
+    width:auto;
+    padding: 1px 10px;
     border-radius: 12px;
     background-color: var(--color-bg);
     color: var(--color-fg);
-    border: 2px solid var(--color-fg);
+    border: 2px solid var(--color-acs2);
 }
 .button1:hover {
     animation: animation 8s linear infinite;
-    border: none;
+    border: 2px solid var(--color-fg);
 }
 @keyframes animation {
     0% { background-position: 0%; }
     100% { background-position: 400% }
 }
-.button2 {
-    width: 200px;
-    border-radius: 12px;
-    background-color: rgba(35, 40, 47, 0.8);
-    color: rgb(36, 41, 143);
-    border: 2px solid rgb(36, 41, 143);
-}
-.button2:hover {
-    animation: animation 8s linear infinite;
-    border: none;
-}
+
 
 #StockItemDescription {
     background-color: var(--color-div);
@@ -888,7 +907,7 @@ ul#ul-class-price li {
 }
 
 .orderbox {
-    width: 300px;
+    min-width: 300px;
     border: 15px solid green;
     padding: 50px;
     margin: 20px;
@@ -901,17 +920,17 @@ ul#ul-class-price li {
 }
 
 .NAWRow{
-    min-width: 1150px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 100%;
+    margin: 8px;
 }
 .NAWcol{
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    column-count: 1;
+    column-gap: 8px;
 }
 
 .radio{
@@ -926,17 +945,7 @@ ul#ul-class-price li {
     flex-direction: row;
 }
 
-.darkmode_box {
-    border: 5px solid rgb(36, 41, 143);
-    max-width: 50%;
-    padding: 8px;
-    margin-left: 350px;
-    margin-top: 100px;
-    alignment: center;
-}
-.lightmode_text {
-    margin-left: 225px;
-}
+
 /*hide arows num input*/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -1070,11 +1079,12 @@ input:checked + .slider:before {
 .fa-filter{
     color: var(--color-acs2)
 }
-
-
-
-
-
+.fa-euro-sign{
+    color: var(--color-acs2)
+}
+.fa-address-card{
+    color: var(--color-acs2)
+}
 
 .range_container {
     display: flex;
@@ -1166,3 +1176,10 @@ input[type="range"] {
         background-position: 0px 300px;
     }
 }
+
+.welkom{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+

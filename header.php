@@ -75,6 +75,9 @@ $databaseConnection = connectToDatabase();
                 <div class="dropdown-content">
                     <a href="login.php" class="HrefDecoration"><i  class="fas fa-walking"></i> login</a>
                     <a href="settings.php" class="HrefDecoration"><i class="fas fa-cog"></i> settings</a>
+                    <?php if(isset($_SESSION["loggedin"])){ ?>
+                        <a href="updateadress.php" class="HrefDecoration"><i class="far fa-address-card"></i> adress</a>
+                    <?php } ?>
                 </div>
             </li>
         </ul>

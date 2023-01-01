@@ -108,7 +108,7 @@ if($cart!=null){
                     print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
                     print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
                     <form action="order.php">
-                        <button class='button button1'>bestellen</a>
+                        <button class='buttonRev button1'>bestellen</button>
                     </form>
 
                 </div>

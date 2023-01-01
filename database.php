@@ -108,33 +108,43 @@ function CustomerExsists($CustomerName,$databaseConnection){
     $CustomerID=mysqli_fetch_all($result,MYSQLI_ASSOC);
     return $CustomerID[0]["CustomerID"];
 }
-function getCustemer($NAW,$databaseConnection){
-        extract($NAW, EXTR_OVERWRITE);
-        $customerID = CustomerExsists($name, $databaseConnection);
-        if ($customerID == NULL) {
-            $statement = mysqli_prepare($databaseConnection, "
-                    SELECT MAX(CustomerID) + 1 AS CstId -- Fetch highest known ID and increase by 1, save as CstId
-                    FROM customers;");
-            mysqli_stmt_execute($statement);
-            $Result = mysqli_stmt_get_result($statement);
-            $customerID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query
-            $customerID = $customerID[0]["CstId"]; //Retrieve customerID from fetched array
-
-            $addToCustumer = mysqli_prepare($databaseConnection, "
-            INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo,Gender) 
-            values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,?,?,'www.windesheim.nl',?,?,?,?,?,1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59',? )"
-            );
-            mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender);
-            mysqli_stmt_execute($addToCustumer);
-        }else{
-            $addToCustumer = mysqli_prepare($databaseConnection, "
+function updateCustumer($customerID,$NAW,$databaseConnection){
+    extract($NAW, EXTR_OVERWRITE);
+    $addToCustumer = mysqli_prepare($databaseConnection, "
                 UPDATE customers
                 SET PhoneNumber=?,FaxNumber=?,DeliveryAddressLine1=?,DeliveryPostalCode=?,DeliveryLocation=?,PostalAddressLine1=?,PostalPostalCode=?,Gender=?
                 WHERE CustomerID=?;
 "
-            );
-            mysqli_stmt_bind_param($addToCustumer, 'ssssssssi', $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender,$customerID);
-            mysqli_stmt_execute($addToCustumer);
+    );
+    mysqli_stmt_bind_param($addToCustumer, 'ssssssssi', $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender,$customerID);
+    mysqli_stmt_execute($addToCustumer);
+}
+function insurtCustumer($NAW,$databaseConnection){
+    extract($NAW, EXTR_OVERWRITE);
+    $statement = mysqli_prepare($databaseConnection, "
+                    SELECT MAX(CustomerID) + 1 AS CstId -- Fetch highest known ID and increase by 1, save as CstId
+                    FROM customers;");
+    mysqli_stmt_execute($statement);
+    $Result = mysqli_stmt_get_result($statement);
+    $customerID = mysqli_fetch_all($Result, MYSQLI_ASSOC); //Fetch result from SQL query
+    $customerID = $customerID[0]["CstId"]; //Retrieve customerID from fetched array
+
+    $addToCustumer = mysqli_prepare($databaseConnection, "
+            INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo,Gender) 
+            values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,?,?,'www.windesheim.nl',?,?,?,?,?,1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59',? )"
+    );
+    mysqli_stmt_bind_param($addToCustumer, 'isisssssss', $customerID, $name, $customerID, $tel, $tel,$adres, $Postcode, $plaats, $adres, $Postcode,$Gender);
+    mysqli_stmt_execute($addToCustumer);
+
+    return $customerID;
+}
+function getCustemer($NAW,$databaseConnection){
+        extract($NAW, EXTR_OVERWRITE);
+        $customerID = CustomerExsists($name, $databaseConnection);
+        if ($customerID == NULL) {
+            $customerID=insurtCustumer($NAW,$databaseConnection);
+        }else{
+            updateCustumer($customerID,$NAW,$databaseConnection);
         }
         return $customerID;
 

@@ -25,6 +25,8 @@ if(isset($_SESSION["loggedin"])){
     $name=explode(" ",$name);
     $lname=implode(" ",array_slice($name,-1,1,true));
     $fname=implode(" ",array_slice($name,0,-1,true));
+
+
     $nr=implode(" ",array_slice($address,-1,1, true));
     $straat=implode(" ",array_slice($address,0,-1,true));
 }
@@ -50,14 +52,16 @@ if($cart!=null){
                     <label for="straat">Straatnaam</label>
                     <input type="text" name="straat" id="straat" required pattern="[A-Z a-z]{1,}"
                            value="<?php print (isset($_SESSION["loggedin"])) ? $straat :""; ?>"><br>
-                    <div class="NAWcol">
-                        <label for="huisnr">Huisnr & toevoeging</label>
-                        <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"
-                               value="<?php print (isset($_SESSION["loggedin"])) ? $nr :""; ?>"><br>
-                        <label for="postcode">Postcode</label>
-                        <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"
-                               value="<?php print (isset($_SESSION["loggedin"])) ? $postCode :""; ?>"><br>
-                    </div>
+                </div>
+                <div class="NAWcol">
+                    <label for="huisnr">Huisnr & toevoeging</label>
+                    <input type="text" name="huisnr" id="huisnr" required pattern="[0-9]{1,}[a-zA-Z]{0,1}"
+                           value="<?php print (isset($_SESSION["loggedin"])) ? $nr :""; ?>"><br>
+                    <label for="postcode">Postcode</label>
+                    <input type="text" name="postcode" id="postcode" required pattern="[0-9]{4,4}+[A-Z]{2,2}"
+                           value="<?php print (isset($_SESSION["loggedin"])) ? $postCode :""; ?>"><br>
+                </div>
+                <div class="NAWRow">
                     <label for="woonplaats">Plaats</label>
                     <input type="text" name="woonplaats" id="woonplaats" required pattern="[a-z A-Z]{1,}"
                            value="<?php print (isset($_SESSION["loggedin"])) ? $location :""; ?>"><br>
@@ -107,7 +111,6 @@ if($cart!=null){
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
         <button type="submit" form="Nawgegevens" value="Submit" class='button button1'>bestellen</button>
-            <!--<a href="https://www.ideal.nl/demo/qr/?app=ideal" class='button button1'>bestellen</a>-->
         </div>
     </div>
 

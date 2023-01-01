@@ -6,7 +6,7 @@ function getNAW(){
     return array(
         "Postcode"=> $_GET["postcode"],
         "plaats"=> $_GET["woonplaats"],
-        "adres"=> $_GET ["huisnr"]." ".$_GET ["straat"],
+        "adres"=> $_GET ["straat"]." ".$_GET ["huisnr"],
         "name"=> $_GET["voornaam"] . " " . $_GET["achternaam"],
         "tel"=> $_GET["telefoonnummer"],
         "Gender"=>$_GET["gender"]
@@ -15,7 +15,7 @@ function getNAW(){
 saveOrder(getNAW(),$databaseConnection);
 
 session_unset();
-?><!--
+?><!--straat
 <script>
     window.location.replace('https://www.ideal.nl/demo/qr/?app=ideal')
 </script>
