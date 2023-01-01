@@ -113,6 +113,10 @@ if($cart!=null){
 
                 </div>
         </div>
+
+    <form class="mt-3" action="categories.php">
+        <input type="submit" class='button button1' value="terug naar categorieën">
+    </form>
     <?php
 }
 else{
@@ -120,9 +124,9 @@ else{
     <div class="row">
         <h1 style="min-width: 500px;">De winkelwagen is helaas nog leeg</h1>
     </div>
-    <div class="HrefDecoration">
-        <a href="/nerdygadgets/categories.php" class='HrefDecoration'>>terug naar categorieën</a>
-    </div>
+    <form class="mt-3" action="categories.php">
+        <input type="submit" class='buttonRed button1' value="terug naar categorieën">
+    </form>
 
     <?php
 }

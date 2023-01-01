@@ -15,8 +15,7 @@ function getNAW(){
 saveOrder(getNAW(),$databaseConnection);
 
 session_unset();
-?><!--straat
+?>
 <script>
     window.location.replace('https://www.ideal.nl/demo/qr/?app=ideal')
 </script>
--->

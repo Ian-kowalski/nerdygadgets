@@ -3,20 +3,21 @@ html {
 }
 
 :root {
-    --color-bg: #DCDCD0;
-    --color-fg: rgb(35, 35, 47);
-    --color-div: #949485;
-    --color-acs: #280a82;
-    --color-acs2: #4e1ce6;
-    --filter-inv: invert(1);
-}
-[data-theme="dark"] {
+
     --color-bg: rgb(35, 35, 47);
     --color-fg: #DCDCD0;
     --color-div: rgb(62, 62, 97);
     --color-acs: #7F0194;
     --color-acs2: #8B00D6;
     --filter-inv: invert(0);
+}
+[data-theme="light"] {
+    --color-bg: #DCDCD0;
+    --color-fg: rgb(35, 35, 47);
+    --color-div: #949485;
+    --color-acs: #280a82;
+    --color-acs2: #4e1ce6;
+    --filter-inv: invert(1);
 }
 
 #LogoImage {
@@ -160,7 +161,8 @@ li.dropdown {
     color: var(--color-fg);
     position: fixed;
     width: 19%;
-    height: 80%;
+    max-height: 80%;
+    height: auto;
     background-color: var(--color-div);
     float: left;
     border: 1px solid var(--color-fg);
@@ -916,7 +918,9 @@ ul#ul-class-price li {
 .NAW{
     border: 5px solid var(--color-acs2);
     max-width: 80%;
+    max-height: 72vh;
     padding: 8px;
+    overflow-y:auto;
 }
 
 .NAWRow{

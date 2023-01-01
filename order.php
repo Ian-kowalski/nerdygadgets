@@ -110,13 +110,12 @@ if($cart!=null){
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
-        <button type="submit" form="Nawgegevens" value="Submit" class='button button1'>bestellen</button>
+        <button type="submit" form="Nawgegevens" value="Submit" class='buttonRev button1'>bestellen</button>
         </div>
     </div>
-
-    <div class="HrefDecoration">
-        <a href="/nerdygadgets/Cart.php" class='HrefDecoration'>>terug naar winkelmandje</a>
-    </div>
+    <form class="mt-3" action="Cart.php">
+        <input type="submit" class='button button1' value="terug naar winkelmandje">
+    </form>
 
 <?php
 } else {
@@ -124,9 +123,9 @@ if($cart!=null){
     <div class="row">
         <h1 style="min-width: 500px;">Je hebt nog niks om te bestellen!</h1>
     </div>
-    <div class="HrefDecoration">
-        <a href="/nerdygadgets/categories.php" class='HrefDecoration'>>terug naar categorieën</a>
-    </div>
+    <form class="mt-3" action="categories.php">
+        <input type="submit" class='button button1' value="terug naar categorieën">
+    </form>
 
 <?php
 }

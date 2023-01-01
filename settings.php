@@ -8,7 +8,7 @@ include __DIR__ . '/header.php';
         <input type="checkbox" id="checkbox" />
         <div class="slider round"></div>
     </label>
-    <em>Enable Dark Mode!</em>
+    <em>Chance Site Theme!</em>
 </div>
 <?php
 include __DIR__ . "/footer.php";
