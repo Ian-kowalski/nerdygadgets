@@ -352,6 +352,9 @@ li.dropdown {
     100% { background-position: 400% }
 }
 
+input[type=button]:disabled {
+    background: red;
+}
 
 #StockItemDescription {
     background-color: var(--color-div);
@@ -518,6 +521,7 @@ ul#ul-class-price li {
 .prev:hover, .next:hover {
     background-color: rgba(0,0,0,0.8);
 }
+
 
 /* Caption text */
 .text {

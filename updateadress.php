@@ -36,25 +36,23 @@ function NAW(){
         "Postcode"=> $_POST["postcode"],
         "plaats"=> $_POST["woonplaats"],
         "adres"=> $_POST ["straat"]." ".$_POST ["huisnr"],
-        "name"=> $_POST["voornaam"] . " " . $_POST["achternaam"],
         "tel"=> $_POST["telefoonnummer"],
-        "Gender"=>$_POST["gender"]
+
     );
 }
 if(isset($_POST['update'])) {
+
     updateCustumer($customerID,NAW(),$databaseConnection);
+    ?>
+        <script>
+            window.location.replace("updateadress.php")
+        </script>
+    <?php
 }
 ?>
 
 <div class="NAW">
     <form method="post" id="Nawgegevens">
-        <div class="NAWRow">
-            <label for="country"><h3>Land/regio</h3></label>
-            <select name="country" id="country">
-                <option value="nederland">Nederland</option>
-                <option value="belgië">België</option>
-            </select><br>
-        </div>
         <div class="NAWRow">
             <h3>Adres</h3>
             <label for="straat">Straatnaam</label>
@@ -74,28 +72,6 @@ if(isset($_POST['update'])) {
             <input type="text" name="woonplaats" id="woonplaats" required pattern="[a-z A-Z]{1,}"
                    value="<?php print (isset($_SESSION["loggedin"])) ? $location :""; ?>"><br>
 
-        </div>
-        <div class="NAWRow">
-            <label for="gender"><h3>Aanhef</h3></label>
-            <div class="NAWcol">
-                <input class="radio" type="radio" name="gender" id="mevrouw" value="V" required <?php if(isset($_SESSION["loggedin"])){if($Gender=="V"){print "checked ";}}?> >Mevrouw
-            </div>
-            <div class="NAWcol">
-                <input class="radio" type="radio" name="gender" id="meneer" value="M" <?php if(isset($_SESSION["loggedin"])){if($Gender=="M"){print "checked ";}}?> >Meneer
-            </div>
-            <div class="NAWcol">
-                <input class="radio" type="radio" name="gender" id="geenvanbeide" value="X" <?php if(isset($_SESSION["loggedin"])){if($Gender=="X"){print "checked ";}}?> >Geen van beide
-            </div>
-        </div>
-        <div class="NAWRow">
-            <br>
-            <label for="NAWgegevens"><h3>Persoonsgegevens</h3></label>
-            <label for="fname">Voornaam</label>
-            <input type="text" name="voornaam" id="voornaam" required pattern="[A-Z a-z]{1,}"
-                   value="<?php print (isset($_SESSION["loggedin"])) ? $fname :""; ?>"><br>
-            <label for="lname">Achternaam</label>
-            <input type="text" name="achternaam" id="achternaam" required pattern="[a-z A-Z]{1,}"
-                   value="<?php print (isset($_SESSION["loggedin"])) ? $lname :""; ?>"><br>
             <label for="Telefoon">Telefoonnummer</label>
             <input type="tel" id="telefoonnummer" name="telefoonnummer" pattern="[0]{1}[0-9]{1}[0-9]{8}" required
                    value="<?php print (isset($_SESSION["loggedin"])) ? $tel :""; ?>">
@@ -103,8 +79,8 @@ if(isset($_POST['update'])) {
 
 
 
-        <input type="submit" class='button button1' name="update" value="update" onClick="window.location.reload()">
-        <input type="button" class='buttonRed button1' value="reset" onClick="window.location.reload()">
+        <input type="submit" class='button button1' name="update" value="update">
+        <input type="button" class='buttonRed button1' value="reset" onClick="window.location.reload()" disabled >
     </form>
 </div>
 <div style="margin: 8px">
