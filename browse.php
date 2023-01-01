@@ -40,7 +40,6 @@ if (isset($_GET["min_price"])) {
     $MinPrice = 0;
     $_SESSION["min_price"] = $MinPrice;
 }
-
 if(isset($_GET["max_price"])) {
     $MaxPrice = $_GET["max_price"];
     $_SESSION["max_price"] = $_GET["max_price"];
@@ -51,6 +50,7 @@ if(isset($_GET["max_price"])) {
     $MaxPrice = 10000;
     $_SESSION["max_price"] = $MaxPrice;
 }
+
 
 if (isset($_GET['page_number'])) {
     $PageNumber = $_GET['page_number'];
@@ -108,6 +108,7 @@ if (isset($_GET['sort'])) {
 }
 
 
+
 switch ($SortOnPage) {
     case "price_high_low":
     {
@@ -157,18 +158,20 @@ if($CategoryID!="") {
     }
     $queryBuildResult .= " SIG.StockGroupID =$CategoryID";
 }
-if($MaxPrice!="") {
+if($MaxPrice!=""&&$MinPrice!="") {
     if ($queryBuildResult != "") {
         $queryBuildResult .= " AND";
     }
-    $queryBuildResult .= " ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) <='$MaxPrice'";
-}
-if($MinPrice!="") {
-    if ($queryBuildResult != "") {
-        $queryBuildResult .= " AND";
+    if($MinPrice<$MaxPrice){
+        $queryBuildResult .= " ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) <='$MaxPrice'";
+        $queryBuildResult .= " AND ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) >='$MinPrice'";
+    }else{
+        $queryBuildResult .= " ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) <='$MinPrice'";
+        $queryBuildResult .= " AND ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) >='$MaxPrice'";
     }
-    $queryBuildResult .= " ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) >='$MinPrice'";
+
 }
+
 if($CategoryID==2||$CategoryID==4||$CategoryID=="") {
 //add $ColorID
     if ($ColorID != 0) {
@@ -186,13 +189,12 @@ if($CategoryID==2||$CategoryID==4||$CategoryID=="") {
     }
 }
 $Offset = $PageNumber * $ProductsOnPage;
-if($queryBuildResult!="") {
-    $ReturnableResult = filteren($queryBuildResult, $Sort, $ProductsOnPage, $Offset, $databaseConnection);
-    $Result = row($queryBuildResult, $Sort, $databaseConnection);
-}else{
-    $ReturnableResult = filteren_zonder($Sort, $ProductsOnPage, $Offset, $databaseConnection);
-    $Result = row_zonder($Sort, $databaseConnection);
-}
+
+print $queryBuildResult;
+
+$ReturnableResult = filteren($queryBuildResult, $Sort, $ProductsOnPage, $Offset, $databaseConnection);
+$Result = row($queryBuildResult, $Sort, $databaseConnection);
+
 
 $amount = $Result[0];
 if (isset($amount)) {
@@ -268,10 +270,10 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
 
             <h4 class="FilterTopMargin"><i class="fas fa-euro-sign"></i> Prijs</h4>
             <label for="min_price">minimum prijs: </label>
-            <input type="input" name="min_price" id="min_price" class="form-submit" value="<?php print $_SESSION["min_price"] ?> " onchange="this.form.submit()">
+            <input type="input" name="min_price" id="min_price" class="form-submit" value="<?php if($_SESSION["min_price"]<$_SESSION["max_price"]){print $_SESSION["min_price"];}else{print$_SESSION["max_price"]; } ?> " onchange="this.form.submit()">
 
             <label for="max_price">maximum prijs: </label>
-            <input type="input" name="max_price" id="max_price" class="form-submit" value="<?php print $_SESSION["max_price"] ?>" onchange="this.form.submit()">
+            <input type="input" name="max_price" id="max_price" class="form-submit" value="<?php if($_SESSION["min_price"]>$_SESSION["max_price"]){print $_SESSION["min_price"];}else{print$_SESSION["max_price"]; } ?>" onchange="this.form.submit()">
 
             <?php if($CategoryID==2 || $CategoryID==4){?>
             <h4 class="FilterTopMargin"><i class="fas fa-palette"></i> Kleur</h4>
