@@ -77,7 +77,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     mysqli_stmt_execute($stmt);
                     $Result = mysqli_stmt_get_result($stmt);
                     $rows1 = mysqli_fetch_all($Result, MYSQLI_ASSOC);
-                    print_r($rows1);
                     $CustomerID=$rows1[0]["MAX(CustomerID)"]+1;
                 }
 
@@ -140,9 +139,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Close statement
             mysqli_stmt_close($stmt);
         }
-        if(!$bestaandeklant) {
+        if($bestaandeklant==false) {
             // Prepare an insert statement for customers
-            $sql = "INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo) 
+            $sql = "INSERT INTO customers(CustomerID,CustomerName,BillToCustomerID,CustomerCategoryID,PrimaryContactPersonID,DeliveryMethodID,DeliveryCityID,PostalCityID,AccountOpenedDate,StandardDiscountPercentage,IsStatementSent,IsOnCreditHold,PaymentDays,PhoneNumber,FaxNumber,WebsiteURL,DeliveryAddressLine1,DeliveryPostalCode,DeliveryLocation,PostalAddressLine1,PostalPostalCode,LastEditedBy,ValidFrom,ValidTo,Gender) 
                 values(?,?,?,1,1,2,776,776,CURRENT_TIMESTAMP,0.000,0,0,7,'','','www.windesheim.nl','','','','','',1,CURRENT_TIMESTAMP,'9999-12-31 23:59:59','X')";
 
             if ($stmt = mysqli_prepare($link, $sql)) {
@@ -151,7 +150,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 // Set parameters
                 $param_name = $voornaam . " " . $achternaam;
-                $param_ID = $CustomerID;
 
 
                 // Attempt to execute the prepared statement
