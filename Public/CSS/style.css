@@ -352,9 +352,6 @@ li.dropdown {
     100% { background-position: 400% }
 }
 
-input[type=button]:disabled {
-    background: red;
-}
 
 #StockItemDescription {
     background-color: var(--color-div);

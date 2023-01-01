@@ -80,7 +80,7 @@ if(isset($_POST['update'])) {
 
 
         <input type="submit" class='button button1' name="update" value="update">
-        <input type="button" class='buttonRed button1' value="reset" onClick="window.location.reload()" disabled >
+        <input type="button" class='buttonRed button1' value="reset" onClick="window.location.reload()">
     </form>
 </div>
 <div style="margin: 8px">
