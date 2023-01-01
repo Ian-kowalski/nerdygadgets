@@ -224,9 +224,8 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
     <form>
         <div id="FilterOptions">
             <h4 class="FilterTopMargin"><i class="fas fa-search"></i> Zoeken</h4>
-            <input type="text" name="search_string" id="search_string"
-                   value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>"
-                   class="form-submit">
+            <input type="text" name="search_string" id="search_string" onchange="this.form.submit()"
+                   value="<?php print (isset($_GET['search_string'])) ? $_GET['search_string'] : ""; ?>">
             <input type="hidden" name="category_id" id="category_id"
                    value="<?php print (isset($_GET['category_id'])) ? $_GET['category_id'] : ""; ?>">
             <input type="hidden" name="sort" id="sort" value="<?php print ($_SESSION['sort']); ?>">
