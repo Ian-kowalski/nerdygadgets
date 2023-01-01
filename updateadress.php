@@ -1,5 +1,5 @@
 <?php
-// Initialize the session
+// Initialize the sessionb
 include __DIR__ . '/header.php';
 
 // Check if the user is logged in, if not then redirect him to login page
