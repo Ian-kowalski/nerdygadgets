@@ -3,7 +3,6 @@
 session_start();
 include "database.php";
 
-$snow=0;
 $databaseConnection = connectToDatabase();
 
 ?>
@@ -26,8 +25,8 @@ $databaseConnection = connectToDatabase();
 
 </head>
 <body>
-<div class="Background ">
-    <div class="row <?php if($snow){print "snow";}?>" id="Header">
+<div class="Background">
+    <div class="row" id="Header">
         <div title="home page" class="col-2"><a href="./" id="LogoA">
                 <div id="LogoImage"></div>
             </a></div>

@@ -23,6 +23,8 @@
 
     toggleSwitch.addEventListener('change', switchTheme, false);
 </script>
+
+
 </div>
 </div>
 </div>

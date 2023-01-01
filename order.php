@@ -33,7 +33,7 @@ if(isset($_SESSION["loggedin"])){
 ?>
 
     <!-- Body order page -->
-
+<div>
 <?php
 if($cart!=null){
     ?>
@@ -94,7 +94,7 @@ if($cart!=null){
                 </div>
             </form>
         </div>
-        <div class="totalPrice">
+        <div id="the-movable-element-id" class="totalPrice">
             <?php
             $totaalPrice=0;
             $verzendkosten=6.50;
@@ -112,6 +112,18 @@ if($cart!=null){
             print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
         <button type="submit" form="Nawgegevens" value="Submit" class='buttonRev button1'>bestellen</button>
         </div>
+
+        <script>
+            $(window).scroll(function() {
+                var scrollTop = $(window).scrollTop();
+                console.log("scrollTop>>>" + scrollTop);
+                if (scrollTop == 0) {
+                    $("#the-movable-element-id").css({"margin-top": "0px"});
+                } else {
+                    $("#the-movable-element-id").css({"margin-top": ($(window).scrollTop()) + "px"});
+                }
+            });
+        </script>
     </div>
     <form class="mt-3" action="Cart.php">
         <input type="submit" class='button button1' value="terug naar winkelmandje">
@@ -128,6 +140,9 @@ if($cart!=null){
     </form>
 
 <?php
+
+
 }
     include __DIR__ . "/footer.php";
 ?>
+</div>

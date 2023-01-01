@@ -92,26 +92,37 @@ if($cart!=null){
                     <?php
                 }?>
             </div>
-            <div class="totalPrice">
-                    <?php
-                    $totaalPrice=0;
-                    $verzendkosten=6.95;
-                    foreach($cart as $productID => $amount){
-                        $StockItem = getStockItem($productID, $databaseConnection);
-                        $price=$StockItem["SellPrice"]*$amount;
-                        $totaalPrice+=$price;
-                    }
-                    if($totaalPrice > "50") {
-                        $verzendkosten = 0;
-                    }
-                    print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
-                    print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
-                    print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
-                    <form action="order.php">
-                        <button class='buttonRev button1'>bestellen</button>
-                    </form>
+            <div id="the-movable-element-id" class="totalPrice">
+                <?php
+                $totaalPrice=0;
+                $verzendkosten=6.95;
+                foreach($cart as $productID => $amount){
+                    $StockItem = getStockItem($productID, $databaseConnection);
+                    $price=$StockItem["SellPrice"]*$amount;
+                    $totaalPrice+=$price;
+                }
+                if($totaalPrice > "50") {
+                    $verzendkosten = 0;
+                }
+                print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
+                print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
+                print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
+                <form action="order.php">
+                    <button class='buttonRev button1'>bestellen</button>
+                </form>
 
-                </div>
+            </div>
+            <script>
+                $(window).scroll(function() {
+                    var scrollTop = $(window).scrollTop();
+                    console.log("scrollTop>>>" + scrollTop);
+                    if (scrollTop == 0) {
+                        $("#the-movable-element-id").css({"margin-top": "0px"});
+                    } else {
+                        $("#the-movable-element-id").css({"margin-top": ($(window).scrollTop()) + "px"});
+                    }
+                });
+            </script>
         </div>
 
     <form class="mt-3" action="categories.php">
