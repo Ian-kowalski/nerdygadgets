@@ -237,7 +237,7 @@ function temp($databaseConnection){
 function filteren($queryBuildResult,$Sort,$ProductsOnPage, $Offset, $databaseConnection){
     $Query_sort = "
                 SELECT SI.StockItemID, SI.StockItemName, SI.MarketingComments, TaxRate, RecommendedRetailPrice, ROUND(TaxRate * RecommendedRetailPrice / 100 + RecommendedRetailPrice,2) as SellPrice,
-                QuantityOnHand,
+                QuantityOnHand,si.searchdetails,
                 (SELECT ImagePath
                 FROM stockitemimages
                 WHERE StockItemID = SI.StockItemID LIMIT 1) as ImagePath,
@@ -250,6 +250,7 @@ function filteren($queryBuildResult,$Sort,$ProductsOnPage, $Offset, $databaseCon
                 GROUP BY StockItemID
                 ORDER BY ".$Sort."
                 LIMIT ?  OFFSET ?";
+
     $Statement = mysqli_prepare($databaseConnection, $Query_sort);
     mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
 
@@ -261,15 +262,14 @@ function filteren($queryBuildResult,$Sort,$ProductsOnPage, $Offset, $databaseCon
 
 function row($queryBuildResult,$Sort, $databaseConnection){
     $Query_count = "
-                select count(*)
+                select count(DISTINCT StockItemID)
                 FROM stockitems SI
                 JOIN stockitemholdings SIH USING(stockitemid)
                 JOIN stockitemstockgroups SIG USING(StockItemID)
                 JOIN stockgroups SG USING(StockGroupID)
                 WHERE $queryBuildResult";
-
     $Statement = mysqli_prepare($databaseConnection, $Query_count);
-
+print $Query_count;
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);

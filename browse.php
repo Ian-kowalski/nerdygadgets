@@ -9,16 +9,7 @@ $Sort = "SellPrice";
 $AmountOfPages = 0;
 $queryBuildResult = "";
 
-if (isset($_GET['category_id'])) {
-    $CategoryID = $_GET['category_id'];
-    $_SESSION["category_id"] = $_GET['category_id'];
-} elseif(isset($_SESSION["category_id"])) {
-    $CategoryID=$_SESSION["category_id"];
-    $_GET['category_id']=$CategoryID;
-} else {
-    $CategoryID = "";
-    $_SESSION["category_id"]=$CategoryID;
-}
+
 
 if (isset($_GET['products_on_page'])) {
     $ProductsOnPage = $_GET['products_on_page'];
@@ -53,16 +44,22 @@ if(isset($_GET["max_price"])) {
     $_SESSION["max_price"] = $MaxPrice;
 }
 
-
 if (isset($_GET['page_number'])) {
     $PageNumber = $_GET['page_number'];
-    $_SESSION["page_number"] = $_GET['page_number'];
-} elseif(isset($_SESSION['page_number'])){
-    $PageNumber = $_SESSION['page_number'];
-    $_GET['page_number']=$PageNumber;
 }else {
     $PageNumber = 0;
-    $_SESSION['page_number']=$PageNumber;
+    $_GET['page_number']=$PageNumber;
+}
+
+if (isset($_GET['category_id'])) {
+    $CategoryID = $_GET['category_id'];
+    $_SESSION["category_id"] = $_GET['category_id'];
+} elseif(isset($_SESSION["category_id"])&&$PageNumber>0) {
+    $CategoryID=$_SESSION["category_id"];
+    $_GET['category_id']=$CategoryID;
+} else {
+    $CategoryID = "";
+    $_SESSION["category_id"]=$CategoryID;
 }
 
 if (isset($_GET['ColorID'])) {
@@ -140,18 +137,8 @@ switch ($SortOnPage) {
 
 if ($SearchString != "") {
     $SearchString = str_replace("'", "", $SearchString); //Voorkoming SQL-injectie: Haalt single aanhalingstekens weg
-    $searchValues = explode(" ", $SearchString);
-    $queryBuildResult .= "(";
-    for ($i = 0; $i < count($searchValues); $i++) {
-        if ($i != 0) {
-            $queryBuildResult .= "AND ";
-        }
-        $queryBuildResult .= "SI.SearchDetails LIKE '%$searchValues[$i]%' ";
-    }
-    if(is_int($SearchString)){
-        $queryBuildResult .= "OR SI.StockItemID ='$SearchString'";
-    }
-    $queryBuildResult .= ")";
+
+    $queryBuildResult .="MATCH(stockitemname, searchdetails, marketingcomments) AGAINST ('$SearchString' in boolean mode)" ;
 }
 // add $CategoryID
 
@@ -201,10 +188,9 @@ $Offset = $PageNumber * $ProductsOnPage;
 $ReturnableResult = filteren($queryBuildResult, $Sort, $ProductsOnPage, $Offset, $databaseConnection);
 $Result = row($queryBuildResult, $Sort, $databaseConnection);
 
-
 $amount = $Result[0];
 if (isset($amount)) {
-    $AmountOfPages = ceil($amount["count(*)"] / $ProductsOnPage);
+    $AmountOfPages = ceil($amount["count(DISTINCT StockItemID)"] / $ProductsOnPage);
 }
 
 
