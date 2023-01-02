@@ -269,7 +269,6 @@ function row($queryBuildResult,$Sort, $databaseConnection){
                 JOIN stockgroups SG USING(StockGroupID)
                 WHERE $queryBuildResult";
     $Statement = mysqli_prepare($databaseConnection, $Query_count);
-print $Query_count;
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     $ReturnableResult = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC);
