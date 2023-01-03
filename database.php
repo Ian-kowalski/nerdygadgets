@@ -250,7 +250,6 @@ function filteren($queryBuildResult,$Sort,$ProductsOnPage, $Offset, $databaseCon
                 GROUP BY StockItemID
                 ORDER BY ".$Sort."
                 LIMIT ?  OFFSET ?";
-
     $Statement = mysqli_prepare($databaseConnection, $Query_sort);
     mysqli_stmt_bind_param($Statement, "ii",$ProductsOnPage, $Offset);
 

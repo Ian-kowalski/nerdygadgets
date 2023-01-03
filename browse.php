@@ -141,7 +141,7 @@ if ($SearchString != "") {
     foreach($SearchStringParts as $key=> $Part){
         if(intval($Part)>0){
             $StockItemID=intval($Part);
-            $queryBuildResult.= "SI.StockItemID=$StockItemID or ";
+            $queryBuildResult.= "SI.StockItemID =$StockItemID or ";
         }
         $Part.="*";
         $SearchStringParts[$key]=$Part;
