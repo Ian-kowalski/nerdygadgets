@@ -42,6 +42,21 @@ function deleteItem($ID) {
     }
 }
 
+// Negatief aantal positief maken
+function reverseItem($ID) {
+    $cart=getCart();
+
+    if (array_key_exists($ID, $cart)) {
+        $cart[$ID] = str_replace("-", "", $cart[$ID]);
+        saveCart($cart);
+        ?>
+        <script>
+            window.location.replace('./cart.php')
+        </script>
+        <?php
+    }
+}
+
 // Verminderen artikel
 function decreaseItem($ID){
     $cart=getCart();
