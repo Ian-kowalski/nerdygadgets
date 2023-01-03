@@ -139,6 +139,10 @@ if ($SearchString != "") {
     $SearchString = str_replace("'", "", $SearchString); //Voorkoming SQL-injectie: Haalt single aanhalingstekens weg
     $SearchStringParts= explode(" ",$SearchString);
     foreach($SearchStringParts as $key=> $Part){
+        if(intval($Part)>0){
+            $StockItemID=intval($Part);
+            $queryBuildResult.= "SI.StockItemID=$StockItemID or ";
+        }
         $Part.="*";
         $SearchStringParts[$key]=$Part;
     }
