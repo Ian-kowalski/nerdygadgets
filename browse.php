@@ -137,7 +137,12 @@ switch ($SortOnPage) {
 
 if ($SearchString != "") {
     $SearchString = str_replace("'", "", $SearchString); //Voorkoming SQL-injectie: Haalt single aanhalingstekens weg
-
+    $SearchStringParts= explode(" ",$SearchString);
+    foreach($SearchStringParts as $key=> $Part){
+        $Part.="*";
+        $SearchStringParts[$key]=$Part;
+    }
+    $SearchString=implode(" ",$SearchStringParts);
     $queryBuildResult .="MATCH(stockitemname, searchdetails, marketingcomments) AGAINST ('$SearchString' in boolean mode)" ;
 }
 // add $CategoryID
