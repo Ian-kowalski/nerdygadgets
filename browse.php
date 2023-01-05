@@ -128,6 +128,11 @@ switch ($SortOnPage) {
         $Sort = "SellPrice";
         break;
     }
+    case "StockItemID":
+    {
+        $Sort = "StockItemID";
+        break;
+    }
     default:
     {
         $Sort = "SellPrice";
@@ -139,7 +144,7 @@ if ($SearchString != "") {
     $SearchString = str_replace("'", "", $SearchString); //Voorkoming SQL-injectie: Haalt single aanhalingstekens weg
     $SearchStringParts= explode(" ",$SearchString);
     foreach($SearchStringParts as $key=> $Part){
-        if(intval($Part)>0){
+        if(intval($Part)>0&&$CategoryID==""){
             $StockItemID=intval($Part);
             $queryBuildResult.= "SI.StockItemID =$StockItemID or ";
         }
@@ -265,6 +270,10 @@ function berekenVerkoopPrijs($adviesPrijs, $btw) {
                 <option value="name_high_low" <?php if ($_SESSION['sort'] == "name_high_low") {
                     print "selected";
                 } ?>>Naam aflopend
+                </option>
+                <option value="StockItemID" <?php if ($_SESSION['sort'] == "StockItemID") {
+                    print "selected";
+                } ?>>Artikelnummer
                 </option>
             </select>
 

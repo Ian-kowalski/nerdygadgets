@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="HULK SMASH BUG">
+    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="me stupit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Verwerkorder.php" beforeDir="false" afterPath="$PROJECT_DIR$/Verwerkorder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/browse.php" beforeDir="false" afterPath="$PROJECT_DIR$/browse.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +15,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -62,6 +62,16 @@
       <workItem from="1671556429165" duration="472000" />
       <workItem from="1671556919314" duration="98000" />
       <workItem from="1671610690508" duration="4037000" />
+      <workItem from="1672151019460" duration="1701000" />
+      <workItem from="1672226848390" duration="18972000" />
+      <workItem from="1672248856000" duration="1404000" />
+      <workItem from="1672253641094" duration="1936000" />
+      <workItem from="1672416043564" duration="1036000" />
+      <workItem from="1672432724305" duration="770000" />
+      <workItem from="1672581029997" duration="31913000" />
+      <workItem from="1672656832590" duration="5376000" />
+      <workItem from="1672664453784" duration="861000" />
+      <workItem from="1672776818269" duration="4589000" />
     </task>
     <task id="LOCAL-00002" summary="de pain">
       <created>1671549078386</created>
@@ -105,7 +115,210 @@
       <option name="project" value="LOCAL" />
       <updated>1671720437940</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fuck me">
+      <created>1672149801592</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1672149801592</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fuck me">
+      <created>1672149956534</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1672149956534</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fuck me">
+      <created>1672151066286</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1672151066286</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fuck me">
+      <created>1672152629176</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1672152629176</updated>
+    </task>
+    <task id="LOCAL-00012" summary="sql and logic for register.php">
+      <created>1672234939077</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1672234939077</updated>
+    </task>
+    <task id="LOCAL-00013" summary="addit logic to order.php">
+      <created>1672242968606</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1672242968606</updated>
+    </task>
+    <task id="LOCAL-00014" summary="addit logic to order.php">
+      <created>1672244516686</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1672244516686</updated>
+    </task>
+    <task id="LOCAL-00015" summary="removed prefix and fix small things">
+      <created>1672249511143</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1672249511143</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix small things">
+      <created>1672254368510</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1672254368510</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fix small things">
+      <created>1672416078566</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1672416078566</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fix small things">
+      <created>1672431764211</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1672431764211</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fix small things">
+      <created>1672432799254</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1672432799254</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix small things">
+      <created>1672591248347</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1672591248347</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix small things">
+      <created>1672596486747</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1672596486747</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix small things">
+      <created>1672600827402</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1672600827402</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fix log and sing up thx to leroy">
+      <created>1672601566554</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1672601566554</updated>
+    </task>
+    <task id="LOCAL-00024" summary="qwuick fix">
+      <created>1672605491391</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1672605491391</updated>
+    </task>
+    <task id="LOCAL-00025" summary="qwuick fix">
+      <created>1672606003710</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1672606003710</updated>
+    </task>
+    <task id="LOCAL-00026" summary="brows price fix">
+      <created>1672609027541</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1672609027541</updated>
+    </task>
+    <task id="LOCAL-00027" summary="brows price fix">
+      <created>1672611383766</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1672611383766</updated>
+    </task>
+    <task id="LOCAL-00028" summary="work now">
+      <created>1672612374039</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1672612374039</updated>
+    </task>
+    <task id="LOCAL-00029" summary="work now">
+      <created>1672613774343</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1672613774343</updated>
+    </task>
+    <task id="LOCAL-00030" summary="work now">
+      <created>1672614477952</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1672614477952</updated>
+    </task>
+    <task id="LOCAL-00031" summary="work now">
+      <created>1672615813062</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1672615813062</updated>
+    </task>
+    <task id="LOCAL-00032" summary="full text zoeken werkt nu and fixt page isu">
+      <created>1672664381409</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1672664381409</updated>
+    </task>
+    <task id="LOCAL-00033" summary="me stupit">
+      <created>1672698592095</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1672698592095</updated>
+    </task>
+    <task id="LOCAL-00034" summary="me stupit">
+      <created>1672777998871</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1672777998871</updated>
+    </task>
+    <task id="LOCAL-00035" summary="me stupit">
+      <created>1672779507324</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1672779507324</updated>
+    </task>
+    <task id="LOCAL-00036" summary="me stupit">
+      <created>1672780036862</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1672780036862</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +329,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -127,6 +352,17 @@
     <MESSAGE value="de pain" />
     <MESSAGE value="im in pian" />
     <MESSAGE value="huts" />
-    <option name="LAST_COMMIT_MESSAGE" value="huts" />
+    <MESSAGE value="fuck me" />
+    <MESSAGE value="sql and logic for register.php" />
+    <MESSAGE value="addit logic to order.php" />
+    <MESSAGE value="removed prefix and fix small things" />
+    <MESSAGE value="fix small things" />
+    <MESSAGE value="fix log and sing up thx to leroy" />
+    <MESSAGE value="qwuick fix" />
+    <MESSAGE value="brows price fix" />
+    <MESSAGE value="work now" />
+    <MESSAGE value="full text zoeken werkt nu and fixt page isu" />
+    <MESSAGE value="me stupit" />
+    <option name="LAST_COMMIT_MESSAGE" value="me stupit" />
   </component>
 </project>
