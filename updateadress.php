@@ -44,7 +44,7 @@ function NAW(){
 }
 if(isset($_POST['update'])) {
 
-    updateCustumer($customerID,NAW(),$databaseConnection);
+    updateCustomer($customerID,NAW(),$databaseConnection);
     ?>
         <script>
             window.location.replace("updateadress.php")

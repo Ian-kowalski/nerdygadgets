@@ -108,7 +108,7 @@ function CustomerExsists($CustomerName,$databaseConnection){
     $CustomerID=mysqli_fetch_all($result,MYSQLI_ASSOC);
     return $CustomerID;
 }
-function updateCustumer($customerID,$NAW,$databaseConnection){
+function updateCustomer($customerID,$NAW,$databaseConnection){
     extract($NAW, EXTR_OVERWRITE);
     $addToCustumer = mysqli_prepare($databaseConnection, "
                 UPDATE customers
@@ -145,7 +145,7 @@ function getCustemer($NAW,$databaseConnection){
             $customerID=insurtCustumer($NAW,$databaseConnection);
         }else{
             $customerID=$customerID[0]["CustomerID"];
-            updateCustumer($customerID,$NAW,$databaseConnection);
+            updateCustomer($customerID,$NAW,$databaseConnection);
         }
         return $customerID;
 
