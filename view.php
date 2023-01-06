@@ -116,11 +116,18 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <div id="temp">
                 <?php
                 if($StockItem['IsChillerStock']){
+                    $time = date("Y-m-d H:i:s");
+                    $checkTime = date("Y-m-d H:i:s", strtotime('-4 seconds', strtotime($time)));                   // 2001-03-10 17:16:18 (the MySQL DATETIME format)
                     $temp = temp($databaseConnection);
-                    print("<p>cooled product<br>tempratuur in cooling: ".$temp."°C</p>");
+
+                    if($temp["time"]>$checkTime) {
+                        print("<p>cooled product<br>tempratuur in cooling: " . $temp["temp"] . "°C</p>");
+                    }else{
+                        print "<p>sensor offline</p>";
+                    }
                 }
                 ?>
-            </div id="temp">
+            </div >
             <p><?php print $StockItem['SearchDetails']; ?></p>
         </div>
 

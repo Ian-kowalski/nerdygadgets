@@ -226,12 +226,12 @@ function saveOrder($NAW,$databaseConnection){
 }
 
 function temp($databaseConnection){
-    $satment=mysqli_prepare($databaseConnection, "SELECT Temperature as temp FROM coldroomtemperatures WHERE ColdRoomSensorNumber=5");
+    $satment=mysqli_prepare($databaseConnection, "SELECT Temperature as temp,ValidFrom as time  FROM coldroomtemperatures WHERE ColdRoomSensorNumber=5");
     mysqli_stmt_execute($satment);
     $Result = mysqli_stmt_get_result($satment);
     $Result = mysqli_fetch_all($Result, MYSQLI_ASSOC);
 
-    return $Result[0]['temp'];
+    return array('temp'=>$Result[0]['temp'],'time'=>$Result[0]['time']);
 }
 
 function filteren($queryBuildResult,$Sort,$ProductsOnPage, $Offset, $databaseConnection){

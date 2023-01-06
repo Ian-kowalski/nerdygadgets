@@ -195,12 +195,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <div class="form-group">
             <label>voornaam</label>
-            <input type="voornaam" name="voornaam" class="form-control <?php echo (!empty($voornaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+            <input type="voornaam" name="voornaam" class="form-control <?php echo (!empty($voornaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $voornaam; ?>">
             <span class="invalid-feedback"><?php echo $voornaam_err; ?></span>
         </div>
         <div class="form-group">
             <label>achternaam</label>
-            <input type="achternaam" name="achternaam" class="form-control <?php echo (!empty($achternaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+            <input type="achternaam" name="achternaam" class="form-control <?php echo (!empty($achternaam_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $achternaam; ?>">
             <span class="invalid-feedback"><?php echo $achternaam_err; ?></span>
         </div>
 
