@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="me stupit">
+    <list default="true" id="55b821a6-92ec-42c7-8d9a-1fd4ad830a49" name="Changes" comment="did some stuf to make prity">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/browse.php" beforeDir="false" afterPath="$PROJECT_DIR$/browse.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/view.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +72,10 @@
       <workItem from="1672656832590" duration="5376000" />
       <workItem from="1672664453784" duration="861000" />
       <workItem from="1672776818269" duration="4589000" />
+      <workItem from="1672916156731" duration="2684000" />
+      <workItem from="1673020080953" duration="1554000" />
+      <workItem from="1673041166441" duration="3651000" />
+      <workItem from="1673144762814" duration="1952000" />
     </task>
     <task id="LOCAL-00002" summary="de pain">
       <created>1671549078386</created>
@@ -318,7 +322,21 @@
       <option name="project" value="LOCAL" />
       <updated>1672780036862</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="me stupit">
+      <created>1672916214103</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1672916214103</updated>
+    </task>
+    <task id="LOCAL-00038" summary="did some stuf to make prity">
+      <created>1673043731560</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1673043731560</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -363,6 +381,7 @@
     <MESSAGE value="work now" />
     <MESSAGE value="full text zoeken werkt nu and fixt page isu" />
     <MESSAGE value="me stupit" />
-    <option name="LAST_COMMIT_MESSAGE" value="me stupit" />
+    <MESSAGE value="did some stuf to make prity" />
+    <option name="LAST_COMMIT_MESSAGE" value="did some stuf to make prity" />
   </component>
 </project>

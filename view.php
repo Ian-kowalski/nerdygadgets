@@ -123,7 +123,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     if($temp["time"]>$checkTime) {
                         print("<p>cooled product<br>tempratuur in cooling: " . $temp["temp"] . "°C</p>");
                     }else{
-                        print "<p>sensor offline</p>";
+                        print "cooled product<br>tempratuur in cooling: <i  style='color: var(--color-acs2)'>sensor offline</i>";
                     }
                 }
                 ?>
