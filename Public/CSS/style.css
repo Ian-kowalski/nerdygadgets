@@ -1093,7 +1093,9 @@ input:checked + .slider:before {
 .fa-address-card{
     color: var(--color-acs2)
 }
-
+.fa-dollar-sign{
+    color: var(--color-acs2)
+}
 .range_container {
     display: flex;
     flex-direction: column;
