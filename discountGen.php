@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . '/header.php';
-include "discountFuncties.php";
+include "discountGenFunctions.php";
 ?>
 <h3>Je kortingscode voor vandaag</h3>
 

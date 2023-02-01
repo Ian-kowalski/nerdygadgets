@@ -76,7 +76,7 @@ $databaseConnection = connectToDatabase();
                     <a href="settings.php" class="HrefDecoration"><i class="fas fa-cog"></i> settings</a>
                     <?php if(isset($_SESSION["loggedin"])){ ?>
                         <a href="updateadress.php" class="HrefDecoration"><i class="far fa-address-card"></i> adress</a>
-                        <a href="discount.php" class="HrefDecoration"><i class="fas fa-dollar-sign"></i> discount</a>
+                        <a href="discountGen.php" class="HrefDecoration"><i class="fas fa-dollar-sign"></i> discount</a>
                     <?php } ?>
                 </div>
             </li>

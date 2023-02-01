@@ -107,9 +107,13 @@ if($cart!=null){
                 $verzendkosten = 0;
             }
 
+            $kortingPercentage = 0.20;
+            $kortingTotaal = 0.80;
+
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
+            print("Korting: -€".number_format($kortingPercentage * $totaalPrice,2,",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
-            print("Totaal: €".number_format($totaalPrice + $verzendkosten,2,",", "."). "<br>"); ?>
+            print("Totaal: €".number_format($totaalPrice * $kortingTotaal + $verzendkosten,2,",", "."). "<br>"); ?>
         <button type="submit" form="Nawgegevens" value="Submit" class='buttonRev button1'>bestellen</button>
         </div>
 
