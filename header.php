@@ -55,7 +55,7 @@ $databaseConnection = connectToDatabase();
                 <a title="zoeken" href="browse.php" class="HrefDecoration"><i class="fas fa-search"></i> </a>
             </li>
             <li>
-                <a title="winkelmantje" href="Cart.php" class="HrefDecoration"><i class="fas fa-shopping-cart"></i> </a>
+                <a title="winkelmandje" href="Cart.php" class="HrefDecoration"><i class="fas fa-shopping-cart"></i> </a>
                 <?php
                 if (isset($_SESSION['cart'])) {
                     $cart = $_SESSION['cart'];

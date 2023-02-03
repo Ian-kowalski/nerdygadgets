@@ -1,7 +1,7 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
-
+include "discountFunctions.php";
 ?>
 <h1 style="min-width: 500px;">UW BESTELING:</h1>
 <?php
@@ -105,17 +105,20 @@ if($cart!=null){
                     $verzendkosten = 0;
                 }
 
-                $kortingPercentage = 0.;
-                $kortingTotaal = 1;
-
                 print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
                 print("Korting: -€".number_format($kortingPercentage * $totaalPrice,2,",", ".")."<br>");
                 print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
-                print("Totaal: €".number_format($totaalPrice * $kortingTotaal + $verzendkosten,2,",", "."). "<br>"); ?>
+                print("Totaal: €".number_format($totaalPrice * (1-$kortingPercentage) + $verzendkosten,2,",", "."). "<br>"); ?>
                 <form action="order.php">
                     <button class='buttonRev button1'>bestellen</button>
                 </form>
 
+            </div>
+            <div id="the-movable-element-id">
+                <h4 class="FilterTopMargin"><i class="fas fa-dollar-sign"></i> Kortingscode</h4>
+                <form method="get" action="" onsubmit="Alert()">
+                    <input type="text" name="discountCode" id="discountCode">
+                </form>
             </div>
             <script>
                 $(window).scroll(function() {

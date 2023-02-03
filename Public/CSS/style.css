@@ -893,7 +893,7 @@ ul#ul-class-price li {
 }
 
 .totalPrice{
-    height: 100px;
+    height: 212px;
     flex-direction: row;
     display: flex;
     align-items: center;
@@ -904,6 +904,7 @@ ul#ul-class-price li {
     gap: 5px;
 
 }
+
 /*code is nog niet helemaal af en juist*/
 .orderButton{
     min-width: 500px;

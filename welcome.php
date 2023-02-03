@@ -24,6 +24,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <form action="updateadress.php">
         <input type="submit" class='button button1' value="update adress">
     </form>
+    <form action="discountGen.php">
+        <input type="submit" class='button button1' value="daily discount">
+    </form>
     <form action="logout.php">
         <input type="submit" class='buttonRed button1' value="Sign Out of Your Account">
     </form>

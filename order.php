@@ -1,6 +1,7 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
+include "discountFunctions.php";
 ?>
     <h1 style="min-width: 500px;">BESTELLEN</h1>
 <?php
@@ -97,7 +98,7 @@ if($cart!=null){
         <div id="the-movable-element-id" class="totalPrice">
             <?php
             $totaalPrice=0;
-            $verzendkosten=6.50;
+            $verzendkosten=6.95;
             foreach($cart as $productID => $amount){
                 $StockItem = getStockItem($productID, $databaseConnection);
                 $price=$StockItem["SellPrice"]*$amount;
@@ -107,16 +108,12 @@ if($cart!=null){
                 $verzendkosten = 0;
             }
 
-            $kortingPercentage = 0.20;
-            $kortingTotaal = 0.80;
-
             print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
             print("Korting: -€".number_format($kortingPercentage * $totaalPrice,2,",", ".")."<br>");
             print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
-            print("Totaal: €".number_format($totaalPrice * $kortingTotaal + $verzendkosten,2,",", "."). "<br>"); ?>
+            print("Totaal: €".number_format($totaalPrice * (1-$kortingPercentage) + $verzendkosten,2,",", "."). "<br>"); ?>
         <button type="submit" form="Nawgegevens" value="Submit" class='buttonRev button1'>bestellen</button>
         </div>
-
         <script>
             $(window).scroll(function() {
                 var scrollTop = $(window).scrollTop();
