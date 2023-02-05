@@ -6,7 +6,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+$statement = mysqli_prepare($databaseConnection, "
+                    SELECT GenDiscountID, UserID
+                    FROM  GenDiscounts
+                    join users on id=UserID 
+                    where username = ?");
+mysqli_stmt_bind_param($statement ,"s", $_SESSION["username"]);
+mysqli_stmt_execute($statement);
+$Result = mysqli_stmt_get_result($statement);
+$row = mysqli_fetch_all($Result, MYSQLI_ASSOC);
 
+if($row == NULL) {
+    $statement = mysqli_prepare($databaseConnection, "
+                     INSERT INTO GenDiscounts (GenCode, GenDiscountPercentage, UserID, Used, ValidTo)
+                     VALUES('None',0,(SELECT id FROM users WHERE username = ?),'Yes',current_time)");
+    mysqli_stmt_bind_param($statement ,"s", $_SESSION["username"]);
+    mysqli_stmt_execute($statement);
+}
 ?>
 <h3>Je kortingscode voor vandaag</h3>
 
@@ -17,12 +33,15 @@ $n=10;
 if(isset($_GET['personalDiscount'])) {
     if ($_GET['personalDiscount']) {
         $codeGen = getCode($n);
-        echo $codeGen;
-        ?>
-        <br>
-        <?php
-        /*$codeGen2 = substr(sha1(mt_rand()), 17, 10); //To Generate Random Numbers with Letters.
-        echo $codeGen2;*/
+        $codeGenPercentage = rand(5, 15)/100;
+        echo ($codeGen . ": " . $codeGenPercentage * 100 . "%");
+        $statement = mysqli_prepare($databaseConnection, "
+                    UPDATE GenDiscounts
+                    SET GenCode = ?, Used = 'No', GenDiscountPercentage = ?, ValidFrom = current_time, ValidTo = CURRENT_TIME()+INTERVAL 1 DAY
+                    WHERE UserID = (SELECT id FROM users WHERE username = ?)
+                    ");
+        mysqli_stmt_bind_param($statement ,"sds", $codeGen, $codeGenPercentage, $_SESSION["username"]);
+        mysqli_stmt_execute($statement);
     }
 } else {
 
@@ -33,3 +52,4 @@ if(isset($_GET['personalDiscount'])) {
 <form method="get" class="mt-3">
     <input type="submit" class='button button1' value="genereer code" name="personalDiscount">
 </form>
+

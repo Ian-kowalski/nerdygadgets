@@ -12,7 +12,17 @@ function getNAW(){
         "Gender"=>$_GET["gender"]
     );
 }
-saveOrder(getNAW(),$databaseConnection);
+
+saveOrder(getNAW(),$databaseConnection,$_SESSION['totaalPrijs'],$_SESSION['kortingID'],$_SESSION['GenKortingID']);
+if($_SESSION['GenKortingID'] != NULL) {
+    $statement = mysqli_prepare($databaseConnection, "
+                    UPDATE GenDiscounts
+                    SET Used = 'Yes'
+                    WHERE UserID = (SELECT id FROM users WHERE username = ?)
+                    ");
+    mysqli_stmt_bind_param($statement ,"s", $_SESSION["username"]);
+    mysqli_stmt_execute($statement);
+}
 
 session_unset();
 ?>

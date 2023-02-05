@@ -150,7 +150,7 @@ function getCustemer($NAW,$databaseConnection){
         return $customerID;
 
 }
-function saveOrder($NAW,$databaseConnection){
+function saveOrder($NAW,$databaseConnection,$totaalPrijs,$kortingID,$GenKortingID){
     $cart=getCart();
     mysqli_begin_transaction($databaseConnection);
     try { //aanmaken costumer
@@ -177,16 +177,15 @@ function saveOrder($NAW,$databaseConnection){
                           OrderID,CustomerID,SalespersonPersonID,ContactPersonID,
                           OrderDate, ExpectedDeliveryDate,
                           IsUndersupplyBackordered,
-                          LastEditedBy,LastEditedWhen
+                          LastEditedBy,LastEditedWhen, DiscountID, TotalPrice, GenDiscountID
                           )
     values(?,?,1,1,
            current_date,(current_date+1),
            1,
-           1,current_date
+           1,current_date,?,?,?
             )");
-        mysqli_stmt_bind_param($addOrder, 'ii', $OrderID, $customerID);
+        mysqli_stmt_bind_param($addOrder, 'iiids', $OrderID, $customerID, $kortingID, $totaalPrijs, $GenKortingID);
         mysqli_stmt_execute($addOrder);
-
         foreach ($cart as $productID => $Quantity) {
             $StockItem = getStockItem($productID, $databaseConnection);
             $price = $StockItem["UnitPrice"];

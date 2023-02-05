@@ -14,23 +14,51 @@ function getCode($n) {
 ?>
 
 <?php
+$kortingPercentage = 0;
 
-$kortingsCodes = array("Kerst20" => 0.20, "NewYear23" => 0.23, "10YearsNG" => 0.10);
+
+
 
 if(isset($_GET['discountCode'])) {
-    $discountCode = $_GET['discountCode'];
-    if($kortingsCodes[$discountCode]) {
-        $kortingPercentage = $kortingsCodes[$discountCode];
+    $statement = mysqli_prepare($databaseConnection, "
+                                                        SELECT * FROM Discounts
+                                                        WHERE Code = ?");
+    mysqli_stmt_bind_param($statement, "s", $_GET['discountCode']);
+    mysqli_stmt_execute($statement);
+    $Result = mysqli_stmt_get_result($statement);
+    $Discounts = mysqli_fetch_all($Result, MYSQLI_ASSOC);
+    $GenStatement = mysqli_prepare($databaseConnection, "
+                                                        SELECT * FROM GenDiscounts
+                                                        WHERE GenCode = ?");
+    mysqli_stmt_bind_param($GenStatement, "s", $_GET['discountCode']);
+    mysqli_stmt_execute($GenStatement);
+    $GenResult = mysqli_stmt_get_result($GenStatement);
+    $GenDiscounts = mysqli_fetch_all($GenResult, MYSQLI_ASSOC);
+    print_r($GenDiscounts);
+    if ($Discounts != NULL || $GenDiscounts != NULL) {
+        if ($Discounts != NULL) {
+            $_SESSION['GenKortingID'] = NULL;
+            if ($Discounts[0]['Status'] == "active") {
+                $kortingPercentage = $Discounts[0]['DiscountPercentage'];
+                $_SESSION['kortingID'] = $Discounts[0]['DiscountID'];
+                echo('<script> alert("De kortingscode is toegepast!"); </script>');
+            } elseif ($Discounts[0]['Status'] == "inactive") {
+                echo('<script> alert("De kortingscode is niet geldig!"); </script>');
+            }
+        }
+        if ($GenDiscounts != NULL) {
+            $_SESSION['kortingID'] = NULL;
+            if ($GenDiscounts[0]['Used'] == "No") {
+                $kortingPercentage = $GenDiscounts[0]['GenDiscountPercentage'];
+                $_SESSION['GenKortingID'] = $GenDiscounts[0]['GenDiscountID'];
+
+                echo('<script> alert("De kortingscode is toegepast!"); </script>');
+            } elseif ($GenDiscounts[0]['Used'] == "Yes") {
+                echo('<script> alert("De kortingscode is al gebruikt!"); </script>');
+            }
+        }
+    } else {
+        echo('<script> alert("De kortingscode bestaat niet!"); </script>');
     }
-} else {
-    $kortingPercentage = 0;
 }
 ?>
-
-<script>
-    const input = document.getElementById('text');
-
-    function Alert(){
-        alert("De kortingscode is toegepast!");
-    }
-</script>

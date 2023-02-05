@@ -97,21 +97,10 @@ if($cart!=null){
         </div>
         <div id="the-movable-element-id" class="totalPrice">
             <?php
-            $totaalPrice=0;
-            $verzendkosten=6.95;
-            foreach($cart as $productID => $amount){
-                $StockItem = getStockItem($productID, $databaseConnection);
-                $price=$StockItem["SellPrice"]*$amount;
-                $totaalPrice+=$price;
-            }
-            if($totaalPrice >= "50") {
-                $verzendkosten = 0;
-            }
-
-            print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
-            print("Korting: -€".number_format($kortingPercentage * $totaalPrice,2,",", ".")."<br>");
-            print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
-            print("Totaal: €".number_format($totaalPrice * (1-$kortingPercentage) + $verzendkosten,2,",", "."). "<br>"); ?>
+            print ("Subtotaal: €".number_format($_SESSION['subPrijs'], 2, ",", ".")."<br>");
+            print("Korting: -€".number_format($_SESSION['korting'],2,",", ".")."<br>");
+            print("Verzendkosten: €".number_format($_SESSION['verzendkosten'],2,",", "."). "<br>");
+            print("Totaal: €".number_format($_SESSION['totaalPrijs'],2,",", "."). "<br>"); ?>
         <button type="submit" form="Nawgegevens" value="Submit" class='buttonRev button1'>bestellen</button>
         </div>
         <script>

@@ -94,21 +94,28 @@ if($cart!=null){
             </div>
             <div id="the-movable-element-id" class="totalPrice">
                 <?php
-                $totaalPrice=0;
+                $subPrijs=0;
                 $verzendkosten=6.95;
                 foreach($cart as $productID => $amount){
                     $StockItem = getStockItem($productID, $databaseConnection);
-                    $price=$StockItem["SellPrice"]*$amount;
-                    $totaalPrice+=$price;
+                    $prijs=$StockItem["SellPrice"]*$amount;
+                    $subPrijs+=$prijs;
                 }
-                if($totaalPrice > "50") {
+                if($subPrijs > "50") {
                     $verzendkosten = 0;
                 }
+                $korting = $kortingPercentage * $subPrijs;
+                $totaalPrijs = $subPrijs - $korting + $verzendkosten;
 
-                print ("Subtotaal: €".number_format($totaalPrice, 2, ",", ".")."<br>");
-                print("Korting: -€".number_format($kortingPercentage * $totaalPrice,2,",", ".")."<br>");
+                $_SESSION['subPrijs'] = $subPrijs;
+                $_SESSION['korting'] = $korting;
+                $_SESSION['verzendkosten'] = $verzendkosten;
+                $_SESSION['totaalPrijs'] = round($totaalPrijs, 2);
+
+                print ("Subtotaal: €".number_format($subPrijs, 2, ",", ".")."<br>");
+                print("Korting: -€".number_format($korting,2,",", ".")."<br>");
                 print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
-                print("Totaal: €".number_format($totaalPrice * (1-$kortingPercentage) + $verzendkosten,2,",", "."). "<br>"); ?>
+                print("Totaal: €".number_format($totaalPrijs ,2,",", "."). "<br>"); ?>
                 <form action="order.php">
                     <button class='buttonRev button1'>bestellen</button>
                 </form>
@@ -116,7 +123,7 @@ if($cart!=null){
             </div>
             <div id="the-movable-element-id">
                 <h4 class="FilterTopMargin"><i class="fas fa-dollar-sign"></i> Kortingscode</h4>
-                <form method="get" action="" onsubmit="Alert()">
+                <form method="get">
                     <input type="text" name="discountCode" id="discountCode">
                 </form>
             </div>
