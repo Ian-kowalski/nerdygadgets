@@ -1,4 +1,5 @@
 <?php
+//Alle code hieronder is onderdeel van mijn (Leroy Vlug) nieuwe code voor de individuele herkansing
 
 function getCode($n) {
     $characters = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -34,7 +35,6 @@ if(isset($_GET['discountCode'])) {
     mysqli_stmt_execute($GenStatement);
     $GenResult = mysqli_stmt_get_result($GenStatement);
     $GenDiscounts = mysqli_fetch_all($GenResult, MYSQLI_ASSOC);
-    print_r($GenDiscounts);
     if ($Discounts != NULL || $GenDiscounts != NULL) {
         if ($Discounts != NULL) {
             $_SESSION['GenKortingID'] = NULL;
@@ -48,13 +48,14 @@ if(isset($_GET['discountCode'])) {
         }
         if ($GenDiscounts != NULL) {
             $_SESSION['kortingID'] = NULL;
-            if ($GenDiscounts[0]['Used'] == "No") {
+            if ($GenDiscounts[0]['Used'] == "No" && $GenDiscounts[0]['ValidTo'] > date("Y-m-d H:i:s")) {
                 $kortingPercentage = $GenDiscounts[0]['GenDiscountPercentage'];
                 $_SESSION['GenKortingID'] = $GenDiscounts[0]['GenDiscountID'];
-
                 echo('<script> alert("De kortingscode is toegepast!"); </script>');
             } elseif ($GenDiscounts[0]['Used'] == "Yes") {
                 echo('<script> alert("De kortingscode is al gebruikt!"); </script>');
+            } elseif ($GenDiscounts[0]['ValidTo'] < date("Y-m-d H:i:s")) {
+                echo('<script> alert("De kortingscode kan niet meer gebruikt worden!"); </script>');
             }
         }
     } else {
