@@ -17,6 +17,7 @@ function getCode($n) {
 <?php
 $kortingPercentage = 0;
 
+
 if(isset($_GET['discountCode'])) {
     $_SESSION['discountCode'] = $_GET['discountCode'];
     $statement = mysqli_prepare($databaseConnection, "
@@ -58,6 +59,9 @@ if(isset($_GET['discountCode'])) {
         }
     } else {
         echo('<script> alert("De kortingscode bestaat niet!"); </script>');
+
     }
+} elseif (!isset($_GET['discountCode']) && $_SESSION['discountCode'] == "") {
+    $_SESSION['discountCode'] = "";
 }
 ?>
