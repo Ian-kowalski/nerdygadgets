@@ -28,8 +28,8 @@ if(isset($_GET['discountCode'])) {
     $Discounts = mysqli_fetch_all($Result, MYSQLI_ASSOC);
     $GenStatement = mysqli_prepare($databaseConnection, "
                                                         SELECT * FROM GenDiscounts
-                                                        WHERE GenCode = ?");
-    mysqli_stmt_bind_param($GenStatement, "s", $_GET['discountCode']);
+                                                        WHERE GenCode = ? AND UserID = ?");
+    mysqli_stmt_bind_param($GenStatement, "si", $_GET['discountCode'], $_SESSION['id']);
     mysqli_stmt_execute($GenStatement);
     $GenResult = mysqli_stmt_get_result($GenStatement);
     $GenDiscounts = mysqli_fetch_all($GenResult, MYSQLI_ASSOC);

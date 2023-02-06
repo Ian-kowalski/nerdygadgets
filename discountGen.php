@@ -74,3 +74,7 @@ if(isset($_GET['personalDiscount']) && $ValidToRow[0]['ValidTo'] < date("Y-m-d H
     <input type="submit" class='button button1' value="genereer code" name="personalDiscount">
 </form>
 </div>
+<?php
+include __DIR__ . "/footer.php";
+?>
+
