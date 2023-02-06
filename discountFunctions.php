@@ -17,10 +17,8 @@ function getCode($n) {
 <?php
 $kortingPercentage = 0;
 
-
-
-
 if(isset($_GET['discountCode'])) {
+    $_SESSION['discountCode'] = $_GET['discountCode'];
     $statement = mysqli_prepare($databaseConnection, "
                                                         SELECT * FROM Discounts
                                                         WHERE Code = ?");

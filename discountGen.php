@@ -26,6 +26,7 @@ if($row == NULL) {
     mysqli_stmt_execute($statement);
 }
 ?>
+<div>
 <h3>Je kortingscode voor vandaag</h3>
 
 <?php
@@ -46,7 +47,7 @@ if(isset($_GET['personalDiscount']) && $ValidToRow[0]['ValidTo'] < date("Y-m-d H
     if ($_GET['personalDiscount']) {
         $codeGen = getCode($n);
         $codeGenPercentage = rand(5, 15)/100;
-        echo ($codeGen . ": " . $codeGenPercentage * 100 . "%");
+        echo ($codeGen . " voor " . $codeGenPercentage * 100 . "% korting.");
         $statement = mysqli_prepare($databaseConnection, "
                     UPDATE GenDiscounts
                     SET GenCode = ?, Used = 'No', GenDiscountPercentage = ?, ValidFrom = current_time, ValidTo = CURRENT_TIME()+INTERVAL 1 DAY
@@ -60,7 +61,7 @@ if(isset($_GET['personalDiscount']) && $ValidToRow[0]['ValidTo'] < date("Y-m-d H
     echo("Je hebt je dagelijkse code al gegenereerd!");
     echo("<br>De code die je eerder had gegenereerd is: " . $ValidToRow[0]['GenCode'] . " voor " . $ValidToRow[0]['GenDiscountPercentage'] * 100 . "% korting.");
     echo("<br>Vergeet niet om je code te kopiëren!");
-} elseif($ValidToRow[0]['Used'] == "Yes") {
+} elseif($ValidToRow[0]['Used'] == "Yes" && $ValidToRow[0]['GenCode'] != "None") {
     echo("Je hebt je code al gebruikt! <br>Kom morgen weer terug om een nieuwe te genereren!");
 } else {
         echo("Je hebt nog geen code gegenereerd. Klik op de knop hieronder om dat te doen!");
@@ -70,4 +71,4 @@ if(isset($_GET['personalDiscount']) && $ValidToRow[0]['ValidTo'] < date("Y-m-d H
 <form method="get" class="mt-3">
     <input type="submit" class='button button1' value="genereer code" name="personalDiscount">
 </form>
-
+</div>

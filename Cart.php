@@ -109,11 +109,12 @@ if($cart!=null){
 
                 $_SESSION['subPrijs'] = $subPrijs;
                 $_SESSION['korting'] = $korting;
+                $_SESSION['kortingPercentage'] = $kortingPercentage * 100 . "%";
                 $_SESSION['verzendkosten'] = $verzendkosten;
                 $_SESSION['totaalPrijs'] = round($totaalPrijs, 2);
 
                 print ("Subtotaal: €".number_format($subPrijs, 2, ",", ".")."<br>");
-                print("Korting: -€".number_format($korting,2,",", ".")."<br>");
+                print("Korting: -€".number_format($korting,2,",", "."). " (-" . $_SESSION['kortingPercentage'] . ")<br>");
                 print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
                 print("Totaal: €".number_format($totaalPrijs ,2,",", "."). "<br>"); ?>
                 <form action="order.php">
@@ -124,7 +125,7 @@ if($cart!=null){
             <div id="the-movable-element-id">
                 <h4 class="FilterTopMargin"><i class="fas fa-dollar-sign"></i> Kortingscode</h4>
                 <form method="get">
-                    <input type="text" name="discountCode" id="discountCode">
+                    <input type="text" name="discountCode" id="discountCode" value="<?php echo($_SESSION['discountCode']) ?>">
                 </form>
             </div>
             <script>

@@ -1168,3 +1168,6 @@ input[type="range"] {
     gap: 8px;
 }
 
+.container {
+    align-content: normal;
+}
