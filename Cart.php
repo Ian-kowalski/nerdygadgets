@@ -92,7 +92,7 @@ if($cart!=null){
                     <?php
                 }?>
             </div>
-            <div id="the-movable-element-id" class="totalPrice">
+            <div id="the-movable-element-id" class="totalCartPrice">
                 <?php
                 $subPrijs=0;
                 $verzendkosten=6.95;
@@ -117,15 +117,12 @@ if($cart!=null){
                 print("Korting: -€".number_format($korting,2,",", "."). " (-" . $_SESSION['kortingPercentage'] . ")<br>");
                 print("Verzendkosten: €".number_format($verzendkosten,2,",", "."). "<br>");
                 print("Totaal: €".number_format($totaalPrijs ,2,",", "."). "<br>"); ?>
-                <form action="order.php">
-                    <button class='buttonRev button1'>bestellen</button>
-                </form>
-
-            </div>
-            <div id="the-movable-element-id">
-                <h4 class="FilterTopMargin"><i class="fas fa-dollar-sign"></i> Kortingscode</h4>
+                <h5 class="FilterTopMargin"><i class="fas fa-dollar-sign"></i> Kortingscode</h5>
                 <form method="get">
                     <input type="text" name="discountCode" id="discountCode" value="<?php echo($_SESSION['discountCode']) ?>">
+                </form>
+                <form action="order.php">
+                    <button class='buttonRev cartbutton'>bestellen</button>
                 </form>
             </div>
             <script>

@@ -351,7 +351,23 @@ li.dropdown {
     0% { background-position: 0%; }
     100% { background-position: 400% }
 }
-
+.cartbutton {
+    min-width: 435px;
+    width:auto;
+    padding: 1px 10px;
+    border-radius: 12px;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    border: 2px solid var(--color-acs2);
+}
+.cartbutton:hover {
+    animation: animation 8s linear infinite;
+    border: 2px solid var(--color-fg);
+}
+@keyframes animation {
+    0% { background-position: 0%; }
+    100% { background-position: 400% }
+}
 
 #StockItemDescription {
     background-color: var(--color-div);
@@ -892,17 +908,29 @@ ul#ul-class-price li {
     margin-right: 5px;
 }
 
-.totalPrice{
-    height: 212px;
-    flex-direction: row;
+.totalCartPrice{
+    height: 280px;
+    width: 450px;
+    flex-direction: column;
     display: flex;
-    align-items: center;
+    align-items: normal;
     justify-content: right;
     border: 2px solid var(--color-acs2);
     overflow: hidden;
     padding: 5px;
     gap: 5px;
-
+}
+.totalOrderPrice{
+    height: 170px;
+    width: 450px;
+    flex-direction: column;
+    display: flex;
+    align-items: normal;
+    justify-content: right;
+    border: 2px solid var(--color-acs2);
+    overflow: hidden;
+    padding: 5px;
+    gap: 5px;
 }
 
 /*code is nog niet helemaal af en juist*/
@@ -1170,4 +1198,18 @@ input[type="range"] {
 
 .container {
     align-content: normal;
+}
+
+.discountGenBox {
+    height: 100%;
+    width: fit-content;
+    border: 2px solid var(--color-acs2);
+    padding: 8px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: normal;
+    margin-top: 15%;
+    margin-left: auto;
+    margin-right: auto;
 }

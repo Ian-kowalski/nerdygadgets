@@ -95,10 +95,10 @@ if($cart!=null){
                 </div>
             </form>
         </div>
-        <div id="the-movable-element-id" class="totalPrice">
+        <div id="the-movable-element-id" class="totalOrderPrice">
             <?php
             print ("Subtotaal: €".number_format($_SESSION['subPrijs'], 2, ",", ".")."<br>");
-            print("Korting: -€".number_format($_SESSION['korting'],2,",", ".")."<br>");
+            print("Korting: -€".number_format($_SESSION['korting'],2,",", "."). " (-" . $_SESSION['kortingPercentage'] . ")<br>");
             print("Verzendkosten: €".number_format($_SESSION['verzendkosten'],2,",", "."). "<br>");
             print("Totaal: €".number_format($_SESSION['totaalPrijs'],2,",", "."). "<br>"); ?>
         <button type="submit" form="Nawgegevens" value="Submit" class='buttonRev button1'>bestellen</button>

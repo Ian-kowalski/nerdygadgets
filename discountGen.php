@@ -26,7 +26,7 @@ if($row == NULL) {
     mysqli_stmt_execute($statement);
 }
 ?>
-<div>
+<div class="discountGenBox">
 <h3>Je kortingscode voor vandaag</h3>
 
 <?php
@@ -61,10 +61,12 @@ if(isset($_GET['personalDiscount']) && $ValidToRow[0]['ValidTo'] < date("Y-m-d H
     echo("Je hebt je dagelijkse code al gegenereerd!");
     echo("<br>De code die je eerder had gegenereerd is: " . $ValidToRow[0]['GenCode'] . " voor " . $ValidToRow[0]['GenDiscountPercentage'] * 100 . "% korting.");
     echo("<br>Vergeet niet om je code te kopiëren!");
+} elseif($ValidToRow[0]['GenCode'] == "None") {
+    echo("Welkom op de pagina voor dagelijkse kortingscodes!<br>Druk op de knop hieronder om je eerste kortingscode te generen!");
 } elseif($ValidToRow[0]['Used'] == "Yes" && $ValidToRow[0]['GenCode'] != "None") {
     echo("Je hebt je code al gebruikt! <br>Kom morgen weer terug om een nieuwe te genereren!");
 } else {
-        echo("Je hebt nog geen code gegenereerd. Klik op de knop hieronder om dat te doen!");
+    echo("Je hebt nog geen code gegenereerd vandaag. Klik op de knop hieronder om dat te doen!");
 }
 ?>
 
